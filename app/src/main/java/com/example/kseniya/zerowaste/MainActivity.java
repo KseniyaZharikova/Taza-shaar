@@ -6,6 +6,9 @@ import android.util.Log;
 
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.camera.CameraUpdate;
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationComponent;
@@ -38,7 +41,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	@Override
 	public void onMapReady(MapboxMap mapboxMap) {
 		MainActivity.this.map = mapboxMap;
-		map.addMarker(new MarkerOptions().position(new LatLng(42.8721508, 74.6236027)));
+		map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
+		cameraUpdate();
+
+	}
+	private  void cameraUpdate(){
+		CameraPosition position = new CameraPosition.Builder()
+				.target(new LatLng(lat, lng)).zoom(16).tilt(20).build();
+		map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
 	}
 
 	@Override
