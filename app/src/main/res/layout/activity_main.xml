@@ -13,6 +13,14 @@
         mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
         mapbox:mapbox_cameraZoom="11" />
 
+    <ImageView
+        android:id="@+id/myLocation"
+        android:layout_margin="5dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/my_location"
+        />
+
 
     <LinearLayout
         android:background="@color/lightGray"

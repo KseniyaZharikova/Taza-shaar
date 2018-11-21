@@ -3,6 +3,8 @@ package com.example.kseniya.zerowaste;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
@@ -16,23 +18,25 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,View.OnClickListener{
 
 	private MapView mapView;
 	private MapboxMap map;
 	private double lat;
 	private double lng;
-
+   private ImageView myLocation;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)  {
 		super.onCreate(savedInstanceState);
 		Mapbox.getInstance(this, "pk.eyJ1Ijoia3Nlbml5YXpoYXJpa292YSIsImEiOiJjam8wYTZsNzAwa203M3JzNm1lM2F4OHZ6In0.1LdT5jh9WRGM17wra1KrwA");
 		setContentView(R.layout.activity_main);
 		mapView = findViewById(R.id.mapView);
+		myLocation = findViewById(R.id.myLocation);
 		mapView.getMapAsync(this);
 		mapView.setStyleUrl(Style.MAPBOX_STREETS);
 		mapView.onCreate(savedInstanceState);
+		myLocation.setOnClickListener(this);
 		lat = getIntent().getDoubleExtra("lat", 0);
 		Log.d("MainActivity", "onCreate: " + lat);
 		lng = getIntent().getDoubleExtra("lng", 0);
@@ -49,6 +53,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		CameraPosition position = new CameraPosition.Builder()
 				.target(new LatLng(lat, lng)).zoom(16).tilt(20).build();
 		map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
+	}
+	@Override
+	public void onClick(View v) {
+     cameraUpdate();
 	}
 
 	@Override
@@ -93,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 		super.onSaveInstanceState(outState);
 		mapView.onSaveInstanceState(outState);
 	}
+
 
 
 }
