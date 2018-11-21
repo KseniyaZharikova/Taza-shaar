@@ -75,12 +75,6 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         replaceFragment(new ChoseFragment());
     }
 
-    public void replaceFragment(Fragment fragment) {
-
-        if (getSupportFragmentManager() == null) return;
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
-    }
-
     @Override
     public void onStart() {
         super.onStart();
