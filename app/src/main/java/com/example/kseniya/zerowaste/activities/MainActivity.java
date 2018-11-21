@@ -1,19 +1,20 @@
-package com.example.kseniya.zerowaste;
+package com.example.kseniya.zerowaste.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.kseniya.zerowaste.R;
+import com.example.kseniya.zerowaste.fragments.ChoseFragment;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.camera.CameraUpdate;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
@@ -57,6 +58,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 	@Override
 	public void onClick(View v) {
      cameraUpdate();
+		replaceFragment(new ChoseFragment());
+	}
+
+	public void replaceFragment( Fragment fragment) {
+
+		if (getSupportFragmentManager() == null ) return;
+		getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
 	}
 
 	@Override

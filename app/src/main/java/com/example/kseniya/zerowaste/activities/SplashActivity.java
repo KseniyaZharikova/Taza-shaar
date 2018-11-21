@@ -1,4 +1,4 @@
-package com.example.kseniya.zerowaste;
+package com.example.kseniya.zerowaste.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.kseniya.zerowaste.R;
+import com.example.kseniya.zerowaste.activities.MainActivity;
 import com.example.kseniya.zerowaste.utils.PermissionUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
