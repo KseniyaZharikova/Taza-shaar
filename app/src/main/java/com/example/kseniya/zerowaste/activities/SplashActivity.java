@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.kseniya.zerowaste.utils.Constants;
 import com.example.kseniya.zerowaste.R;
 import com.example.kseniya.zerowaste.activities.MainActivity;
 import com.example.kseniya.zerowaste.utils.PermissionUtils;
@@ -38,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-		if (requestCode == 1){
+		if (requestCode == Constants.LOCATION_REQUEST_CODE){
 			for (int result: grantResults){
 				if (result == PackageManager.PERMISSION_GRANTED){
 					getCurrentLocation();

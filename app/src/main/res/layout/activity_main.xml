@@ -10,8 +10,7 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
-        mapbox:mapbox_cameraZoom="11" />
+        mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10" />
 
     <ImageView
         android:id="@+id/myLocation"
