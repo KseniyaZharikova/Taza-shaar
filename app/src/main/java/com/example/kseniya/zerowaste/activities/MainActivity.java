@@ -2,7 +2,6 @@ package com.example.kseniya.zerowaste.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,28 +19,40 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
+import butterknife.BindView;
 
-    private MapView mapView;
+public class MainActivity extends BaseActivity implements OnMapReadyCallback, View.OnClickListener {
+
     private MapboxMap map;
     private double lat;
     private double lng;
-    private ImageView myLocation;
+
+    @BindView(R.id.mapView)
+     MapView mapView;
+
+    @BindView(R.id.myLocation)
+     ImageView myLocation;
+
+    @Override
+    protected int getViewLayout() {
+        return R.layout.activity_main;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Mapbox.getInstance(this, Constants.MAPBOX_KEY);
-        setContentView(R.layout.activity_main);
-        mapView = findViewById(R.id.mapView);
-        myLocation = findViewById(R.id.myLocation);
-        mapView.getMapAsync(this);
-        mapView.setStyleUrl(Style.MAPBOX_STREETS);
-        mapView.onCreate(savedInstanceState);
+        initMap(savedInstanceState);
         myLocation.setOnClickListener(this);
         lat = getIntent().getDoubleExtra("lat", 0);
         Log.d("MainActivity", "onCreate: " + lat);
         lng = getIntent().getDoubleExtra("lng", 0);
+    }
+
+    private void initMap(Bundle savedInstanceState) {
+        Mapbox.getInstance(this, Constants.MAPBOX_KEY);
+        mapView.getMapAsync(this);
+        mapView.setStyleUrl(Style.MAPBOX_STREETS);
+        mapView.onCreate(savedInstanceState);
     }
 
     @Override
@@ -50,23 +61,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
         cameraUpdate();
 
-	}
-	private  void cameraUpdate(){
-		CameraPosition position = new CameraPosition.Builder()
-				.target(new LatLng(lat, lng)).zoom(16).tilt(20).build();
-		map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
-	}
-	@Override
-	public void onClick(View v) {
-     cameraUpdate();
-		replaceFragment(new ChoseFragment());
-	}
+    }
 
-	public void replaceFragment( Fragment fragment) {
+    private void cameraUpdate() {
+        CameraPosition position = new CameraPosition.Builder()
+                .target(new LatLng(lat, lng)).zoom(16).tilt(20).build();
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
+    }
 
-		if (getSupportFragmentManager() == null ) return;
-		getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
-	}
+    @Override
+    public void onClick(View v) {
+        cameraUpdate();
+        replaceFragment(new ChoseFragment());
+    }
+
+    public void replaceFragment(Fragment fragment) {
+
+        if (getSupportFragmentManager() == null) return;
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+    }
 
     @Override
     public void onStart() {
@@ -110,6 +123,4 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
-
-
 }

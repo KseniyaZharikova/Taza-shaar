@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import com.example.kseniya.zerowaste.R
 
 
-class ChoseFragment : Fragment() {
+class ChoseFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-      return inflater.inflate(R.layout.fragment_chose,container,false)
+    override fun getViewLayout(): Int {
+        return R.layout.fragment_chose
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
