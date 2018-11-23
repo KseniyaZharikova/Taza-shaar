@@ -3,9 +3,10 @@ package com.example.kseniya.zerowaste.ui.fragments
 import android.os.Bundle
 import android.view.View
 import com.example.kseniya.zerowaste.R
-import kotlinx.android.synthetic.main.fragment_chose.*
 import com.example.kseniya.zerowaste.ui.activities.MainActivity
+import com.example.kseniya.zerowaste.utils.BitmapUtil
 import com.example.kseniya.zerowaste.utils.GestureListener
+import kotlinx.android.synthetic.main.fragment_chose.*
 
 
 class ChoseFragment : BaseFragment(), GestureListener.Callback {
@@ -32,14 +33,6 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback {
                 }
             }
         }
-    }
-
-    override fun clearProgressAnimations(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun animateCurrentStatus() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun collapseView() {
@@ -93,7 +86,15 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback {
 
     override fun onResume() {
         super.onResume()
+        contentView?.post {
+            if (isUIAvailable() == true && gestureListener == null) {
+                expandedContentYPos = contentView.y
+                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 36)
+                gestureListener = GestureListener(collapsedContentYPos, expandedContentYPos, this@ChoseFragment)
+                contentView?.setOnTouchListener(gestureListener)
+            }
+
+        }
 
     }
-
 }

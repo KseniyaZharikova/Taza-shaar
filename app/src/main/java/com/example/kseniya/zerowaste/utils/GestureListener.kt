@@ -31,7 +31,6 @@ class GestureListener(private val collapsedContentYPos: Float, private val expan
         override fun onAnimationEnd(animation: Animator) {
             isAnimating = false
 
-            callback.animateCurrentStatus()
         }
 
         override fun onAnimationCancel(animation: Animator) {
@@ -48,8 +47,6 @@ class GestureListener(private val collapsedContentYPos: Float, private val expan
 
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
-                callback.clearProgressAnimations()
-
                 downYValue = y - callback.getY().toInt()
                 if (velocityTracker == null) {
                     velocityTracker = VelocityTracker.obtain()
@@ -103,8 +100,6 @@ class GestureListener(private val collapsedContentYPos: Float, private val expan
     }
 
     interface Callback {
-        fun clearProgressAnimations(): Boolean
-        fun animateCurrentStatus()
         fun collapseView()
         fun expandView()
         fun changeAlpha(alpha: Float)
