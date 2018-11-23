@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import butterknife.ButterKnife
+import com.example.kseniya.zerowaste.ui.activities.BaseActivity
 
 abstract class BaseFragment : Fragment() {
     protected abstract fun getViewLayout(): Int
@@ -15,4 +16,11 @@ abstract class BaseFragment : Fragment() {
         ButterKnife.bind(this, view)
         return view
     }
+
+    fun isUIAvailable(): Boolean? {
+        val activityDestroyed = (activity as? BaseActivity)?.destroyed ?: true
+        return isAdded && isVisible && !isDetached && !isRemoving && !activityDestroyed
+    }
+
+
 }

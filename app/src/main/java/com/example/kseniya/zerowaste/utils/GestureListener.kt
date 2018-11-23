@@ -8,7 +8,6 @@ import java.util.ArrayList
 
 class GestureListener(private val collapsedContentYPos: Float, private val expandedContentYPos: Float, var callback: Callback) : View.OnTouchListener {
     private var velocityTracker: VelocityTracker? = null
-
     var isCollapsed: Boolean = false
     var isAnimating: Boolean = false
 

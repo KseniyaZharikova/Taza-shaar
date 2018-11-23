@@ -8,6 +8,7 @@ import com.example.kseniya.zerowaste.R
 
 abstract class BaseActivity : AppCompatActivity() {
     protected abstract fun getViewLayout(): Int
+    var destroyed = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,5 +20,10 @@ abstract class BaseActivity : AppCompatActivity() {
     protected fun replaceFragment(fragment: Fragment) {
         if (supportFragmentManager == null) return
         supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        destroyed = true
     }
 }
