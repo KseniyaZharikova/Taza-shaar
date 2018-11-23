@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "488101922730",
+    "firebase_url": "https://zerowaste-41a95.firebaseio.com",
+    "project_id": "zerowaste-41a95",
+    "storage_bucket": "zerowaste-41a95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488101922730:android:61f3d691c9ef4644",
+        "android_client_info": {
+          "package_name": "com.example.kseniya.zerowaste"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488101922730-r7a0cnsfblful9ikjd059vkri75blmcq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kseniya.zerowaste",
+            "certificate_hash": "a76d2a396c9f95ea17cfd42d7f3b2ab14cd063a6"
+          }
+        },
+        {
+          "client_id": "488101922730-rj3nbq25msl4tql7uhf7e227q4vjq6pu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCby4GtdF7n_FfT2TFQPg5wq1vV8o7wVTs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488101922730-rj3nbq25msl4tql7uhf7e227q4vjq6pu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

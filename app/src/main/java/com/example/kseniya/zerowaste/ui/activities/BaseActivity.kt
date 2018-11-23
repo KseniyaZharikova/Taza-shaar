@@ -1,4 +1,4 @@
-package com.example.kseniya.zerowaste.activities
+package com.example.kseniya.zerowaste.ui.activities
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

@@ -1,4 +1,4 @@
-package com.example.kseniya.zerowaste.fragments
+package com.example.kseniya.zerowaste.ui.fragments
 
 import android.os.Bundle
 import android.view.View

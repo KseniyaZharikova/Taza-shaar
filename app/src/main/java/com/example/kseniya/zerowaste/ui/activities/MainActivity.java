@@ -1,14 +1,20 @@
-package com.example.kseniya.zerowaste.activities;
+package com.example.kseniya.zerowaste.ui.activities;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.kseniya.zerowaste.data.ReceptionPoint;
 import com.example.kseniya.zerowaste.utils.Constants;
 import com.example.kseniya.zerowaste.R;
-import com.example.kseniya.zerowaste.fragments.ChoseFragment;
+import com.example.kseniya.zerowaste.ui.fragments.ChoseFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
@@ -19,19 +25,23 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
+import java.util.List;
+
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity implements OnMapReadyCallback, View.OnClickListener {
+
+    private final String TAG = getClass().getSimpleName();
 
     private MapboxMap map;
     private double lat;
     private double lng;
 
     @BindView(R.id.mapView)
-     MapView mapView;
+    MapView mapView;
 
     @BindView(R.id.myLocation)
-     ImageView myLocation;
+    ImageView myLocation;
 
     @Override
     protected int getViewLayout() {
@@ -46,6 +56,22 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         lat = getIntent().getDoubleExtra("lat", 0);
         Log.d("MainActivity", "onCreate: " + lat);
         lng = getIntent().getDoubleExtra("lng", 0);
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReferenceFromUrl("https://zerowaste-41a95.firebaseio.com/");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d(TAG, "onDataChange: " + dataSnapshot.getChildrenCount());
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void initMap(Bundle savedInstanceState) {
