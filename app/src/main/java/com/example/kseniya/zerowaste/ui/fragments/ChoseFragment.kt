@@ -2,6 +2,7 @@ package com.example.kseniya.zerowaste.ui.fragments
 
 import android.os.Bundle
 import android.view.View
+import butterknife.BindView
 import com.example.kseniya.zerowaste.R
 import com.example.kseniya.zerowaste.ui.activities.MainActivity
 import com.example.kseniya.zerowaste.utils.BitmapUtil

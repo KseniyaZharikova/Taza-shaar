@@ -1,20 +1,13 @@
 package com.example.kseniya.zerowaste.ui.activities;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.kseniya.zerowaste.data.ReceptionPoint;
-import com.example.kseniya.zerowaste.utils.Constants;
 import com.example.kseniya.zerowaste.R;
+import com.example.kseniya.zerowaste.data.ReceptionPoint;
 import com.example.kseniya.zerowaste.ui.fragments.ChoseFragment;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
@@ -29,6 +22,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static com.example.kseniya.zerowaste.BuildConfig.MAP_BOX_KEY;
+
 public class MainActivity extends BaseActivity implements OnMapReadyCallback, View.OnClickListener {
 
     private final String TAG = getClass().getSimpleName();
@@ -36,6 +31,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     private MapboxMap map;
     private double lat;
     private double lng;
+    private List<ReceptionPoint> mPoints;
 
     @BindView(R.id.mapView)
     MapView mapView;
@@ -56,29 +52,18 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         lat = getIntent().getDoubleExtra("lat", 0);
         Log.d("MainActivity", "onCreate: " + lat);
         lng = getIntent().getDoubleExtra("lng", 0);
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReferenceFromUrl("https://zerowaste-41a95.firebaseio.com/");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d(TAG, "onDataChange: " + dataSnapshot.getChildrenCount());
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        mPoints = (List<ReceptionPoint>) getIntent().getSerializableExtra("reception_points");
     }
 
     private void initMap(Bundle savedInstanceState) {
-        Mapbox.getInstance(this, Constants.MAPBOX_KEY);
+        Mapbox.getInstance(this, MAP_BOX_KEY);
         mapView.getMapAsync(this);
         mapView.setStyleUrl(Style.MAPBOX_STREETS);
         mapView.onCreate(savedInstanceState);
+    }
+
+    private void drawReceptionPoints() {
+        map.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(mPoints.get(0).getLatitude()), Double.parseDouble(mPoints.get(0).getLongitude()))));
     }
 
     @Override
@@ -86,6 +71,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         MainActivity.this.map = mapboxMap;
         map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
         cameraUpdate();
+        drawReceptionPoints();
 
     }
 
