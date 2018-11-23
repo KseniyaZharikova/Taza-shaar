@@ -48,10 +48,7 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback {
             expandedView.alpha = 0f
             collapsedView.visibility = View.VISIBLE
             expandedView.visibility = View.GONE
-
-            waitCarArrow .setImageResource(R.drawable.ic_launcher_background)
-
-
+            
         }
     }
 
@@ -68,11 +65,8 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback {
                     .translationY(expandedContentYPos)
                     .setListener(gestureListener?.contentAnimListener)
                     .start()
-
-            waitCarArrow .setImageResource(R.drawable.ic_launcher_background)
-
-
-        }    }
+        }
+    }
 
     override fun changeAlpha(alpha: Float) {
         collapsedView .alpha = alpha
@@ -89,7 +83,7 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback {
         contentView?.post {
             if (isUIAvailable() == true && gestureListener == null) {
                 expandedContentYPos = contentView.y
-                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 36)
+                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 20)
                 gestureListener = GestureListener(collapsedContentYPos, expandedContentYPos, this@ChoseFragment)
                 contentView?.setOnTouchListener(gestureListener)
             }
