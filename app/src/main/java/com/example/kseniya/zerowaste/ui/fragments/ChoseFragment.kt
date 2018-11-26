@@ -83,7 +83,7 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback {
         contentView?.post {
             if (isUIAvailable() == true && gestureListener == null) {
                 expandedContentYPos = contentView.y
-                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 20)
+                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 40)
                 gestureListener = GestureListener(collapsedContentYPos, expandedContentYPos, this@ChoseFragment)
                 contentView?.setOnTouchListener(gestureListener)
             }
