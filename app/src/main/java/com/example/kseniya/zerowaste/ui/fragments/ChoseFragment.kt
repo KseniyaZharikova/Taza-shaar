@@ -19,7 +19,6 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback {
     private var gestureListener: GestureListener? = null
 
     override fun getViewLayout(): Int {
-
         return R.layout.fragment_chose
     }
 

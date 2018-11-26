@@ -72,6 +72,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
         cameraUpdate();
         drawReceptionPoints();
+        replaceFragment(new ChoseFragment());
 
     }
 
@@ -84,7 +85,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     @Override
     public void onClick(View v) {
         cameraUpdate();
-        replaceFragment(new ChoseFragment());
+
     }
 
     @Override
