@@ -9,19 +9,7 @@ import java.io.Serializable;
 
 @Entity
 public class ReceptionPoint implements Serializable {
-    //data class ReceptionPoint () : Serializable {
-//    @PrimaryKey(autoGenerate = true)
-//    var id_prymary: Long? = null
-//
-//    val id: String? = null
-//    val name: String? = null
-//    val address: String? = null
-//    val type: Long = 0
-//    val price: String? = null
-//    val open_time: String? = null
-//    val close_time: String? = null
-//    val latitude: String? = null
-//    val longitude: String? = null
+
     @PrimaryKey(autoGenerate = true)
     private int id_key;
     private int id;
