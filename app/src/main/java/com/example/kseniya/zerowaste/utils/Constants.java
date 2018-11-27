@@ -6,4 +6,8 @@ public class Constants {
 
     //PERMISSION
     public static final int LOCATION_REQUEST_CODE = 100;
+
+    //BISHKEK_LOCATION
+    public static final double  LAT = 42.845440;
+    public static final double LNG = 74.608897;
 }
