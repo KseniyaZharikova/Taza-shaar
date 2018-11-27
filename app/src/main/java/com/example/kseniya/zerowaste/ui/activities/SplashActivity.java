@@ -1,24 +1,40 @@
 package com.example.kseniya.zerowaste.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
 
-import com.example.kseniya.zerowaste.R;
-import com.example.kseniya.zerowaste.data.ReceptionPoint;
-import com.example.kseniya.zerowaste.interfaces.MainInterface;
-import com.example.kseniya.zerowaste.ui.presenters.MainPresenter;
+import com.example.kseniya.zerowaste.ReceptionPoints;
 import com.example.kseniya.zerowaste.utils.Constants;
+import com.example.kseniya.zerowaste.R;
+import com.example.kseniya.zerowaste.utils.PermissionUtils;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.kseniya.zerowaste.BuildConfig.BASE_URL_FIREBASE;
 
-public class SplashActivity extends BaseActivity implements MainInterface.View {
 
+public class SplashActivity extends BaseActivity {
+    private final String TAG = getClass().getSimpleName();
     private boolean isAllDataReady = false;
-    private MainInterface.Presenter mainPresenter;
+    private double lat;
+    private double lng;
+    private List<ReceptionPoints> pointList;
 
     @Override
     protected int getViewLayout() {
@@ -29,10 +45,12 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainPresenter = new MainPresenter();
-        mainPresenter.bind(this);
-        mainPresenter.getPermission(this);
-
+        downloadMarkers();
+        if (PermissionUtils.Companion.isLocationEnable(this)) {
+            getCurrentLocation();
+        } else {
+            Toast.makeText(this, "FAILED", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -41,12 +59,13 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
         if (requestCode == Constants.LOCATION_REQUEST_CODE) {
             for (int result : grantResults) {
                 if (result == PackageManager.PERMISSION_GRANTED) {
-                    mainPresenter.getCurrentLocation(this);
+                    getCurrentLocation();
+                } else {
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
                 }
             }
-
         }
-        mainPresenter.downloadMarkers();
     }
 
     @Override
@@ -55,31 +74,46 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
 
     }
 
-    @Override
-    public void startActivity(Double lat, Double lng, List<ReceptionPoint> pointList) {
+    private void downloadMarkers() {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReferenceFromUrl(BASE_URL_FIREBASE + Constants.FIREBASE_RECEPTION_POINTS);
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                pointList = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    ReceptionPoints point = postSnapshot.getValue(ReceptionPoints.class);
+                    pointList.add(point);
+                    Log.d(TAG, "onDataChange: " + pointList.size());
+                }
+                startActivity();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @SuppressLint("MissingPermission")
+    private void getCurrentLocation() {
+        FusedLocationProviderClient locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        locationProviderClient.getLastLocation().addOnSuccessListener(location -> {
+            lat = location.getLatitude();
+            lng = location.getLongitude();
+            startActivity();
+        });
+    }
+
+    private void startActivity() {
+        if (isAllDataReady) {
             startActivity(new Intent(this, MainActivity.class)
-                  .putExtra("lat", lat)
-                  .putExtra("lng", lng)
-                  .putExtra("reception_points", (Serializable) pointList));
+                    .putExtra("lat", lat)
+                    .putExtra("lng", lng)
+                    .putExtra("reception_points", (Serializable) pointList));
             finish();
-
-    }
-
-
-    @Override
-    public void showMarkers(Double lat, Double lng) {
-
-    }
-
-    @Override
-    public void drawReceptionPoints() {
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mainPresenter.unbind();
+        }
+        isAllDataReady = true;
     }
 }
