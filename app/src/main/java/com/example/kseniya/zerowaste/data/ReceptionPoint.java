@@ -1,11 +1,14 @@
-package com.example.kseniya.zerowaste;
+package com.example.kseniya.zerowaste.data;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+
 import java.io.Serializable;
+
+
 @Entity
-public class ReceptionPoints implements Serializable {
+public class ReceptionPoint implements Serializable {
     //data class ReceptionPoint () : Serializable {
 //    @PrimaryKey(autoGenerate = true)
 //    var id_prymary: Long? = null

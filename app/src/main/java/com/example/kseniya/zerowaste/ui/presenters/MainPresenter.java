@@ -6,9 +6,9 @@ import android.location.Location;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.kseniya.zerowaste.data.ReceptionPoint;
+import com.example.kseniya.zerowaste.data.db.ZeroWasteDatabase;
 import com.example.kseniya.zerowaste.interfaces.MainInterface;
 import com.example.kseniya.zerowaste.utils.Constants;
 import com.example.kseniya.zerowaste.utils.PermissionUtils;
@@ -30,99 +30,113 @@ import java.util.List;
 import static com.example.kseniya.zerowaste.BuildConfig.BASE_URL_FIREBASE;
 
 public class MainPresenter implements MainInterface.Presenter, LocationListener {
-	private MainInterface.View mainView;
-	private FusedLocationProviderClient mFusedLocationProviderClient;
-	private double lat;
-	private double lng;
+    private MainInterface.View mainView;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
+    private double lat;
+    private double lng;
+    private ZeroWasteDatabase db;
 
-	private final String TAG = getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
 
-	public MainPresenter() {
-	}
+    public MainPresenter(ZeroWasteDatabase database) {
+        db = database;
+    }
 
-	private List<ReceptionPoint> pointList;
+    private List<ReceptionPoint> pointList;
 
-	@Override
-	public void getPermission(Activity activity) {
-		if (PermissionUtils.Companion.isLocationEnable(activity)) {
-			getCurrentLocation(activity);
-			downloadMarkers();
-		}
-	}
-
-
-	@SuppressLint("MissingPermission")
-	@Override
-	public void getCurrentLocation(Activity activity) {
-		mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
-		mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
-			lat = location.getLatitude();
-			lng = location.getLongitude();
-
-		});
-	}
+    @Override
+    public void getPermission(Activity activity) {
+        if (PermissionUtils.Companion.isLocationEnable(activity)) {
+            getCurrentLocation(activity);
+            downloadMarkers();
+        }
+    }
 
 
-	@Override
-	public void downloadMarkers() {
+    @SuppressLint("MissingPermission")
+    @Override
+    public void getCurrentLocation(Activity activity) {
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
+        mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
+            lat = location.getLatitude();
+            lng = location.getLongitude();
 
-		FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-		DatabaseReference databaseReference = firebaseDatabase.getReferenceFromUrl(BASE_URL_FIREBASE + Constants.FIREBASE_RECEPTION_POINTS);
-		databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-				pointList = new ArrayList<>();
-				for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-					ReceptionPoint point = postSnapshot.getValue(ReceptionPoint.class);
-					pointList.add(point);
-					Log.d(TAG, "onDataChange: " + pointList.size());
-				}
-				mainView.startActivity(lat,lng,pointList);
-			}
-
-			@Override
-			public void onCancelled(@NonNull DatabaseError databaseError) {
-
-			}
-		});
-	}
-
-	@Override
-	public void bind(MainInterface.View view) {
-		mainView = view;
-	}
-
-	@Override
-	public void unbind() {
-		mainView = null;
-	}
+        });
+    }
 
 
-	@SuppressLint("MissingPermission")
-	public void startLocationUpdates() {
+    @Override
+    public void downloadMarkers() {
 
-		int INTERVAL_UPDATES = 5000;
-		int MINIMUM_INTERVAL_UPDATES = 1000;
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReferenceFromUrl(BASE_URL_FIREBASE + Constants.FIREBASE_RECEPTION_POINTS);
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                pointList = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    ReceptionPoint point = postSnapshot.getValue(ReceptionPoint.class);
+                    pointList.add(point);
+                    Log.d(TAG, "onDataChange: " + pointList.size());
+                }
+                saveMarkersToDb();
+                mainView.startActivity(lat, lng, pointList);
+            }
 
-		LocationRequest locationRequest = new LocationRequest();
-		locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-		locationRequest.setInterval(INTERVAL_UPDATES);
-		locationRequest.setFastestInterval(MINIMUM_INTERVAL_UPDATES);
-		mFusedLocationProviderClient.requestLocationUpdates(locationRequest, mLocationCallback,
-				Looper.myLooper());
-	}
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-	LocationCallback mLocationCallback = new LocationCallback() {
-		@Override
-		public void onLocationResult(LocationResult locationResult) {
-			super.onLocationResult(locationResult);
-			Log.d(TAG, "onLocationChanged: " + locationResult.getLastLocation().getLongitude() + " " + locationResult.getLastLocation().getLatitude());
-		}
-	};
+            }
+        });
+    }
 
-	@Override
-	public void onLocationChanged(Location location) {
-		mainView.showMarkers(location.getLatitude(), location.getLongitude());
+    private void saveMarkersToDb() {
+       db.mZeroWasteDAO().insertReceptionPoints(pointList);
+    }
 
-	}
+    @Override
+    public void bind(MainInterface.View view) {
+        mainView = view;
+    }
+
+    @Override
+    public void unbind() {
+        mainView = null;
+    }
+
+
+    @SuppressLint("MissingPermission")
+    public void startLocationUpdates() {
+
+        int INTERVAL_UPDATES = 5000;
+        int MINIMUM_INTERVAL_UPDATES = 1000;
+
+        LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(INTERVAL_UPDATES);
+        locationRequest.setFastestInterval(MINIMUM_INTERVAL_UPDATES);
+        mFusedLocationProviderClient.requestLocationUpdates(locationRequest, mLocationCallback,
+                Looper.myLooper());
+    }
+
+    @Override
+    public List<ReceptionPoint> getPointFromDatabase() {
+        Log.d(TAG, "getPointFromDatabase: " + db.mZeroWasteDAO().getReceptionPoints().size());
+        return db.mZeroWasteDAO().getReceptionPoints();
+    }
+
+
+    LocationCallback mLocationCallback = new LocationCallback() {
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            super.onLocationResult(locationResult);
+            Log.d(TAG, "onLocationChanged: " + locationResult.getLastLocation().getLongitude() + " " + locationResult.getLastLocation().getLatitude());
+        }
+    };
+
+    @Override
+    public void onLocationChanged(Location location) {
+        mainView.showMarkers(location.getLatitude(), location.getLongitude());
+
+    }
 }

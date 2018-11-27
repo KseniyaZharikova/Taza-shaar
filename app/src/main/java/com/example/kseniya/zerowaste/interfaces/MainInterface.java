@@ -26,6 +26,8 @@ public interface MainInterface {
 		void getPermission(Activity activity);
 
 		void startLocationUpdates();
+
+		List<ReceptionPoint>  getPointFromDatabase();
 	}
 
 }
