@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:drawable="@drawable/shirt_color" android:state_checked = "true" >
+    <shape>
+        <size android:width="10dp" android:height="30dp"/>
+    </shape>
+</item>
+    <item android:drawable="@drawable/shirt_gray" android:state_checked="false">
+        <shape>
+            <size android:width="10dp" android:height="30dp"/>
+        </shape>
+    </item>
+</selector>

@@ -52,14 +52,14 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mainPresenter = new MainPresenter(ZeroWasteApp.get(this).getDatabase());
+        mainPresenter = new MainPresenter(this);
         mainPresenter.bind(this);
         mainPresenter.getCurrentLocation(this);
         initMap(savedInstanceState);
         myLocation.setOnClickListener(this);
         lat = getIntent().getDoubleExtra("lat", 0);
         lng = getIntent().getDoubleExtra("lng", 0);
-//        mPoints = (List<ReceptionPoint>) getIntent().getSerializableExtra("reception_points");
+        mPoints = (List<ReceptionPoint>) getIntent().getSerializableExtra("reception_points");
 
         mainPresenter.startLocationUpdates();
     }
@@ -73,10 +73,10 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
 
     @Override
     public void drawReceptionPoints() {
-        List<ReceptionPoint> list = mainPresenter.getPointFromDatabase();
+     //   List<ReceptionPoint> list = mainPresenter.getPointFromDatabase();
 
-        for (int i = 0; i < list.size(); i++) {
-            map.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(list.get(i).getLatitude()), Double.parseDouble(list.get(i).getLongitude()))));
+        for (int i = 0; i < mPoints.size(); i++) {
+            map.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(mPoints.get(i).getLatitude()), Double.parseDouble(mPoints.get(i).getLongitude()))));
         }
 
     }

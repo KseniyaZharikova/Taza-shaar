@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:weightSum="3"
     android:layout_height="match_parent">
 
     <com.mapbox.mapboxsdk.maps.MapView
@@ -14,7 +13,7 @@
 
     <ImageView
         android:id="@+id/myLocation"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/my_location"
@@ -24,5 +23,5 @@
         android:id="@+id/container"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="wrap_content" />
 </RelativeLayout>
