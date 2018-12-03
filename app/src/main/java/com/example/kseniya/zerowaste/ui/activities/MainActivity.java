@@ -1,6 +1,11 @@
 package com.example.kseniya.zerowaste.ui.activities;
 
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +19,8 @@ import com.example.kseniya.zerowaste.ui.presenters.MainPresenter;
 import com.example.kseniya.zerowaste.utils.Constants;
 import com.example.kseniya.zerowaste.utils.PermissionUtils;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.Icon;
+import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -85,12 +92,16 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         mapView.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void drawReceptionPoints() {
         //   List<ReceptionPoint> list = mainPresenter.getPointFromDatabase();
+        Icon icon = IconFactory.getInstance(this).fromResource(R.drawable.other_color_marker);
 
         for (int i = 0; i < mPoints.size(); i++) {
-            map.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(mPoints.get(i).getLatitude()), Double.parseDouble(mPoints.get(i).getLongitude()))));
+            map.addMarker(new MarkerOptions()
+                  .position(new LatLng(Double.parseDouble(mPoints.get(i).getLatitude()), Double.parseDouble(mPoints.get(i).getLongitude())))
+                  .icon(icon));
         }
 
     }
