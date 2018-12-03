@@ -2,6 +2,7 @@ package com.example.kseniya.zerowaste.ui.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.widget.CompoundButton
 import butterknife.BindView
 import com.example.kseniya.zerowaste.R
 import com.example.kseniya.zerowaste.ui.activities.MainActivity
@@ -10,8 +11,12 @@ import com.example.kseniya.zerowaste.utils.GestureListener
 import kotlinx.android.synthetic.main.fragment_chose.*
 
 
-class ChoseFragment : BaseFragment(), GestureListener.Callback {
-     var activity: MainActivity? = null
+class ChoseFragment : BaseFragment(), GestureListener.Callback, CompoundButton.OnCheckedChangeListener {
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+
+    }
+
+    var activity: MainActivity? = null
 
     var expandedContentYPos: Float = 0f
     var collapsedContentYPos: Float = 0f
@@ -24,6 +29,8 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initCheckbox()
+
         contentView.setOnClickListener {
             gestureListener?.let {
                 if (it.isCollapsed) {
@@ -33,6 +40,17 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback {
                 }
             }
         }
+    }
+
+    private fun initCheckbox() {
+        checkboxBottle.setOnCheckedChangeListener(this)
+        checkboxGlass.setOnCheckedChangeListener(this)
+        checkboxPaper.setOnCheckedChangeListener(this)
+        checkboxShirt.setOnCheckedChangeListener(this)
+        checkboxBag.setOnCheckedChangeListener(this)
+        checkboxApple.setOnCheckedChangeListener(this)
+        checkboxCow.setOnCheckedChangeListener(this)
+        checkboxMashine.setOnCheckedChangeListener(this)
     }
 
     override fun collapseView() {
@@ -48,7 +66,7 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback {
             expandedView.alpha = 0f
             collapsedView.visibility = View.VISIBLE
             expandedView.visibility = View.GONE
-            
+
         }
     }
 
@@ -61,7 +79,7 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback {
             collapsedView.visibility = View.GONE
             expandedView.visibility = View.VISIBLE
 
-            contentView .animate()
+            contentView.animate()
                     .translationY(expandedContentYPos)
                     .setListener(gestureListener?.contentAnimListener)
                     .start()
@@ -69,14 +87,17 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback {
     }
 
     override fun changeAlpha(alpha: Float) {
-        collapsedView .alpha = alpha
-        expandedView .alpha = 1 - alpha    }
+        collapsedView.alpha = alpha
+        expandedView.alpha = 1 - alpha
+    }
 
     override fun getY(): Float {
-        return contentView .y    }
+        return contentView.y
+    }
 
     override fun setY(y: Float) {
-        contentView .y = y    }
+        contentView.y = y
+    }
 
     override fun onResume() {
         super.onResume()

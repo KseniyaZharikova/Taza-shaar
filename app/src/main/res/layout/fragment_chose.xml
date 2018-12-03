@@ -21,25 +21,25 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_gravity="center"
-                android:src="@drawable/arrow_up"
                 android:layout_width="35dp"
-                android:layout_height="35dp" />
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:src="@drawable/arrow_up" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:background="@android:color/white"
                 android:gravity="center"
-                android:layout_marginTop="20dp"
                 android:text="ВЫБЕРИ ЧТО ХОЧЕШЬ СДАТЬ:"
                 android:textColor="@android:color/black"
                 android:textSize="22dp" />
 
             <LinearLayout
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:background="@color/lightGray"
                 android:orientation="horizontal">
 
@@ -58,7 +58,7 @@
                     android:layout_margin="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/glass_selector"
-                    android:button="@null"/>
+                    android:button="@null" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
                     android:layout_margin="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/paper_selector"
-                    android:button="@null"/>
+                    android:button="@null" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
@@ -74,13 +74,13 @@
                     android:layout_margin="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/shirt_selector"
-                    android:button="@null"/>
+                    android:button="@null" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:background="@color/lightGray"
                 android:orientation="horizontal">
@@ -90,14 +90,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/bag_selector"
-                    android:button="@null"/>
+                    android:button="@null" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/apple_selector"
-                    android:button="@null"/>
+                    android:button="@null" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
@@ -124,10 +124,10 @@
             android:visibility="visible">
 
             <ImageView
-                android:layout_gravity="center"
-                android:src="@drawable/arrow_down"
                 android:layout_width="35dp"
-                android:layout_height="35dp" />
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:src="@drawable/arrow_down" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -139,13 +139,14 @@
                 android:textSize="22dp" />
 
             <LinearLayout
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:background="@android:color/white"
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/checkboxBottle"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_margin="15dp"
@@ -155,68 +156,75 @@
                     android:gravity="center" />
 
                 <CheckBox
-                    android:layout_weight="1"
+                    android:id="@+id/checkboxGlass"
                     android:layout_width="0dp"
-                    android:layout_margin="15dp"
                     android:layout_height="55dp"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
                     android:background="@drawable/glass_selector"
-                    android:button="@null"/>
+                    android:button="@null" />
 
                 <CheckBox
-                    android:layout_weight="1"
+                    android:id="@+id/checkboxPaper"
                     android:layout_width="0dp"
-                    android:layout_margin="15dp"
                     android:layout_height="55dp"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
                     android:background="@drawable/paper_selector"
-                    android:button="@null"/>
+                    android:button="@null" />
 
                 <CheckBox
-                    android:layout_weight="1"
+                    android:id="@+id/checkboxShirt"
                     android:layout_width="0dp"
-                    android:layout_margin="15dp"
                     android:layout_height="55dp"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
                     android:background="@drawable/shirt_selector"
-                    android:button="@null"/>
+                    android:button="@null" />
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
 
                 <CheckBox
-                    android:layout_weight="1"
+                    android:id="@+id/checkboxBag"
                     android:layout_width="wrap_content"
-                    android:layout_margin="15dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
                     android:background="@drawable/bag_selector"
-                    android:button="@null"/>
+                    android:button="@null" />
 
                 <CheckBox
-                    android:layout_weight="1"
+                    android:id="@+id/checkboxApple"
                     android:layout_width="wrap_content"
-                    android:layout_margin="15dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
                     android:background="@drawable/apple_selector"
-                    android:button="@null"/>
+                    android:button="@null" />
 
                 <CheckBox
-                    android:layout_weight="1"
+                    android:id="@+id/checkboxCow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
+                    android:layout_weight="1"
                     android:background="@drawable/cow_selector"
-                    android:button="@null"/>
+                    android:button="@null" />
 
                 <CheckBox
-                    android:layout_weight="1"
+                    android:id="@+id/checkboxMashine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
+                    android:layout_weight="1"
                     android:background="@drawable/mashine_selector"
-                    android:button="@null"/>
+                    android:button="@null" />
 
             </LinearLayout>
 
