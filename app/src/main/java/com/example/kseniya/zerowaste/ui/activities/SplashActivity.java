@@ -30,7 +30,7 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainPresenter = new MainPresenter(this);
+        mainPresenter = new MainPresenter(ZeroWasteApp.get(this).getDatabase());
         mainPresenter.bind(this);
         mainPresenter.getPermission(this);
 

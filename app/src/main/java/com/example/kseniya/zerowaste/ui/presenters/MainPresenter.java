@@ -2,7 +2,6 @@ package com.example.kseniya.zerowaste.ui.presenters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.location.Location;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -39,8 +38,8 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
 
     private final String TAG = getClass().getSimpleName();
 
-    public MainPresenter(Context context) {
-        //db = database;
+    public MainPresenter(ZeroWasteDatabase database) {
+        db = database;
     }
 
     private List<ReceptionPoint> pointList;
@@ -92,7 +91,7 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     }
 
     private void saveMarkersToDb() {
-      // db.mZeroWasteDAO().insertReceptionPoints(pointList);
+       db.mZeroWasteDAO().insertReceptionPoints(pointList);
     }
 
     @Override

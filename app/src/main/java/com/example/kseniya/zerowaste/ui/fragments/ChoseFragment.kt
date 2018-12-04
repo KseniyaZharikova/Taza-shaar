@@ -11,9 +11,13 @@ import com.example.kseniya.zerowaste.utils.GestureListener
 import kotlinx.android.synthetic.main.fragment_chose.*
 
 
-class ChoseFragment : BaseFragment(), GestureListener.Callback, CompoundButton.OnCheckedChangeListener {
-    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-
+class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickListener {
+    override fun onClick(v: View?) {
+        val points_fragment = PointsInfoFragment()
+        val fragmentManager = fragmentManager
+        val fragmentTransaction = fragmentManager!!.beginTransaction()
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     var activity: MainActivity? = null
@@ -43,14 +47,14 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, CompoundButton.O
     }
 
     private fun initCheckbox() {
-        checkboxBottle.setOnCheckedChangeListener(this)
-        checkboxGlass.setOnCheckedChangeListener(this)
-        checkboxPaper.setOnCheckedChangeListener(this)
-        checkboxShirt.setOnCheckedChangeListener(this)
-        checkboxBag.setOnCheckedChangeListener(this)
-        checkboxApple.setOnCheckedChangeListener(this)
-        checkboxCow.setOnCheckedChangeListener(this)
-        checkboxMashine.setOnCheckedChangeListener(this)
+        checkboxBottle.setOnClickListener(this)
+        checkboxGlass.setOnClickListener(this)
+        checkboxPaper.setOnClickListener(this)
+        checkboxShirt.setOnClickListener(this)
+        checkboxBag.setOnClickListener(this)
+        checkboxApple.setOnClickListener(this)
+        checkboxCow.setOnClickListener(this)
+        checkboxMashine.setOnClickListener(this)
     }
 
     override fun collapseView() {

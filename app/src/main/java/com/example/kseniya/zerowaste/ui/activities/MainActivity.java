@@ -6,12 +6,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.example.kseniya.zerowaste.R;
 import com.example.kseniya.zerowaste.ZeroWasteApp;
+import com.example.kseniya.zerowaste.adapters.PointsInfoAdapter;
 import com.example.kseniya.zerowaste.data.ReceptionPoint;
 import com.example.kseniya.zerowaste.interfaces.MainInterface;
 import com.example.kseniya.zerowaste.ui.fragments.ChoseFragment;
@@ -52,17 +55,21 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     private MapboxMap map;
     private double lat;
     private double lng;
-    private List<ReceptionPoint> mPoints;
+//    private List<ReceptionPoint> mPoints;
     private OfflineManager mOfflineManager;
     // JSON encoding/decoding
     public static final String JSON_CHARSET = "UTF-8";
     public static final String JSON_FIELD_REGION_NAME = "BISHKEK";
+
+
 
     @BindView(R.id.mapView)
     MapView mapView;
 
     @BindView(R.id.myLocation)
     ImageView myLocation;
+
+
 
     @Override
     protected int getViewLayout() {
@@ -73,16 +80,18 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mainPresenter = new MainPresenter(this);
+        mainPresenter = new MainPresenter(ZeroWasteApp.get(this).getDatabase());
         mainPresenter.bind(this);
         mainPresenter.getCurrentLocation(this);
         initMap(savedInstanceState);
         myLocation.setOnClickListener(this);
         lat = getIntent().getDoubleExtra("lat", 0);
         lng = getIntent().getDoubleExtra("lng", 0);
-        mPoints = (List<ReceptionPoint>) getIntent().getSerializableExtra("reception_points");
+//        mPoints = (List<ReceptionPoint>) getIntent().getSerializableExtra("reception_points");
 
         mainPresenter.startLocationUpdates();
+
+
     }
 
     private void initMap(Bundle savedInstanceState) {
@@ -95,12 +104,12 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     @SuppressLint("NewApi")
     @Override
     public void drawReceptionPoints() {
-        //   List<ReceptionPoint> list = mainPresenter.getPointFromDatabase();
+           List<ReceptionPoint> list = mainPresenter.getPointFromDatabase();
         Icon icon = IconFactory.getInstance(this).fromResource(R.drawable.other_color_marker);
 
-        for (int i = 0; i < mPoints.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             map.addMarker(new MarkerOptions()
-                  .position(new LatLng(Double.parseDouble(mPoints.get(i).getLatitude()), Double.parseDouble(mPoints.get(i).getLongitude())))
+                  .position(new LatLng(Double.parseDouble(list.get(i).getLatitude()), Double.parseDouble(list.get(i).getLongitude())))
                   .icon(icon));
         }
 
