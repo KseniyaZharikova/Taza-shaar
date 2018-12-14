@@ -11,7 +11,9 @@ public interface MainInterface {
 
 		void showMarkers(Double lat, Double lng);
 
-		void drawReceptionPoints();
+		void drawReceptionPoints(List<ReceptionPoint> pointFromDatabase);
+
+		void showFilteredReceptionPoints(List<ReceptionPoint> list);
 
 		void startActivity(Double lat, Double lng, List<ReceptionPoint> pointList);
 
@@ -26,6 +28,8 @@ public interface MainInterface {
 		void getPermission(Activity activity);
 
 		void startLocationUpdates();
+
+		void setCheckedPoints(int category);
 
 		List<ReceptionPoint>  getPointFromDatabase();
 	}

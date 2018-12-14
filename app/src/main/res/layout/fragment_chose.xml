@@ -146,16 +146,18 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:tag="1"
                     android:id="@+id/checkboxBottle"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_margin="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bottle_selector"
+                    android:background="@drawable/ic_1_bottle_active"
                     android:button="@null"
                     android:gravity="center" />
 
                 <CheckBox
+                    android:tag="2"
                     android:id="@+id/checkboxGlass"
                     android:layout_width="0dp"
                     android:layout_height="55dp"
@@ -165,15 +167,17 @@
                     android:button="@null" />
 
                 <CheckBox
+                    android:tag="3"
                     android:id="@+id/checkboxPaper"
                     android:layout_width="0dp"
                     android:layout_height="55dp"
                     android:layout_margin="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/paper_selector"
+                    android:background="@drawable/ic_3_paper_active"
                     android:button="@null" />
 
                 <CheckBox
+                    android:tag="4"
                     android:id="@+id/checkboxShirt"
                     android:layout_width="0dp"
                     android:layout_height="55dp"
@@ -191,24 +195,27 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:tag="5"
                     android:id="@+id/checkboxBag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bag_selector"
+                    android:background="@drawable/ic_5_polietilen_active"
                     android:button="@null" />
 
                 <CheckBox
+                    android:tag="6"
                     android:id="@+id/checkboxApple"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/apple_selector"
+                    android:background="@drawable/ic_6_organic_active"
                     android:button="@null" />
 
                 <CheckBox
+                    android:tag="7"
                     android:id="@+id/checkboxCow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -218,6 +225,7 @@
                     android:button="@null" />
 
                 <CheckBox
+                    android:tag="8"
                     android:id="@+id/checkboxMashine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -1,21 +1,15 @@
 package com.example.kseniya.zerowaste.ui.activities;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.example.kseniya.zerowaste.R;
 import com.example.kseniya.zerowaste.ZeroWasteApp;
-import com.example.kseniya.zerowaste.adapters.PointsInfoAdapter;
 import com.example.kseniya.zerowaste.data.ReceptionPoint;
+import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface;
 import com.example.kseniya.zerowaste.interfaces.MainInterface;
 import com.example.kseniya.zerowaste.ui.fragments.ChoseFragment;
 import com.example.kseniya.zerowaste.ui.presenters.MainPresenter;
@@ -24,52 +18,42 @@ import com.example.kseniya.zerowaste.utils.PermissionUtils;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
+import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.offline.OfflineManager;
-import com.mapbox.mapboxsdk.offline.OfflineRegion;
-import com.mapbox.mapboxsdk.offline.OfflineRegionError;
-import com.mapbox.mapboxsdk.offline.OfflineRegionStatus;
-import com.mapbox.mapboxsdk.offline.OfflineTilePyramidRegionDefinition;
 
-import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 
 import static com.example.kseniya.zerowaste.BuildConfig.MAP_BOX_KEY;
 
-public class MainActivity extends BaseActivity implements OnMapReadyCallback, View.OnClickListener, MainInterface.View {
+public class MainActivity extends BaseActivity implements OnMapReadyCallback, View.OnClickListener, MainInterface.View, CheckBoxInterface {
 
     private final String TAG = getClass().getSimpleName();
     private MainInterface.Presenter mainPresenter;
     private MapboxMap map;
     private double lat;
     private double lng;
-//    private List<ReceptionPoint> mPoints;
+    List<Marker> mMarkerList;
     private OfflineManager mOfflineManager;
-    // JSON encoding/decoding
     public static final String JSON_CHARSET = "UTF-8";
     public static final String JSON_FIELD_REGION_NAME = "BISHKEK";
-
-
 
     @BindView(R.id.mapView)
     MapView mapView;
 
     @BindView(R.id.myLocation)
     ImageView myLocation;
-
-
 
     @Override
     protected int getViewLayout() {
@@ -90,8 +74,6 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
 //        mPoints = (List<ReceptionPoint>) getIntent().getSerializableExtra("reception_points");
 
         mainPresenter.startLocationUpdates();
-
-
     }
 
     private void initMap(Bundle savedInstanceState) {
@@ -103,16 +85,24 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
 
     @SuppressLint("NewApi")
     @Override
-    public void drawReceptionPoints() {
-           List<ReceptionPoint> list = mainPresenter.getPointFromDatabase();
+    public void drawReceptionPoints(List<ReceptionPoint> pointFromDatabase) {
         Icon icon = IconFactory.getInstance(this).fromResource(R.drawable.other_color_marker);
-
-        for (int i = 0; i < list.size(); i++) {
-            map.addMarker(new MarkerOptions()
-                  .position(new LatLng(Double.parseDouble(list.get(i).getLatitude()), Double.parseDouble(list.get(i).getLongitude())))
-                  .icon(icon));
+        mMarkerList = new ArrayList<>();
+        for (int i = 0; i < pointFromDatabase.size(); i++) {
+            Marker marker =  map.addMarker(new MarkerOptions()
+                    .position(new LatLng(Double.parseDouble(pointFromDatabase.get(i).getLatitude()), Double.parseDouble(pointFromDatabase.get(i).getLongitude())))
+                    .icon(icon));
+            mMarkerList.add(marker);
         }
+    }
 
+    @Override
+    public void showFilteredReceptionPoints(List<ReceptionPoint> list) {
+        for (int i = 0; i < mMarkerList.size(); i++) {
+            map.removeMarker(mMarkerList.remove(i));
+        }
+        mMarkerList.clear();
+        drawReceptionPoints(list);
     }
 
     @Override
@@ -129,7 +119,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         MainActivity.this.map = mapboxMap;
         showMarkers(lat, lng);
         cameraUpdate();
-        drawReceptionPoints();
+        drawReceptionPoints(mainPresenter.getPointFromDatabase());
         replaceFragment(new ChoseFragment());
 
     }
@@ -259,5 +249,10 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         if (PermissionUtils.Companion.isLocationEnable(this)) {
             map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
         }
+    }
+
+    @Override
+    public void onCheckBoxClicked(int tag) {
+        mainPresenter.setCheckedPoints(tag);
     }
 }

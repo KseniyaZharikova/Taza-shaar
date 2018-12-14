@@ -74,7 +74,12 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
     }
 
     @Override
-    public void drawReceptionPoints() {
+    public void drawReceptionPoints(List<ReceptionPoint> pointFromDatabase) {
+    }
+
+    @Override
+    public void showFilteredReceptionPoints(List<ReceptionPoint> list) {
+
     }
 
 

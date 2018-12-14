@@ -3,7 +3,6 @@ package com.example.kseniya.zerowaste;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
-
 import com.example.kseniya.zerowaste.data.db.ZeroWasteDatabase;
 
 public class ZeroWasteApp extends Application {

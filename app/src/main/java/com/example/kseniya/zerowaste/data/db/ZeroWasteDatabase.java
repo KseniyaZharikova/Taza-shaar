@@ -6,7 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 import com.example.kseniya.zerowaste.data.ReceptionPoint;
 
 
-@Database(entities = {ReceptionPoint.class}, version = 1)
+@Database(entities = {ReceptionPoint.class}, version = 1, exportSchema = false)
 public abstract class ZeroWasteDatabase extends RoomDatabase {
     public abstract ZeroWasteDAO mZeroWasteDAO();
 }

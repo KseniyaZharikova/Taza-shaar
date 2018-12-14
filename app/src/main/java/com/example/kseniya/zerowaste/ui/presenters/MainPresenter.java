@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.example.kseniya.zerowaste.BuildConfig.BASE_URL_FIREBASE;
@@ -40,6 +41,7 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
 
     public MainPresenter(ZeroWasteDatabase database) {
         db = database;
+        pointList = db.mZeroWasteDAO().getReceptionPoints();
     }
 
     private List<ReceptionPoint> pointList;
@@ -91,7 +93,8 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     }
 
     private void saveMarkersToDb() {
-       db.mZeroWasteDAO().insertReceptionPoints(pointList);
+        db.mZeroWasteDAO().deleteReceptionPoints();
+        db.mZeroWasteDAO().insertReceptionPoints(pointList);
     }
 
     @Override
@@ -120,13 +123,24 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     }
 
     @Override
+    public void setCheckedPoints(int category) {
+        List<ReceptionPoint> list = new ArrayList<>();
+        for (int i = 0; i < pointList.size(); i++) {
+            if (pointList.get(i).getType() == category)
+                list.add(pointList.get(i));
+        }
+        mainView.showFilteredReceptionPoints(list);
+        Log.d(TAG, "setCheckedPoints: " + list.size());
+    }
+
+    @Override
     public List<ReceptionPoint> getPointFromDatabase() {
         Log.d(TAG, "getPointFromDatabase: " + db.mZeroWasteDAO().getReceptionPoints().size());
         return db.mZeroWasteDAO().getReceptionPoints();
     }
 
 
-    LocationCallback mLocationCallback = new LocationCallback() {
+    private LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
             super.onLocationResult(locationResult);

@@ -1,34 +1,39 @@
 package com.example.kseniya.zerowaste.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.CompoundButton
-import butterknife.BindView
 import com.example.kseniya.zerowaste.R
+import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface
 import com.example.kseniya.zerowaste.ui.activities.MainActivity
 import com.example.kseniya.zerowaste.utils.BitmapUtil
 import com.example.kseniya.zerowaste.utils.GestureListener
 import kotlinx.android.synthetic.main.fragment_chose.*
 
 
-class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickListener {
-    override fun onClick(v: View?) {
-        val points_fragment = PointsInfoFragment()
-        val fragmentManager = fragmentManager
-        val fragmentTransaction = fragmentManager!!.beginTransaction()
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
-    }
-
+class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickListener{
     var activity: MainActivity? = null
-
     var expandedContentYPos: Float = 0f
     var collapsedContentYPos: Float = 0f
 
     private var gestureListener: GestureListener? = null
+    private var mCallBack: CheckBoxInterface? = null
 
     override fun getViewLayout(): Int {
         return R.layout.fragment_chose
+    }
+
+    override fun onClick(v: View?) {
+        switchFragment()
+        val tag = v!!.tag as String?
+        mCallBack!!.onCheckBoxClicked(tag!!.toInt())
+    }
+
+    private fun switchFragment() {
+        val fragmentManager = fragmentManager
+        val fragmentTransaction = fragmentManager!!.beginTransaction()
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -112,8 +117,11 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
                 gestureListener = GestureListener(collapsedContentYPos, expandedContentYPos, this@ChoseFragment)
                 contentView?.setOnTouchListener(gestureListener)
             }
-
         }
+    }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        mCallBack = context as CheckBoxInterface
     }
 }

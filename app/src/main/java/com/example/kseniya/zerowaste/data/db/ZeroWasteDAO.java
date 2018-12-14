@@ -15,11 +15,11 @@ import java.util.List;
 @Dao
 public interface ZeroWasteDAO {
 
-    @Insert()
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertReceptionPoints(List<ReceptionPoint> mList);
 
-    @Delete
-    void deleteReceptionPoints(List<ReceptionPoint> mList);
+    @Query("DELETE FROM ReceptionPoint")
+    void deleteReceptionPoints();
 
     @Query("SELECT * FROM ReceptionPoint")
     List<ReceptionPoint> getReceptionPoints();
