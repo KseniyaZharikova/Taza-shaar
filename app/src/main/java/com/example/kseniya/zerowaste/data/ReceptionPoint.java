@@ -18,6 +18,7 @@ public class ReceptionPoint implements Serializable {
     private long type;
     private String price;
     private String work_time;
+
     private String latitude;
     private String longitude;
     private String phone;
