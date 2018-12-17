@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.kseniya.zerowaste.R;
 import com.example.kseniya.zerowaste.ZeroWasteApp;
@@ -123,6 +124,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         cameraUpdate();
         drawReceptionPoints(mainPresenter.getPointFromDatabase());
         replaceFragment(new ChoseFragment());
+        map.setOnMarkerClickListener(this);
 
     }
 
@@ -260,7 +262,6 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
 
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
-
         return false;
     }
 }

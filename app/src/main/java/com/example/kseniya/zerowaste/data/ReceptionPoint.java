@@ -20,6 +20,7 @@ public class ReceptionPoint implements Serializable {
     private String work_time;
 
     private String latitude;
+
     private String longitude;
     private String phone;
 
