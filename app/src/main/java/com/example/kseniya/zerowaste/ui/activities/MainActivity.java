@@ -2,6 +2,7 @@ package com.example.kseniya.zerowaste.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,7 +38,7 @@ import butterknife.BindView;
 
 import static com.example.kseniya.zerowaste.BuildConfig.MAP_BOX_KEY;
 
-public class MainActivity extends BaseActivity implements OnMapReadyCallback, View.OnClickListener, MainInterface.View, CheckBoxInterface {
+public class MainActivity extends BaseActivity implements OnMapReadyCallback, View.OnClickListener, MainInterface.View, CheckBoxInterface, MapboxMap.OnMarkerClickListener {
 
     private final String TAG = getClass().getSimpleName();
     private MainInterface.Presenter mainPresenter;
@@ -99,8 +100,9 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     @Override
     public void showFilteredReceptionPoints(List<ReceptionPoint> list) {
         for (int i = 0; i < mMarkerList.size(); i++) {
-            map.removeMarker(mMarkerList.remove(i));
+            map.removeMarker(mMarkerList.get(i));
         }
+        Log.d(TAG, "showFilteredReceptionPoints: ");
         mMarkerList.clear();
         drawReceptionPoints(list);
     }
@@ -254,5 +256,11 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     @Override
     public void onCheckBoxClicked(int tag) {
         mainPresenter.setCheckedPoints(tag);
+    }
+
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+
+        return false;
     }
 }
