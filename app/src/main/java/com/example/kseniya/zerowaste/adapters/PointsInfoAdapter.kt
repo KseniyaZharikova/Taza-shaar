@@ -11,7 +11,11 @@ import com.example.kseniya.zerowaste.data.ReceptionPoint
 class PointsInfoAdapter(private val myDataset: List<ReceptionPoint>) : RecyclerView.Adapter<PointsInfoAdapter.MyViewHolder>() {
 
     class MyViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
-        val textView= v.findViewById<TextView>(R.id.tvName)
+        val tvName= v.findViewById<TextView>(R.id.tvName)
+        val tvAddress= v.findViewById<TextView>(R.id.tvAddress)
+        val tvPhone= v.findViewById<TextView>(R.id.tvPhone)
+        val tvWorkTime= v.findViewById<TextView>(R.id.tvWorkTime)
+        val tvPrice= v.findViewById<TextView>(R.id.tvPrice)
     }
 
 
@@ -23,7 +27,12 @@ class PointsInfoAdapter(private val myDataset: List<ReceptionPoint>) : RecyclerV
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.textView.text = myDataset[position].address
+        holder.tvName.text = myDataset[position].name
+        holder.tvAddress.text = myDataset[position].address
+        holder.tvPhone.text = myDataset[position].phone
+        holder.tvWorkTime.text = myDataset[position].work_time
+        holder.tvPrice.text = myDataset[position].price
+
     }
 
 
