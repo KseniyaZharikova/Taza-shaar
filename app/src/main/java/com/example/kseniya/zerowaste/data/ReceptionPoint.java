@@ -17,10 +17,10 @@ public class ReceptionPoint implements Serializable {
     private String address;
     private long type;
     private String price;
-    private String open_time;
-    private String close_time;
+    private String work_time;
     private String latitude;
     private String longitude;
+    private String phone;
 
     public int getId_key() {
         return id_key;
@@ -70,20 +70,12 @@ public class ReceptionPoint implements Serializable {
         this.price = price;
     }
 
-    public String getOpen_time() {
-        return open_time;
+    public String getWork_time() {
+        return work_time;
     }
 
-    public void setOpen_time(String open_time) {
-        this.open_time = open_time;
-    }
-
-    public String getClose_time() {
-        return close_time;
-    }
-
-    public void setClose_time(String close_time) {
-        this.close_time = close_time;
+    public void setWork_time(String work_time) {
+        this.work_time = work_time;
     }
 
     public String getLatitude() {
@@ -100,5 +92,13 @@ public class ReceptionPoint implements Serializable {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
