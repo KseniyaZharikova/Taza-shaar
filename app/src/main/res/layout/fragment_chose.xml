@@ -152,7 +152,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/ic_1_bottle_active"
+                    android:background="@drawable/ic_bottle_active_1"
                     android:button="@null"
                     android:gravity="center" />
 

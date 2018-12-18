@@ -1,5 +1,7 @@
 package com.example.kseniya.zerowaste.utils;
 
+import com.example.kseniya.zerowaste.R;
+
 public class Constants {
 
     public static final String FIREBASE_RECEPTION_POINTS = "reception_points";
@@ -17,4 +19,19 @@ public class Constants {
 
     public static final double LAT_NE = 42.93717;
     public static final double LNG_NE = 74.70884;
+
+    public static int PointsType(long type) {
+        switch ((int)type){
+            case 1: return R.mipmap.pl_location;
+            case 2: return R.mipmap.glass_location;
+            case 3: return R.mipmap.paper_location;
+            case 4: return R.mipmap.clothing_location;
+            case 5: return R.mipmap.polietilen_location;
+            case 6: return R.mipmap.organic_location;
+            case 7: return R.mipmap.skot_location;
+            case 8: return R.mipmap.tech_location;
+        }
+        return R.drawable.arrow_up;
+
+    }
 }

@@ -11,7 +11,7 @@ import com.example.kseniya.zerowaste.utils.GestureListener
 import kotlinx.android.synthetic.main.fragment_chose.*
 
 
-class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickListener{
+class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickListener {
     var activity: MainActivity? = null
     var expandedContentYPos: Float = 0f
     var collapsedContentYPos: Float = 0f
@@ -31,8 +31,9 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
 
     private fun switchFragment() {
         val fragmentManager = fragmentManager
+
         val fragmentTransaction = fragmentManager!!.beginTransaction()
-        fragmentTransaction.replace(R.id.container,PointsInfoFragment())
+        fragmentTransaction.replace(R.id.container, PointsInfoFragment())
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
@@ -40,7 +41,6 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initCheckbox()
-
         contentView.setOnClickListener {
             gestureListener?.let {
                 if (it.isCollapsed) {

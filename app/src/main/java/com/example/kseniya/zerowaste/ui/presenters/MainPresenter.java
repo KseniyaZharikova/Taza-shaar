@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.kseniya.zerowaste.data.ReceptionPoint;
 import com.example.kseniya.zerowaste.data.db.ZeroWasteDatabase;
 import com.example.kseniya.zerowaste.interfaces.MainInterface;
+import com.example.kseniya.zerowaste.interfaces.SortedList;
 import com.example.kseniya.zerowaste.utils.Constants;
 import com.example.kseniya.zerowaste.utils.PermissionUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -60,6 +61,7 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     public void getCurrentLocation(Activity activity) {
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
         mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
+
             lat = location.getLatitude();
             lng = location.getLongitude();
 
@@ -130,6 +132,8 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
                 list.add(pointList.get(i));
         }
         mainView.showFilteredReceptionPoints(list);
+        SortedList.list.clear();
+        SortedList.list.addAll(list);
         Log.d(TAG, "setCheckedPoints: " + list.size());
     }
 
