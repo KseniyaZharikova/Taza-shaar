@@ -31,7 +31,6 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
 
     private fun switchFragment() {
         val fragmentManager = fragmentManager
-
         val fragmentTransaction = fragmentManager!!.beginTransaction()
         fragmentTransaction.replace(R.id.container, PointsInfoFragment())
         fragmentTransaction.addToBackStack(null)
@@ -120,6 +119,8 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
             }
         }
     }
+
+
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

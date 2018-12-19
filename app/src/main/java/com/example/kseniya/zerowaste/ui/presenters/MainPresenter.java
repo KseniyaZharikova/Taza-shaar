@@ -68,10 +68,8 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
         });
     }
 
-
     @Override
     public void downloadMarkers() {
-
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReferenceFromUrl(BASE_URL_FIREBASE + Constants.FIREBASE_RECEPTION_POINTS);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

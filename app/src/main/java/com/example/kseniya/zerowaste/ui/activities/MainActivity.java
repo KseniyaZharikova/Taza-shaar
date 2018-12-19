@@ -98,8 +98,6 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
                     .position(new LatLng(Double.parseDouble(pointFromDatabase.get(i).getLatitude()), Double.parseDouble(pointFromDatabase.get(i).getLongitude())))
                     .icon(icon));
             mMarkerList.add(marker);
-
-
         }
     }
 
@@ -127,7 +125,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         MainActivity.this.map = mapboxMap;
         showMarkers(lat, lng);
         cameraUpdate(Constants.LAT, Constants.LNG);
-//        drawReceptionPoints(mainPresenter.getPointFromDatabase());
+        drawReceptionPoints(mainPresenter.getPointFromDatabase());
         replaceFragment(new ChoseFragment());
         map.setOnMarkerClickListener(this);
 
