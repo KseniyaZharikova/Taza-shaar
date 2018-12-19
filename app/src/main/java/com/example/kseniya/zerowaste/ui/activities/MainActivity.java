@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     private MapboxMap map;
     private double lat;
     private double lng;
-    List<Marker> mMarkerList;
+    private List<Marker> mMarkerList = new ArrayList<>();
     private OfflineManager mOfflineManager;
     public static final String JSON_CHARSET = "UTF-8";
     public static final String JSON_FIELD_REGION_NAME = "BISHKEK";
@@ -90,11 +90,9 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     @SuppressLint("NewApi")
     @Override
     public void drawReceptionPoints(List<ReceptionPoint> pointFromDatabase) {
-
-        mMarkerList = new ArrayList<>();
         for (int i = 0; i < pointFromDatabase.size(); i++) {
             Icon icon = IconFactory.getInstance(this).fromResource(Constants.PointsType(pointFromDatabase.get(i).getType()));
-            Marker marker =  map.addMarker(new MarkerOptions()
+            Marker marker = map.addMarker(new MarkerOptions()
                     .position(new LatLng(Double.parseDouble(pointFromDatabase.get(i).getLatitude()), Double.parseDouble(pointFromDatabase.get(i).getLongitude())))
                     .icon(icon));
             mMarkerList.add(marker);

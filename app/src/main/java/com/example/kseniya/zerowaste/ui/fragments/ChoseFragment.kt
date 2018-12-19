@@ -29,6 +29,7 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
         mCallBack!!.onCheckBoxClicked(tag!!.toInt())
     }
 
+
     private fun switchFragment() {
         val fragmentManager = fragmentManager
         val fragmentTransaction = fragmentManager!!.beginTransaction()
@@ -40,6 +41,7 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initCheckbox()
+        mCallBack!!.showAllPoints()
         contentView.setOnClickListener {
             gestureListener?.let {
                 if (it.isCollapsed) {
@@ -119,7 +121,6 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
             }
         }
     }
-
 
 
     override fun onAttach(context: Context?) {
