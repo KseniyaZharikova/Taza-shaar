@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contentView"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_view"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_marginBottom="20dp"
+        android:id="@+id/some_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+
+            android:id="@+id/collapsedView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:src="@drawable/arrow_up" />
+
+            <TextView
+                android:gravity="center"
+                android:textSize="18dp"
+                android:text="ПУНКТ ПРИЕМА:"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@android:color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Агропром Холдинг №1"
+                        android:textColor="@android:color/holo_blue_light"
+                        android:textSize="22dp" />
+                    <View
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/darker_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/tvAddress"
+                        android:textSize="16dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Салиева 145/1 (Буденого)" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:id="@+id/tvPhone"
+                        android:textSize="16dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="0772 56 89 78" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:id="@+id/tvWorkTime"
+                        android:textSize="16dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="9:00-18:00" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:textSize="16dp"
+                        android:id="@+id/tvPrice"
+                        android:gravity="right"
+                        android:text="1кг-9 сом"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/darker_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"/>
+
+
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:src="@drawable/photo"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp" />
+                        <TextView
+                            android:layout_marginLeft="15dp"
+                            android:text="Утилизация: Бумажные отходы Пластмасса Резиновые отходы. Наличный расчёт. Оплата через банк."
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/expandedView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:src="@drawable/arrow_down" />
+
+            <TextView
+                android:gravity="center"
+                android:textSize="18dp"
+                android:text="ПУНКТ ПРИЕМА:"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@android:color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Агропром Холдинг №1"
+                        android:textColor="@android:color/holo_blue_light"
+                        android:textSize="22dp" />
+                    <View
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/darker_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="16dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="Салиева 145/1 (Буденого)" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="16dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="0772 56 89 78" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="16dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="9:00-18:00" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:textSize="16dp"
+                        android:gravity="right"
+                        android:text="1кг-9 сом"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/darker_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"/>
+
+
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:src="@drawable/photo"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp" />
+                        <TextView
+                            android:layout_marginLeft="15dp"
+                            android:text="Утилизация: Бумажные отходы Пластмасса Резиновые отходы. Наличный расчёт. Оплата через банк."                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
+
