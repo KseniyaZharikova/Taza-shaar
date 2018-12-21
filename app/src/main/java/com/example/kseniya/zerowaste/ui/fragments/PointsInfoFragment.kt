@@ -7,14 +7,18 @@ import android.view.View
 import com.example.kseniya.zerowaste.R
 import com.example.kseniya.zerowaste.adapters.PointsInfoAdapter
 import com.example.kseniya.zerowaste.interfaces.SortedList
+import com.example.kseniya.zerowaste.ui.presenters.PointsInfoPresenter
 import com.example.kseniya.zerowaste.utils.BitmapUtil
 import com.example.kseniya.zerowaste.utils.GestureListener
 import kotlinx.android.synthetic.main.fragment_points_info.*
 
-class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClickListener{
+class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClickListener,SortedList{
 
-    private var mAdapter: PointsInfoAdapter? = null
-    private var mLayoutManager: RecyclerView.LayoutManager? = null
+
+    override fun setNoResultVisible(isEmpty: Boolean) {
+
+    }
+    var presenter = PointsInfoPresenter()
     var expandedContentYPos: Float = 0f
     var collapsedContentYPos: Float = 0f
     private var gestureListener: GestureListener? = null
@@ -25,6 +29,7 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         contentView.setOnClickListener {
             gestureListener?.let {
                 if (it.isCollapsed) {
@@ -34,17 +39,21 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
                 }
             }
         }
-        mLayoutManager = LinearLayoutManager(context)
 
-        recyclerView.layoutManager = mLayoutManager;
-        mAdapter = PointsInfoAdapter(SortedList.list)
-        recyclerView!!.adapter = mAdapter
+        presenter.bind(this,SortedList.list)
+        presenter.bindRecyclerView(recyclerView)
+
 
     }
 
 
     override fun onClick(v: View?) {
 
+    }
+
+    override fun onClickItem(position: Int) {
+        val points = presenter.pointsForPosition(position)
+       // DishListActivity.new(this, points.id, cafe.title)
     }
 
     override fun collapseView() {

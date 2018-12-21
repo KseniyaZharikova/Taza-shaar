@@ -7,8 +7,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.kseniya.zerowaste.R
 import com.example.kseniya.zerowaste.data.ReceptionPoint
+import com.example.kseniya.zerowaste.interfaces.SortedList
 
-class PointsInfoAdapter(private val myDataset: List<ReceptionPoint>) : RecyclerView.Adapter<PointsInfoAdapter.MyViewHolder>() {
+class PointsInfoAdapter(private val myDataset: List<ReceptionPoint>, private val viewInterface: SortedList) : RecyclerView.Adapter<PointsInfoAdapter.MyViewHolder>() {
+
+    var filterItems: List<ReceptionPoint> = ArrayList()
+
+    init {
+        filterItems = myDataset
+    }
 
     class MyViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
         val tvName= v.findViewById<TextView>(R.id.tvName)
@@ -26,17 +33,20 @@ class PointsInfoAdapter(private val myDataset: List<ReceptionPoint>) : RecyclerV
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
-        holder.tvName.text = myDataset[position].name
-        holder.tvAddress.text = myDataset[position].address
-        holder.tvPhone.text = myDataset[position].phone
-        holder.tvWorkTime.text = myDataset[position].work_time
-        holder.tvPrice.text = myDataset[position].price
+        val item = filterItems[position]
+        holder.tvName.text = item.name
+        holder.tvAddress.text = item.address
+        holder.tvPhone.text = item.phone
+        holder.tvWorkTime.text = item.work_time
+        holder.tvPrice.text = item.price
+        holder.itemView.setOnClickListener { viewInterface.onClickItem(position) }
 
     }
 
 
-    override fun getItemCount() = myDataset.size
+    override fun getItemCount(): Int {
+        return filterItems.size
+    }
 
 }
 

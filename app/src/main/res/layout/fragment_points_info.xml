@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/contentView"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="250dp"
     android:background="@drawable/shape_view"
     android:orientation="vertical">
 
@@ -26,30 +26,13 @@
                 android:layout_gravity="center"
                 android:src="@drawable/arrow_up" />
 
-
-            <LinearLayout
-
-                android:layout_marginBottom="5dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-
-                <ImageView
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/arrow_left"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
-                <TextView
-                    android:layout_marginLeft="20dp"
-                    android:textSize="18dp"
-                    android:text="СПИСОК ПУНКТОВ ПРИЕМА:"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
+            <TextView
+android:gravity="center"
+                android:textSize="18dp"
+                android:text="СПИСОК ПУНКТОВ ПРИЕМА:"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -70,28 +53,16 @@
                 android:layout_height="35dp"
                 android:layout_gravity="center"
                 android:src="@drawable/arrow_down" />
-            <LinearLayout
 
-                android:layout_marginBottom="5dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-
-                <ImageView
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/arrow_left"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
                 <TextView
-                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
                     android:textSize="18dp"
                     android:text="СПИСОК ПУНКТОВ ПРИЕМА:"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-            </LinearLayout>
+
 
             <android.support.v7.widget.RecyclerView
                 android:layout_marginTop="10dp"
