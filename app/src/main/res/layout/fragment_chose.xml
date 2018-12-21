@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/contentView"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/shape_view"
     android:orientation="vertical">
 
@@ -32,88 +32,213 @@
                 android:layout_marginTop="20dp"
                 android:background="@android:color/white"
                 android:gravity="center"
-                android:text="ВЫБЕРИ ЧТО ХОЧЕШЬ СДАТЬ:"
+                android:text="ВЫБЕРИТЕ ТИП ОТХОДОВ:"
                 android:textColor="@android:color/black"
                 android:textSize="22dp" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@color/lightGray"
-                android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
                 <CheckBox
+                    android:tag="1"
+
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_margin="15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bottle_selector"
+                    android:background="@drawable/ic_bottle_active_1"
                     android:button="@null"
                     android:gravity="center" />
-
-                <CheckBox
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Пластик"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/glass_selector"
-                    android:button="@null" />
+                    android:layout_height="wrap_content" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/paper_selector"
-                    android:button="@null" />
+            </LinearLayout>
 
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
                 <CheckBox
+                    android:tag="2"
+
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_margin="15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/shirt_selector"
-                    android:button="@null" />
+                    android:background="@drawable/glass_gray"
+                    android:button="@null"
+                    android:gravity="center" />
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Стекло"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
             </LinearLayout>
 
             <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@color/lightGray"
-                android:orientation="horizontal">
-
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
                 <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/bag_selector"
-                    android:button="@null" />
+                    android:tag="3"
 
-                <CheckBox
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/apple_selector"
-                    android:button="@null" />
-
-                <CheckBox
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/ic_3_paper_active"
+                    android:button="@null"
+                    android:gravity="center" />
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Бумага"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/cow_selector"
-                    android:button="@null" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/mashine_selector"
-                    android:button="@null" />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:tag="4"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/shirt_color"
+                    android:button="@null"
+                    android:gravity="center" />
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Одежда"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:tag="5"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/ic_5_polietilen_active"
+                    android:button="@null"
+                    android:gravity="center" />
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Полиэтилен"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:tag="6"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/ic_6_organic_active"
+                    android:button="@null"
+                    android:gravity="center" />
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Органика"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:tag="7"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/cow_color"
+                    android:button="@null"
+                    android:gravity="center" />
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Скот"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:tag="8"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/mashine_color"
+                    android:button="@null"
+                    android:gravity="center" />
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Техника"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -134,7 +259,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:gravity="center"
-                android:text="ВЫБЕРИ ЧТО ХОЧЕШЬ СДАТЬ:"
+                android:text="ВЫБЕРИТЕ ТИП ОТХОДОВ:"
                 android:textColor="@android:color/black"
                 android:textSize="22dp" />
 
@@ -145,46 +270,99 @@
                 android:background="@android:color/white"
                 android:orientation="horizontal">
 
-                <CheckBox
-                    android:tag="1"
-                    android:id="@+id/checkboxBottle"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="15dp"
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/ic_bottle_active_1"
-                    android:button="@null"
-                    android:gravity="center" />
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:tag="1"
+                        android:id="@+id/checkboxBottle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/ic_bottle_active_1"
+                        android:button="@null"
+                        android:gravity="center" />
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Пластик"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-                <CheckBox
-                    android:tag="2"
-                    android:id="@+id/checkboxGlass"
-                    android:layout_width="0dp"
-                    android:layout_height="55dp"
-                    android:layout_margin="15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/glass_selector"
-                    android:button="@null" />
+                </LinearLayout>
 
-                <CheckBox
-                    android:tag="3"
-                    android:id="@+id/checkboxPaper"
-                    android:layout_width="0dp"
-                    android:layout_height="55dp"
-                    android:layout_margin="15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_3_paper_active"
-                    android:button="@null" />
 
-                <CheckBox
-                    android:tag="4"
-                    android:id="@+id/checkboxShirt"
-                    android:layout_width="0dp"
-                    android:layout_height="55dp"
-                    android:layout_margin="15dp"
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/shirt_selector"
-                    android:button="@null" />
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:tag="2"
+                        android:id="@+id/checkboxGlass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/glass_gray"
+                        android:button="@null"
+                        android:gravity="center" />
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Стекло"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:tag="3"
+                        android:id="@+id/checkboxPaper"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/ic_3_paper_active"
+                        android:button="@null"
+                        android:gravity="center" />
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Бумага"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:tag="4"
+                        android:id="@+id/checkboxShirt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/shirt_color"
+                        android:button="@null"
+                        android:gravity="center" />
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Одежда"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -194,45 +372,97 @@
                 android:background="@android:color/white"
                 android:orientation="horizontal">
 
-                <CheckBox
-                    android:tag="5"
-                    android:id="@+id/checkboxBag"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/ic_5_polietilen_active"
-                    android:button="@null" />
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:tag="5"
+                        android:id="@+id/checkboxBag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/ic_5_polietilen_active"
+                        android:button="@null"
+                        android:gravity="center" />
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Полиэтилен"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-                <CheckBox
-                    android:tag="6"
-                    android:id="@+id/checkboxApple"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_6_organic_active"
-                    android:button="@null" />
+                </LinearLayout>
 
-                <CheckBox
-                    android:tag="7"
-                    android:id="@+id/checkboxCow"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/cow_selector"
-                    android:button="@null" />
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:tag="6"
+                        android:id="@+id/checkboxApple"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/ic_6_organic_active"
+                        android:button="@null"
+                        android:gravity="center" />
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Органика"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-                <CheckBox
-                    android:tag="8"
-                    android:id="@+id/checkboxMashine"
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/mashine_selector"
-                    android:button="@null" />
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:tag="7"
+                        android:id="@+id/checkboxCow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/cow_color"
+                        android:button="@null"
+                        android:gravity="center" />
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Скот"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:tag="8"
+                        android:id="@+id/checkboxMashine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/mashine_color"
+                        android:button="@null"
+                        android:gravity="center" />
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Техника"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

@@ -92,7 +92,7 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
 
             contentView.animate()
                     .translationY(expandedContentYPos)
-                    .setListener(gestureListener?.contentAnimListener)
+                    .setListener(gestureListener!!.contentAnimListener)
                     .start()
         }
     }
