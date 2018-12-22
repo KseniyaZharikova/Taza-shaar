@@ -11,6 +11,7 @@ import com.example.kseniya.zerowaste.data.ReceptionPoint;
 import com.example.kseniya.zerowaste.data.db.SQLiteHelper;
 import com.example.kseniya.zerowaste.interfaces.MainInterface;
 import com.example.kseniya.zerowaste.interfaces.SortedList;
+import com.example.kseniya.zerowaste.ui.activities.SplashActivity;
 import com.example.kseniya.zerowaste.utils.ConnectionUtils;
 import com.example.kseniya.zerowaste.utils.Constants;
 import com.example.kseniya.zerowaste.utils.PermissionUtils;
@@ -50,23 +51,22 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
 
     @Override
     public void getPermission(Activity activity) {
-        if (PermissionUtils.Companion.isLocationEnable(activity)) {
-            getCurrentLocation(activity);
-            if (ConnectionUtils.isHasNetwork(activity.getApplicationContext()) && db.getReceptionPoints().size()!= 0) {
-                downloadMarkers();
-            } else {
-                if (db.getReceptionPoints().size()!= 0){
-                    getCurrentLocation(activity);
-                    mainView.startActivity(lat, lng);
-                }else {
-                    mainView.dialogNoInternet();
-                }
-
-
-            }
-
-        }
+//        if (PermissionUtils.Companion.isLocationEnable(activity)) {
+//            getCurrentLocation(activity);
+            checkNetwork(activity);
+//        }
     }
+
+	 @Override
+    public void checkNetwork(Activity activity){
+        if (ConnectionUtils.isHasNetwork(activity.getApplicationContext())) {
+                downloadMarkers();
+        } else  if (db.getReceptionPoints().size()!= 0){
+                mainView.startActivity(lat, lng);
+            }else {
+                mainView.dialogNoInternet();
+            }
+        }
 
 
     @SuppressLint("MissingPermission")

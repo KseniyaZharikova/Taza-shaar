@@ -27,6 +27,8 @@ public interface MainInterface {
 
 		void getCurrentLocation(Activity activity);
 
+      void checkNetwork(Activity activity);
+
 		void getPermission(Activity activity);
 
 		void startLocationUpdates();

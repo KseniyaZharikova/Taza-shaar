@@ -1,6 +1,7 @@
 package com.example.kseniya.zerowaste.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -29,7 +30,6 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.offline.OfflineManager;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,14 +68,12 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
 
         mainPresenter = new MainPresenter(ZeroWasteApp.get(this).getSqLiteHelper());
         mainPresenter.bind(this);
-        mainPresenter.getCurrentLocation(this);
         initMap(savedInstanceState);
         myLocation.setOnClickListener(this);
         lat = getIntent().getDoubleExtra("lat", 0);
         lng = getIntent().getDoubleExtra("lng", 0);
 //        mPoints = (List<ReceptionPoint>) getIntent().getSerializableExtra("reception_points");
 
-        mainPresenter.startLocationUpdates();
     }
 
     private void initMap(Bundle savedInstanceState) {
@@ -119,6 +117,20 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Constants.LOCATION_REQUEST_CODE) {
+            for (int result : grantResults) {
+                if (result == PackageManager.PERMISSION_GRANTED) {
+                    mainPresenter.getCurrentLocation(this);
+                }
+            }
+
+        }
+    }
+
+
+    @Override
     public void onMapReady(MapboxMap mapboxMap) {
         Log.d(TAG, "onMapReady: ready");
         mOfflineManager = OfflineManager.getInstance(MainActivity.this);
@@ -130,6 +142,10 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         drawReceptionPoints(mainPresenter.getPointFromDatabase());
         replaceFragment(new ChoseFragment());
         map.setOnMarkerClickListener(this);
+        if (PermissionUtils.Companion.isLocationEnable(this)) {
+            mainPresenter.startLocationUpdates();
+        }
+
 
     }
 
@@ -250,9 +266,8 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     }
 
     public void showMarkers(Double lat, Double lng) {
-        if (PermissionUtils.Companion.isLocationEnable(this)) {
+        if (PermissionUtils.Companion.isLocationGranted(this) || PermissionUtils.Companion.isLocationEnable(this))
             map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
-        }
     }
 
     @Override

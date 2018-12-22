@@ -3,6 +3,7 @@ package com.example.kseniya.zerowaste.ui.activities;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.example.kseniya.zerowaste.R;
@@ -18,7 +19,6 @@ import java.util.List;
 
 public class SplashActivity extends BaseActivity implements MainInterface.View {
 
-    private boolean isAllDataReady = false;
     private MainInterface.Presenter mainPresenter;
 
     @Override
@@ -32,8 +32,8 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
         super.onCreate(savedInstanceState);
         mainPresenter = new MainPresenter(ZeroWasteApp.get(this).getSqLiteHelper());
         mainPresenter.bind(this);
-
         mainPresenter.getPermission(this);
+
 
     }
 
@@ -48,7 +48,7 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
             }
 
         }
-        mainPresenter.downloadMarkers();
+        mainPresenter.checkNetwork(this);
     }
 
     @Override
@@ -59,11 +59,13 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
 
     @Override
     public void startActivity(Double lat, Double lng) {
+        new Handler().postDelayed(() -> {
+            startActivity(new Intent(this, MainActivity.class)
+                  .putExtra("lat", lat)
+                  .putExtra("lng", lng));
+            finish();
 
-        startActivity(new Intent(this, MainActivity.class)
-                .putExtra("lat", lat)
-                .putExtra("lng", lng));
-        finish();
+        },2000);
 
     }
 
