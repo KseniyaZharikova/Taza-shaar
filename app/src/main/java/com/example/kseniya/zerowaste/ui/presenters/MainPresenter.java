@@ -52,10 +52,17 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     public void getPermission(Activity activity) {
         if (PermissionUtils.Companion.isLocationEnable(activity)) {
             getCurrentLocation(activity);
-            if (ConnectionUtils.isHasNetwork(activity.getApplicationContext())) {
+            if (ConnectionUtils.isHasNetwork(activity.getApplicationContext()) && db.getReceptionPoints().size()!= 0) {
                 downloadMarkers();
             } else {
-                mainView.dialogNoInternet();
+                if (db.getReceptionPoints().size()!= 0){
+                    getCurrentLocation(activity);
+                    mainView.startActivity(lat, lng);
+                }else {
+                    mainView.dialogNoInternet();
+                }
+
+
             }
 
         }

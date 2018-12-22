@@ -35,6 +35,7 @@ abstract class BaseActivity : AppCompatActivity() {
         if (!isFinishing) {
             AlertDialog.Builder(this)
                     .setTitle(title)
+                    .setCancelable(false)
                     .setMessage(getString(R.string.title_no_internet))
                     .setNegativeButton(getString(R.string.close)) { _, _ ->
                         finish()
