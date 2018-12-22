@@ -51,10 +51,9 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
 
     @Override
     public void getPermission(Activity activity) {
-//        if (PermissionUtils.Companion.isLocationEnable(activity)) {
-//            getCurrentLocation(activity);
-            checkNetwork(activity);
-//        }
+       if (PermissionUtils.Companion.isLocationEnable(activity)) {
+            getCurrentLocation(activity);
+        }
     }
 
 	 @Override
@@ -62,7 +61,7 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
         if (ConnectionUtils.isHasNetwork(activity.getApplicationContext())) {
                 downloadMarkers();
         } else  if (db.getReceptionPoints().size()!= 0){
-                mainView.startActivity(lat, lng);
+                mainView.startActivity();
             }else {
                 mainView.dialogNoInternet();
             }
@@ -77,8 +76,10 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
 
             lat = location.getLatitude();
             lng = location.getLongitude();
-
+	        mainView.cameraUpdate(lat, lng);
         });
+
+
     }
 
     @Override
@@ -95,7 +96,9 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
                     Log.d(TAG, "onDataChange: " + pointList.size());
                 }
                 saveMarkersToDb();
-                mainView.startActivity(lat, lng);
+
+                mainView.startActivity();
+
             }
 
             @Override
@@ -159,13 +162,18 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
         @Override
         public void onLocationResult(LocationResult locationResult) {
             super.onLocationResult(locationResult);
+            Location location = locationResult.getLastLocation();
+
+            mainView.cameraUpdate(location.getLatitude(), location.getLongitude());
             Log.d(TAG, "onLocationChanged: " + locationResult.getLastLocation().getLongitude() + " " + locationResult.getLastLocation().getLatitude());
         }
     };
 
     @Override
     public void onLocationChanged(Location location) {
-        mainView.showMarkers(location.getLatitude(), location.getLongitude());
+        Log.d("Loca_onLocationChanged", String.valueOf(location.getLatitude() + " " + location.getLongitude()));
+
 
     }
+
 }

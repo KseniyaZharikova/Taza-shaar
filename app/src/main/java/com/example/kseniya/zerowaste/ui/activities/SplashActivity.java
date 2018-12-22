@@ -32,24 +32,12 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
         super.onCreate(savedInstanceState);
         mainPresenter = new MainPresenter(ZeroWasteApp.get(this).getSqLiteHelper());
         mainPresenter.bind(this);
-        mainPresenter.getPermission(this);
-
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == Constants.LOCATION_REQUEST_CODE) {
-            for (int result : grantResults) {
-                if (result == PackageManager.PERMISSION_GRANTED) {
-                    mainPresenter.getCurrentLocation(this);
-                }
-            }
-
-        }
         mainPresenter.checkNetwork(this);
+
+
     }
+
+
 
     @Override
     protected void onResume() {
@@ -58,11 +46,9 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
     }
 
     @Override
-    public void startActivity(Double lat, Double lng) {
+    public void startActivity() {
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(this, MainActivity.class)
-                  .putExtra("lat", lat)
-                  .putExtra("lng", lng));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
 
         },2000);
@@ -74,6 +60,11 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
         showSimpleAlert();
     }
 
+
+    @Override
+    public void cameraUpdate(double lat, double lng) {
+
+    }
 
     @Override
     public void showMarkers(Double lat, Double lng) {

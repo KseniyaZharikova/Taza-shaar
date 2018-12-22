@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface MainInterface {
 	interface View {
+		void cameraUpdate(double lat, double lng);
 
 		void showMarkers(Double lat, Double lng);
 
@@ -15,7 +16,7 @@ public interface MainInterface {
 
 		void showFilteredReceptionPoints(List<ReceptionPoint> list);
 
-		void startActivity(Double lat, Double lng);
+		void startActivity();
 
 		void dialogNoInternet();
 
