@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.kseniya.zerowaste.data.ReceptionPoint;
-import com.example.kseniya.zerowaste.data.db.ZeroWasteDatabase;
+import com.example.kseniya.zerowaste.data.db.SQLiteHelper;
 import com.example.kseniya.zerowaste.interfaces.MainInterface;
 import com.example.kseniya.zerowaste.interfaces.SortedList;
 import com.example.kseniya.zerowaste.utils.Constants;
@@ -26,7 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.example.kseniya.zerowaste.BuildConfig.BASE_URL_FIREBASE;
@@ -36,16 +35,17 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private double lat;
     private double lng;
-    private ZeroWasteDatabase db;
+    private SQLiteHelper db;
 
     private final String TAG = getClass().getSimpleName();
 
-    public MainPresenter(ZeroWasteDatabase database) {
-        db = database;
-        pointList = db.mZeroWasteDAO().getReceptionPoints();
-    }
 
     private List<ReceptionPoint> pointList;
+
+    public MainPresenter(SQLiteHelper sqLiteHelper) {
+        db = sqLiteHelper;
+        pointList = getPointFromDatabase();
+    }
 
     @Override
     public void getPermission(Activity activity) {
@@ -93,8 +93,8 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     }
 
     private void saveMarkersToDb() {
-        db.mZeroWasteDAO().deleteReceptionPoints();
-        db.mZeroWasteDAO().insertReceptionPoints(pointList);
+        db.deleteReceptionPoints();
+        db.saveReceptionPoints(pointList);
     }
 
     @Override
@@ -137,8 +137,8 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
 
     @Override
     public List<ReceptionPoint> getPointFromDatabase() {
-        Log.d(TAG, "getPointFromDatabase: " + db.mZeroWasteDAO().getReceptionPoints().size());
-        return db.mZeroWasteDAO().getReceptionPoints();
+        Log.d(TAG, "getPointFromDatabase: " );
+        return db.getReceptionPoints();
     }
 
 

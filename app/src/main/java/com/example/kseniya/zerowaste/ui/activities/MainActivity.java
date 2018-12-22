@@ -3,10 +3,12 @@ package com.example.kseniya.zerowaste.ui.activities;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.kseniya.zerowaste.R;
 import com.example.kseniya.zerowaste.ZeroWasteApp;
@@ -46,6 +48,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     private final String TAG = getClass().getSimpleName();
     private MainInterface.Presenter mainPresenter;
     private MapboxMap map;
+    private boolean doubleBackToExitPressedOnce;
     private double lat;
     private double lng;
     private List<Marker> mMarkerList = new ArrayList<>();
@@ -68,7 +71,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mainPresenter = new MainPresenter(ZeroWasteApp.get(this).getDatabase());
+        mainPresenter = new MainPresenter(ZeroWasteApp.get(this).getSqLiteHelper());
         mainPresenter.bind(this);
         mainPresenter.getCurrentLocation(this);
         initMap(savedInstanceState);
@@ -94,7 +97,8 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
             Icon icon = IconFactory.getInstance(this).fromResource(Constants.PointsType(pointFromDatabase.get(i).getType()));
             Marker marker = map.addMarker(new MarkerOptions()
                     .position(new LatLng(Double.parseDouble(pointFromDatabase.get(i).getLatitude()), Double.parseDouble(pointFromDatabase.get(i).getLongitude())))
-                    .icon(icon));
+                    .icon(icon)
+            .setTitle(pointFromDatabase.get(i).getName()));
             mMarkerList.add(marker);
         }
     }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ZeroWaste</string>
+    <string name="exit_notice">Для выхода \"Назад\" нажмите еще раз</string>
 </resources>
