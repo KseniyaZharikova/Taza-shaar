@@ -50,11 +50,9 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Агропром Холдинг №1"
                         android:textColor="@android:color/holo_blue_light"
                         android:textSize="22dp" />
                     <View
@@ -67,32 +65,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:id="@+id/tvAddress"
                         android:textSize="16dp"
                         android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="Салиева 145/1 (Буденого)" />
+                        android:gravity="right" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:id="@+id/tvPhone"
                         android:textSize="16dp"
                         android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="0772 56 89 78" />
+                        android:gravity="right" />
 
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:id="@+id/tvWorkTime"
                         android:textSize="16dp"
                         android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="9:00-18:00" />
+                        android:gravity="right" />
 
 
                     <TextView
@@ -101,9 +93,7 @@
                         android:layout_marginTop="2dp"
                         android:layout_weight="1"
                         android:textSize="16dp"
-                        android:id="@+id/tvPrice"
                         android:gravity="right"
-                        android:text="1кг-9 сом"
                         android:textStyle="bold" />
 
                     <View
@@ -175,10 +165,10 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Агропром Холдинг №1"
                         android:textColor="@android:color/holo_blue_light"
                         android:textSize="22dp" />
                     <View
@@ -188,42 +178,42 @@
                         android:layout_height="0.5dp"/>
 
                     <TextView
+                        android:id="@+id/tvAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:textSize="16dp"
                         android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="Салиева 145/1 (Буденого)" />
+                        android:gravity="right" />
 
                     <TextView
+                        android:id="@+id/tvPhone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:textSize="16dp"
                         android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="0772 56 89 78" />
+                        android:gravity="right" />
 
 
                     <TextView
+                        android:id="@+id/tvWorkTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:textSize="16dp"
                         android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="9:00-18:00" />
+                        android:gravity="right" />
 
 
                     <TextView
+                        android:id="@+id/tvPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:layout_weight="1"
                         android:textSize="16dp"
                         android:gravity="right"
-                        android:text="1кг-9 сом"
                         android:textStyle="bold" />
 
                     <View

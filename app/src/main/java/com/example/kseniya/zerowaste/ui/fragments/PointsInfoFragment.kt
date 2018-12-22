@@ -52,8 +52,13 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
     }
 
     override fun onClickItem(position: Int) {
-        val points = presenter.pointsForPosition(position)
+        val point = presenter.pointsForPosition(position)
        // DishListActivity.new(this, points.id, cafe.title)
+        val fragmentManager = fragmentManager
+        val fragmentTransaction = fragmentManager!!.beginTransaction()
+        fragmentTransaction.replace(R.id.container, InfoFragment.newInstance(point))
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     override fun collapseView() {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/contentView"
     android:layout_width="match_parent"
     android:layout_height="250dp"
@@ -66,6 +67,7 @@ android:gravity="center"
 
             <android.support.v7.widget.RecyclerView
                 android:layout_marginTop="10dp"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

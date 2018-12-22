@@ -3,9 +3,11 @@ package com.example.kseniya.zerowaste.ui.fragments
 import android.os.Bundle
 import android.view.View
 import com.example.kseniya.zerowaste.R
+import com.example.kseniya.zerowaste.data.ReceptionPoint
 import com.example.kseniya.zerowaste.utils.BitmapUtil
 import com.example.kseniya.zerowaste.utils.GestureListener
 import kotlinx.android.synthetic.main.info_fragment.*
+
 
 class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListener {
 
@@ -13,13 +15,26 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
     var collapsedContentYPos: Float = 0f
     private var gestureListener: GestureListener? = null
 
+    var item: ReceptionPoint? = null
+
+
+    companion object {
+        fun newInstance(item: ReceptionPoint): InfoFragment {
+            val fragment = InfoFragment()
+            val bundle = Bundle()
+            bundle.putSerializable("item", item)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
     override fun getViewLayout(): Int {
         return R.layout.info_fragment
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        item = arguments!!.getSerializable("item") as ReceptionPoint
         contentView.setOnClickListener {
             gestureListener?.let {
                 if (it.isCollapsed) {
@@ -30,7 +45,11 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
             }
         }
 
-
+        tvName.text = item!!.name
+        tvAddress.text = item!!.address
+        tvPhone.text = item!!.phone
+        tvWorkTime.text = item!!.work_time
+        tvPrice.text = item!!.price
 
     }
 
