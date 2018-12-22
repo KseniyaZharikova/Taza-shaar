@@ -227,6 +227,7 @@
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
+
                         android:layout_height="wrap_content">
                         <ImageView
                             android:src="@drawable/photo"
@@ -236,6 +237,7 @@
                             android:layout_marginLeft="15dp"
                             android:text="Утилизация: Бумажные отходы Пластмасса Резиновые отходы. Наличный расчёт. Оплата через банк."                            android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
+
                     </LinearLayout>
 
 
