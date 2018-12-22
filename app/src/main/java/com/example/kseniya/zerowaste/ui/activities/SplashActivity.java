@@ -32,6 +32,7 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
         super.onCreate(savedInstanceState);
         mainPresenter = new MainPresenter(ZeroWasteApp.get(this).getSqLiteHelper());
         mainPresenter.bind(this);
+
         mainPresenter.getPermission(this);
 
     }
@@ -57,14 +58,18 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
     }
 
     @Override
-    public void startActivity(Double lat, Double lng, List<ReceptionPoint> pointList) {
+    public void startActivity(Double lat, Double lng) {
 
         startActivity(new Intent(this, MainActivity.class)
                 .putExtra("lat", lat)
-                .putExtra("lng", lng)
-                .putExtra("reception_points", (Serializable) pointList));
+                .putExtra("lng", lng));
         finish();
 
+    }
+
+    @Override
+    public void dialogNoInternet() {
+        showSimpleAlert();
     }
 
 

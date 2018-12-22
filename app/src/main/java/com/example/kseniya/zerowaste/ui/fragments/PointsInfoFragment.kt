@@ -42,8 +42,6 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
 
         presenter.bind(this,SortedList.list)
         presenter.bindRecyclerView(recyclerView)
-
-
     }
 
 

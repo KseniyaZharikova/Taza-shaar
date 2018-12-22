@@ -1,14 +1,11 @@
 package com.example.kseniya.zerowaste.ui.activities;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.kseniya.zerowaste.R;
 import com.example.kseniya.zerowaste.ZeroWasteApp;
@@ -32,10 +29,8 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.offline.OfflineManager;
-import com.squareup.picasso.Picasso;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,7 +109,12 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     }
 
     @Override
-    public void startActivity(Double lat, Double lng, List<ReceptionPoint> pointList) {
+    public void startActivity(Double lat, Double lng) {
+
+    }
+
+    @Override
+    public void dialogNoInternet() {
 
     }
 
@@ -126,7 +126,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
 //        downloadOfflineBishkek(mapboxMap);
         MainActivity.this.map = mapboxMap;
         showMarkers(lat, lng);
-        cameraUpdate(Constants.LAT, Constants.LNG);
+        cameraUpdate(lat, lng);
         drawReceptionPoints(mainPresenter.getPointFromDatabase());
         replaceFragment(new ChoseFragment());
         map.setOnMarkerClickListener(this);
@@ -193,15 +193,10 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
 //    }
 
     private void cameraUpdate(double lat, double lng) {
-        if (this.lat == 0.0) {
             CameraPosition position = new CameraPosition.Builder()
                     .target(new LatLng(lat, lng)).zoom(12).tilt(14).build();
             map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
-        } else {
-            CameraPosition position = new CameraPosition.Builder()
-                    .target(new LatLng(lat, lng)).zoom(16).tilt(20).build();
-            map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
-        }
+
 
     }
 

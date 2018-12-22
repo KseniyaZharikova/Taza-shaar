@@ -11,6 +11,7 @@ import com.example.kseniya.zerowaste.data.ReceptionPoint;
 import com.example.kseniya.zerowaste.data.db.SQLiteHelper;
 import com.example.kseniya.zerowaste.interfaces.MainInterface;
 import com.example.kseniya.zerowaste.interfaces.SortedList;
+import com.example.kseniya.zerowaste.utils.ConnectionUtils;
 import com.example.kseniya.zerowaste.utils.Constants;
 import com.example.kseniya.zerowaste.utils.PermissionUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -33,8 +34,8 @@ import static com.example.kseniya.zerowaste.BuildConfig.BASE_URL_FIREBASE;
 public class MainPresenter implements MainInterface.Presenter, LocationListener {
     private MainInterface.View mainView;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private double lat;
-    private double lng;
+    private double lat = Constants.LAT;
+    private double lng = Constants.LNG;
     private SQLiteHelper db;
 
     private final String TAG = getClass().getSimpleName();
@@ -51,7 +52,12 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     public void getPermission(Activity activity) {
         if (PermissionUtils.Companion.isLocationEnable(activity)) {
             getCurrentLocation(activity);
-            downloadMarkers();
+            if (ConnectionUtils.isHasNetwork(activity.getApplicationContext())) {
+                downloadMarkers();
+            } else {
+                mainView.dialogNoInternet();
+            }
+
         }
     }
 
@@ -82,7 +88,7 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
                     Log.d(TAG, "onDataChange: " + pointList.size());
                 }
                 saveMarkersToDb();
-                mainView.startActivity(lat, lng, pointList);
+                mainView.startActivity(lat, lng);
             }
 
             @Override
@@ -137,7 +143,7 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
 
     @Override
     public List<ReceptionPoint> getPointFromDatabase() {
-        Log.d(TAG, "getPointFromDatabase: " );
+        Log.d(TAG, "getPointFromDatabase: ");
         return db.getReceptionPoints();
     }
 

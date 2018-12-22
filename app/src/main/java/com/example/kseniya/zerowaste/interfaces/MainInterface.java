@@ -15,7 +15,9 @@ public interface MainInterface {
 
 		void showFilteredReceptionPoints(List<ReceptionPoint> list);
 
-		void startActivity(Double lat, Double lng, List<ReceptionPoint> pointList);
+		void startActivity(Double lat, Double lng);
+
+		void dialogNoInternet();
 
 	}
 

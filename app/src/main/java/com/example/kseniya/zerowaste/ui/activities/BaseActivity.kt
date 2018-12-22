@@ -1,10 +1,14 @@
 package com.example.kseniya.zerowaste.ui.activities
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import butterknife.ButterKnife
 import com.example.kseniya.zerowaste.R
+import android.support.annotation.StringRes
+import android.support.v7.app.AlertDialog
+
 
 abstract class BaseActivity : AppCompatActivity() {
     protected abstract fun getViewLayout(): Int
@@ -25,5 +29,17 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         destroyed = true
+    }
+
+    protected fun showSimpleAlert() {
+        if (!isFinishing) {
+            AlertDialog.Builder(this)
+                    .setTitle(title)
+                    .setMessage(getString(R.string.title_no_internet))
+                    .setNegativeButton(getString(R.string.close)) { _, _ ->
+                        finish()
+                    }
+                    .show()
+        }
     }
 }
