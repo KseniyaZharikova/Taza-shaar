@@ -2,11 +2,13 @@ package com.example.kseniya.zerowaste.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.example.kseniya.zerowaste.R
 import com.example.kseniya.zerowaste.data.ReceptionPoint
 import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface
 import com.example.kseniya.zerowaste.utils.BitmapUtil
+import com.example.kseniya.zerowaste.utils.Constants
 import com.example.kseniya.zerowaste.utils.GestureListener
 import kotlinx.android.synthetic.main.info_fragment.*
 
@@ -33,10 +35,18 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
 
     override fun getViewLayout(): Int {
         return R.layout.info_fragment
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val params = view.layoutParams
+        Log.d("layoutParams",  params.height.toString())
+        params.height = (Constants.HIGHT_OF_ACTIVITY / 2) - 200
+        view.layoutParams = params
+
+        
         item = arguments!!.getSerializable("item") as ReceptionPoint
         contentView.setOnClickListener {
             gestureListener?.let {
@@ -110,6 +120,10 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         mCallBack = context as CheckBoxInterface
+    }
+
+    private fun setHightFragment() {
+
     }
 
     override fun onResume() {
