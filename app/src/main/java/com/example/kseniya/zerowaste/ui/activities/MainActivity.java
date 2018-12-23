@@ -12,7 +12,9 @@ import com.example.kseniya.zerowaste.ZeroWasteApp;
 import com.example.kseniya.zerowaste.data.ReceptionPoint;
 import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface;
 import com.example.kseniya.zerowaste.interfaces.MainInterface;
+import com.example.kseniya.zerowaste.interfaces.SortedList;
 import com.example.kseniya.zerowaste.ui.fragments.ChoseFragment;
+import com.example.kseniya.zerowaste.ui.fragments.InfoFragment;
 import com.example.kseniya.zerowaste.ui.presenters.MainPresenter;
 import com.example.kseniya.zerowaste.utils.Constants;
 import com.example.kseniya.zerowaste.utils.PermissionUtils;
@@ -43,7 +45,6 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     private final String TAG = getClass().getSimpleName();
     private MainInterface.Presenter mainPresenter;
     private MapboxMap map;
-    private boolean doubleBackToExitPressedOnce;
     private double lat;
     private double lng;
     private List<Marker> mMarkerList = new ArrayList<>();
@@ -92,10 +93,11 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
             Icon icon = IconFactory.getInstance(this).fromResource(Constants.PointsType(pointFromDatabase.get(i).getType()));
             Marker marker = map.addMarker(new MarkerOptions()
                     .position(new LatLng(Double.parseDouble(pointFromDatabase.get(i).getLatitude()), Double.parseDouble(pointFromDatabase.get(i).getLongitude())))
-                    .icon(icon)
-            .setTitle(pointFromDatabase.get(i).getName()));
+                    .icon(icon));
             mMarkerList.add(marker);
         }
+        map.setOnMarkerClickListener(this);
+        Log.d(TAG, "drawReceptionPoints: ");
     }
 
     @Override
@@ -127,7 +129,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         MainActivity.this.map = mapboxMap;
         showMarkers(lat, lng);
         cameraUpdate(lat, lng);
-        drawReceptionPoints(mainPresenter.getPointFromDatabase());
+//        drawReceptionPoints(mainPresenter.getPointFromDatabase());
         replaceFragment(new ChoseFragment());
         map.setOnMarkerClickListener(this);
 
@@ -193,9 +195,9 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
 //    }
 
     private void cameraUpdate(double lat, double lng) {
-            CameraPosition position = new CameraPosition.Builder()
-                    .target(new LatLng(lat, lng)).zoom(12).tilt(14).build();
-            map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
+        CameraPosition position = new CameraPosition.Builder()
+                .target(new LatLng(lat, lng)).zoom(12).tilt(14).build();
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
 
 
     }
@@ -262,12 +264,27 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
 
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
-        cameraUpdate(marker.getPosition().getLatitude(), marker.getPosition().getLongitude());
+        int i = mainPresenter.getPointFromDatabase().size();
+        if (mMarkerList.size() != i) {
+            Log.d(TAG, "onMarkerClick: " + SortedList.list.size());
+            Log.d(TAG, "onMarkerClick: " + mMarkerList.size());
+            Log.d(TAG, "onMarkerClick: " + mainPresenter.getPointFromDatabase().size() );
+            showAllPoints();
+        } else {
+            replaceFragmentToInfo(mainPresenter.getCurrentPoint(mMarkerList.lastIndexOf(marker)));
+            cameraUpdate(marker.getPosition().getLatitude(), marker.getPosition().getLongitude());
+        }
+
         return false;
     }
 
+
     @Override
     public void showAllPoints() {
-        drawReceptionPoints(mainPresenter.getPointFromDatabase());
+        if (mMarkerList.size() != mainPresenter.getPointFromDatabase().size()) {
+            mMarkerList.clear();
+            drawReceptionPoints(mainPresenter.getPointFromDatabase());
+        }
+
     }
 }

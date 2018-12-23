@@ -28,8 +28,8 @@ public class Constants {
             case 4: return R.mipmap.clothing_location;
             case 5: return R.mipmap.polietilen_location;
             case 6: return R.mipmap.organic_location;
-            case 7: return R.mipmap.skot_location;
-            case 8: return R.mipmap.tech_location;
+            case 7: return R.mipmap.tech_location;
+            case 8: return R.mipmap.skot_location;
         }
         return R.drawable.arrow_up;
 

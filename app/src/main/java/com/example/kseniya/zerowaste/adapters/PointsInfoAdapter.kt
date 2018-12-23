@@ -34,7 +34,7 @@ class PointsInfoAdapter(private val myDataset: List<ReceptionPoint>, private val
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = filterItems[position]
-        holder.tvName.text = item.name
+        holder.tvName.text = item.name + " " + SortedList.list.size
         holder.tvAddress.text = item.address
         holder.tvPhone.text = item.phone
         holder.tvWorkTime.text = item.work_time

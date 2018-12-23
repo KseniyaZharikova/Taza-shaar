@@ -52,13 +52,13 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     public void getPermission(Activity activity) {
         if (PermissionUtils.Companion.isLocationEnable(activity)) {
             getCurrentLocation(activity);
-            if (ConnectionUtils.isHasNetwork(activity.getApplicationContext()) && db.getReceptionPoints().size()!= 0) {
+            if (ConnectionUtils.isHasNetwork(activity.getApplicationContext()) && db.getReceptionPoints().size() != 0) {
                 downloadMarkers();
             } else {
-                if (db.getReceptionPoints().size()!= 0){
+                if (db.getReceptionPoints().size() != 0) {
                     getCurrentLocation(activity);
                     mainView.startActivity(lat, lng);
-                }else {
+                } else {
                     mainView.dialogNoInternet();
                 }
 
@@ -136,16 +136,25 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     }
 
     @Override
+    public ReceptionPoint getCurrentPoint(int position) {
+        if (SortedList.list.size() != 0) {
+            return SortedList.list.get(position);
+        }
+        return pointList.get(position);
+    }
+
+    @Override
     public void setCheckedPoints(int category) {
         List<ReceptionPoint> list = new ArrayList<>();
+
         for (int i = 0; i < pointList.size(); i++) {
             if (pointList.get(i).getType() == category)
                 list.add(pointList.get(i));
+            mainView.showFilteredReceptionPoints(list);
+            SortedList.list.clear();
+            SortedList.list.addAll(list);
+            Log.d(TAG, "setCheckedPoints: " + list.size());
         }
-        mainView.showFilteredReceptionPoints(list);
-        SortedList.list.clear();
-        SortedList.list.addAll(list);
-        Log.d(TAG, "setCheckedPoints: " + list.size());
     }
 
     @Override

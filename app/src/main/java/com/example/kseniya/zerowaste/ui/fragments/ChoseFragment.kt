@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.kseniya.zerowaste.R
 import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface
+import com.example.kseniya.zerowaste.interfaces.SortedList
 import com.example.kseniya.zerowaste.ui.activities.MainActivity
 import com.example.kseniya.zerowaste.utils.BitmapUtil
 import com.example.kseniya.zerowaste.utils.GestureListener
@@ -51,6 +52,7 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
                 }
             }
         }
+        SortedList.list.clear()
     }
 
     private fun initCheckbox() {

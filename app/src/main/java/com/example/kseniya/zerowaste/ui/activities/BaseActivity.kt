@@ -7,7 +7,11 @@ import android.support.v7.app.AppCompatActivity
 import butterknife.ButterKnife
 import com.example.kseniya.zerowaste.R
 import android.support.annotation.StringRes
+import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AlertDialog
+import android.transition.Transition
+import com.example.kseniya.zerowaste.data.ReceptionPoint
+import com.example.kseniya.zerowaste.ui.fragments.InfoFragment
 
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -25,6 +29,17 @@ abstract class BaseActivity : AppCompatActivity() {
         if (supportFragmentManager == null) return
         supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
     }
+
+
+    protected fun replaceFragmentToInfo(point: ReceptionPoint) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager!!.beginTransaction()
+        fragmentTransaction.replace(R.id.container, InfoFragment.newInstance(point))
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

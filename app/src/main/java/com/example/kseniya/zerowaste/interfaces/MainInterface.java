@@ -31,6 +31,8 @@ public interface MainInterface {
 
 		void startLocationUpdates();
 
+		ReceptionPoint getCurrentPoint(int position);
+
 		void setCheckedPoints(int category);
 
 		List<ReceptionPoint>  getPointFromDatabase();
