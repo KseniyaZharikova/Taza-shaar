@@ -122,9 +122,6 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
         mCallBack = context as CheckBoxInterface
     }
 
-    private fun setHightFragment() {
-
-    }
 
     override fun onResume() {
         super.onResume()
