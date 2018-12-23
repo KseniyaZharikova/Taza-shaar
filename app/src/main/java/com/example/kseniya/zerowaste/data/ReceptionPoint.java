@@ -23,6 +23,23 @@ public class ReceptionPoint implements Serializable {
     private String longitude;
     private String phone;
 
+     public ReceptionPoint(){
+
+    }
+
+    public ReceptionPoint (ReceptionPoint receptionPoint){
+        this.id = receptionPoint.getId();
+        this.name = receptionPoint.getName();
+        this.address = receptionPoint.getAddress();
+        this.type = receptionPoint.getType();
+        this.price = receptionPoint.getPrice();
+        this.work_time = receptionPoint.getWork_time();
+        this.latitude = receptionPoint.getLatitude();
+        this.longitude = receptionPoint.getLongitude();
+        this.phone = receptionPoint.getPhone();
+
+    }
+
     public int getId_key() {
         return id_key;
     }

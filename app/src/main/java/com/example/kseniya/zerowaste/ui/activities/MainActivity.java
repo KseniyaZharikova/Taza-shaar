@@ -13,6 +13,7 @@ import com.example.kseniya.zerowaste.ZeroWasteApp;
 import com.example.kseniya.zerowaste.data.ReceptionPoint;
 import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface;
 import com.example.kseniya.zerowaste.interfaces.MainInterface;
+import com.example.kseniya.zerowaste.interfaces.SortedList;
 import com.example.kseniya.zerowaste.ui.fragments.ChoseFragment;
 import com.example.kseniya.zerowaste.ui.presenters.MainPresenter;
 import com.example.kseniya.zerowaste.utils.Constants;
@@ -30,6 +31,8 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +45,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     private final String TAG = getClass().getSimpleName();
     private MainInterface.Presenter mainPresenter;
     private MapboxMap map;
-    Marker marker;
+    private Marker marker;
     private List<Marker> mMarkerList = new ArrayList<>();
 
     @BindView(R.id.mapView)
@@ -81,18 +84,19 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
             Icon icon = IconFactory.getInstance(this).fromResource(Constants.PointsType(pointFromDatabase.get(i).getType()));
             Marker marker = map.addMarker(new MarkerOptions()
                     .position(new LatLng(Double.parseDouble(pointFromDatabase.get(i).getLatitude()), Double.parseDouble(pointFromDatabase.get(i).getLongitude())))
-                    .icon(icon)
-            .setTitle(pointFromDatabase.get(i).getName()));
+                    .icon(icon));
             mMarkerList.add(marker);
         }
+        Log.d(TAG, "showFilteredReceptionPoints1: " + mMarkerList.size());
+
     }
 
     @Override
-    public void showFilteredReceptionPoints(List<ReceptionPoint> list) {
+    public void clearAllMarkersAndDrawNew(List<ReceptionPoint> list) {
         for (int i = 0; i < mMarkerList.size(); i++) {
             map.removeMarker(mMarkerList.get(i));
         }
-        Log.d(TAG, "showFilteredReceptionPoints: ");
+        Log.d(TAG, "showFilteredReceptionPoints11: " + map.getMarkers().size());
         mMarkerList.clear();
         drawReceptionPoints(list);
     }
@@ -115,8 +119,6 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
         MainActivity.this.map = mapboxMap;
-        //  Log.d("Loca_onMapReady", String.valueOf(lat + " " + lng));
-        drawReceptionPoints(mainPresenter.getPointFromDatabase());
         replaceFragment(new ChoseFragment());
         map.setOnMarkerClickListener(this);
         myLocation.setOnClickListener(this);
@@ -124,26 +126,22 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         if (PermissionUtils.Companion.isLocationEnable(this)) {
             mainPresenter.startLocationUpdates();
         }
-
-
     }
 
     public void cameraUpdate(double lat, double lng) {
-        if (map!= null){
+        if (map != null) {
             Log.d("Loca_cameraUpdate", String.valueOf(lat + " " + lng));
             CameraPosition position = new CameraPosition.Builder()
-                  .target(new LatLng(lat, lng)).zoom(12).tilt(14).build();
+                    .target(new LatLng(lat, lng)).zoom(12).tilt(14).build();
             map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
-
-            showMarkers(lat, lng);
+//            showMarkers(lat, lng);
         }
     }
 
 
-
     public void showMarkers(Double lat, Double lng) {
         Log.d("Loca_showMarkers", String.valueOf(lat + " " + lng));
-        if (marker!= null)
+        if (marker != null)
             map.removeMarker(marker);
         marker = map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
     }
@@ -156,13 +154,18 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
 
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
-        cameraUpdate(marker.getPosition().getLatitude(), marker.getPosition().getLongitude());
+        int pos = mMarkerList.lastIndexOf(marker);
+        if (pos > -1) {
+            cameraUpdate(marker.getPosition().getLatitude(), marker.getPosition().getLongitude());
+            showItemByClickMarker(mainPresenter.getCurrentPoint(pos));
+        }
         return false;
     }
 
     @Override
     public void showAllPoints() {
-        drawReceptionPoints(mainPresenter.getPointFromDatabase());
+        SortedList.list.clear();
+        clearAllMarkersAndDrawNew(mainPresenter.getPointFromDatabase());
     }
 
     @Override
@@ -223,5 +226,10 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void zoomCameraToMarker(@NotNull ReceptionPoint item) {
+        cameraUpdate(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()));
     }
 }

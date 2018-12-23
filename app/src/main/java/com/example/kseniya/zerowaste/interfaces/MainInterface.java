@@ -7,36 +7,38 @@ import com.example.kseniya.zerowaste.data.ReceptionPoint;
 import java.util.List;
 
 public interface MainInterface {
-	interface View {
-		void cameraUpdate(double lat, double lng);
+    interface View {
+        void cameraUpdate(double lat, double lng);
 
-		void showMarkers(Double lat, Double lng);
+        void showMarkers(Double lat, Double lng);
 
-		void drawReceptionPoints(List<ReceptionPoint> pointFromDatabase);
+        void drawReceptionPoints(List<ReceptionPoint> pointFromDatabase);
 
-		void showFilteredReceptionPoints(List<ReceptionPoint> list);
+        void clearAllMarkersAndDrawNew(List<ReceptionPoint> list);
 
-		void startActivity();
+        void startActivity();
 
-		void dialogNoInternet();
+        void dialogNoInternet();
 
-	}
+    }
 
-	interface Presenter extends LifeCycle<View> {
+    interface Presenter extends LifeCycle<View> {
 
-		void downloadMarkers();
+        void downloadMarkers();
 
-		void getCurrentLocation(Activity activity);
+        void getCurrentLocation(Activity activity);
 
-      void checkNetwork(Activity activity);
+        void checkNetwork(Activity activity);
 
-		void getPermission(Activity activity);
+        void getPermission(Activity activity);
 
-		void startLocationUpdates();
+        ReceptionPoint getCurrentPoint(int position);
 
-		void setCheckedPoints(int category);
+        void startLocationUpdates();
 
-		List<ReceptionPoint>  getPointFromDatabase();
-	}
+        void setCheckedPoints(int category);
+
+        List<ReceptionPoint> getPointFromDatabase();
+    }
 
 }

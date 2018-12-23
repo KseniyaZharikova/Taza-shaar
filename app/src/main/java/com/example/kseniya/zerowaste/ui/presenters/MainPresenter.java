@@ -11,7 +11,6 @@ import com.example.kseniya.zerowaste.data.ReceptionPoint;
 import com.example.kseniya.zerowaste.data.db.SQLiteHelper;
 import com.example.kseniya.zerowaste.interfaces.MainInterface;
 import com.example.kseniya.zerowaste.interfaces.SortedList;
-import com.example.kseniya.zerowaste.ui.activities.SplashActivity;
 import com.example.kseniya.zerowaste.utils.ConnectionUtils;
 import com.example.kseniya.zerowaste.utils.Constants;
 import com.example.kseniya.zerowaste.utils.PermissionUtils;
@@ -51,21 +50,21 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
 
     @Override
     public void getPermission(Activity activity) {
-       if (PermissionUtils.Companion.isLocationEnable(activity)) {
+        if (PermissionUtils.Companion.isLocationEnable(activity)) {
             getCurrentLocation(activity);
         }
     }
 
-	 @Override
-    public void checkNetwork(Activity activity){
+    @Override
+    public void checkNetwork(Activity activity) {
         if (ConnectionUtils.isHasNetwork(activity.getApplicationContext())) {
-                downloadMarkers();
-        } else  if (db.getReceptionPoints().size()!= 0){
-                mainView.startActivity();
-            }else {
-                mainView.dialogNoInternet();
-            }
+            downloadMarkers();
+        } else if (db.getReceptionPoints().size() != 0) {
+            mainView.startActivity();
+        } else {
+            mainView.dialogNoInternet();
         }
+    }
 
 
     @SuppressLint("MissingPermission")
@@ -76,7 +75,7 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
 
             lat = location.getLatitude();
             lng = location.getLongitude();
-	        mainView.cameraUpdate(lat, lng);
+            mainView.cameraUpdate(lat, lng);
         });
 
 
@@ -114,6 +113,14 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     }
 
     @Override
+    public ReceptionPoint getCurrentPoint(int position) {
+        if (SortedList.list.size() != 0) {
+            return SortedList.list.get(position);
+        }
+        return pointList.get(position);
+    }
+
+    @Override
     public void bind(MainInterface.View view) {
         mainView = view;
     }
@@ -143,9 +150,11 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
         List<ReceptionPoint> list = new ArrayList<>();
         for (int i = 0; i < pointList.size(); i++) {
             if (pointList.get(i).getType() == category)
-                list.add(pointList.get(i));
+                list.add(new ReceptionPoint(pointList.get(i)));
         }
-        mainView.showFilteredReceptionPoints(list);
+//        Log.d(TAG, "showFilteredReceptionPoints11: " + pointList.size());
+//        Log.d(TAG, "showFilteredReceptionPoints11: " + SortedList.list.size());
+        mainView.clearAllMarkersAndDrawNew(list);
         SortedList.list.clear();
         SortedList.list.addAll(list);
         Log.d(TAG, "setCheckedPoints: " + list.size());
@@ -153,8 +162,10 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
 
     @Override
     public List<ReceptionPoint> getPointFromDatabase() {
+        if (pointList != null)
+            pointList.clear();
         Log.d(TAG, "getPointFromDatabase: ");
-        return db.getReceptionPoints();
+        return pointList = db.getReceptionPoints();
     }
 
 
