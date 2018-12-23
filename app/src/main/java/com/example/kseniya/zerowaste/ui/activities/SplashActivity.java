@@ -33,11 +33,7 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
         mainPresenter = new MainPresenter(ZeroWasteApp.get(this).getSqLiteHelper());
         mainPresenter.bind(this);
         mainPresenter.checkNetwork(this);
-
-
     }
-
-
 
     @Override
     protected void onResume() {
