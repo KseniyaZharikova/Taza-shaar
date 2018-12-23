@@ -20,6 +20,8 @@ public class Constants {
     public static final double LAT_NE = 42.93717;
     public static final double LNG_NE = 74.70884;
 
+    public static  int HIGHT_OF_ACTIVITY = 0;
+
     public static int PointsType(long type) {
         switch ((int)type){
             case 1: return R.mipmap.pl_location;

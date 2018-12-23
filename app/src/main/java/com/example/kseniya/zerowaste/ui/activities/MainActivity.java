@@ -6,14 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.kseniya.zerowaste.R;
 import com.example.kseniya.zerowaste.ZeroWasteApp;
 import com.example.kseniya.zerowaste.data.ReceptionPoint;
 import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface;
 import com.example.kseniya.zerowaste.interfaces.MainInterface;
-import com.example.kseniya.zerowaste.interfaces.SortedList;
 import com.example.kseniya.zerowaste.interfaces.SortedList;
 import com.example.kseniya.zerowaste.ui.fragments.ChoseFragment;
 import com.example.kseniya.zerowaste.ui.presenters.MainPresenter;
@@ -55,6 +56,10 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     @BindView(R.id.myLocation)
     ImageView myLocation;
 
+    @BindView(R.id.mainActivityRelativeLayout)
+    RelativeLayout mainActivityRelativeLayout;
+
+
     @Override
     protected int getViewLayout() {
         return R.layout.activity_main;
@@ -69,7 +74,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         initMap(savedInstanceState);
         mainPresenter.getPermission(this);
         myLocation.setVisibility(View.INVISIBLE);
-
+        getHeight();
     }
 
     private void initMap(Bundle savedInstanceState) {
@@ -85,8 +90,8 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         for (int i = 0; i < pointFromDatabase.size(); i++) {
             Icon icon = IconFactory.getInstance(this).fromResource(Constants.PointsType(pointFromDatabase.get(i).getType()));
             Marker marker = map.addMarker(new MarkerOptions()
-                    .position(new LatLng(Double.parseDouble(pointFromDatabase.get(i).getLatitude()), Double.parseDouble(pointFromDatabase.get(i).getLongitude())))
-                    .icon(icon));
+                  .position(new LatLng(Double.parseDouble(pointFromDatabase.get(i).getLatitude()), Double.parseDouble(pointFromDatabase.get(i).getLongitude())))
+                  .icon(icon));
             mMarkerList.add(marker);
         }
     }
@@ -129,7 +134,6 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         }
 
 
-
     }
 
 
@@ -137,7 +141,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         if (map != null) {
             Log.d("Loca_cameraUpdate", String.valueOf(lat + " " + lng));
             CameraPosition position = new CameraPosition.Builder()
-                    .target(new LatLng(lat, lng)).zoom(12).tilt(14).build();
+                  .target(new LatLng(lat, lng)).zoom(12).tilt(14).build();
             map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
 
 
@@ -149,7 +153,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         Log.d("Loca_showMarkers", String.valueOf(lat + " " + lng));
         if (marker != null)
             map.removeMarker(marker);
-        if(PermissionUtils.Companion.isLocationEnable(this) && map != null){
+        if (PermissionUtils.Companion.isLocationEnable(this) && map != null) {
             marker = map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
 
         }
@@ -240,5 +244,19 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     @Override
     public void zoomCameraToMarker(@NotNull ReceptionPoint item) {
         cameraUpdate(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()));
+    }
+
+
+    public void getHeight() {
+
+        final ViewTreeObserver observer= mainActivityRelativeLayout.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                Constants.HIGHT_OF_ACTIVITY = mainActivityRelativeLayout.getHeight();
+            }
+        });
+
     }
 }
