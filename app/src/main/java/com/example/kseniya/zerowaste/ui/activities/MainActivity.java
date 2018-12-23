@@ -126,6 +126,8 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         }
 
 
+
+
     }
 
     public void cameraUpdate(double lat, double lng) {
@@ -135,17 +137,20 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
                   .target(new LatLng(lat, lng)).zoom(12).tilt(14).build();
             map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
 
-            showMarkers(lat, lng);
+
         }
     }
 
 
 
-    public void showMarkers(Double lat, Double lng) {
+    public void showMyCurrentLocation(Double lat, Double lng) {
         Log.d("Loca_showMarkers", String.valueOf(lat + " " + lng));
         if (marker!= null)
             map.removeMarker(marker);
-        marker = map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
+        if(PermissionUtils.Companion.isLocationEnable(this) && map != null){
+            marker = map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
+
+        }
     }
 
 
