@@ -125,6 +125,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         if (PermissionUtils.Companion.isLocationEnable(this)) {
             mainPresenter.startLocationUpdates();
         }
+
     }
 
 
