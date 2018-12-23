@@ -52,19 +52,17 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     public void getPermission(Activity activity) {
         if (PermissionUtils.Companion.isLocationEnable(activity)) {
             getCurrentLocation(activity);
-            if (ConnectionUtils.isHasNetwork(activity.getApplicationContext()) && db.getReceptionPoints().size() != 0) {
-                downloadMarkers();
-            } else {
-                if (db.getReceptionPoints().size() != 0) {
-                    getCurrentLocation(activity);
-                    mainView.startActivity(lat, lng);
-                } else {
-                    mainView.dialogNoInternet();
-                }
+        }
+    }
 
-
-            }
-
+    @Override
+    public void checkNetwork(Activity activity) {
+        if (ConnectionUtils.isHasNetwork(activity.getApplicationContext())) {
+            downloadMarkers();
+        } else if (db.getReceptionPoints().size() != 0) {
+            mainView.startActivity();
+        } else {
+            mainView.dialogNoInternet();
         }
     }
 
@@ -77,8 +75,11 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
 
             lat = location.getLatitude();
             lng = location.getLongitude();
-
+	        mainView.cameraUpdate(lat, lng);
+	        mainView.showMyCurrentLocation(lat,lng);
         });
+
+
     }
 
     @Override
@@ -95,7 +96,9 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
                     Log.d(TAG, "onDataChange: " + pointList.size());
                 }
                 saveMarkersToDb();
-                mainView.startActivity(lat, lng);
+
+                mainView.startActivity();
+
             }
 
             @Override
@@ -108,6 +111,14 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     private void saveMarkersToDb() {
         db.deleteReceptionPoints();
         db.saveReceptionPoints(pointList);
+    }
+
+    @Override
+    public ReceptionPoint getCurrentPoint(int position) {
+        if (SortedList.list.size() != 0) {
+            return SortedList.list.get(position);
+        }
+        return pointList.get(position);
     }
 
     @Override
@@ -136,31 +147,26 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
     }
 
     @Override
-    public ReceptionPoint getCurrentPoint(int position) {
-        if (SortedList.list.size() != 0) {
-            return SortedList.list.get(position);
-        }
-        return pointList.get(position);
-    }
-
-    @Override
     public void setCheckedPoints(int category) {
         List<ReceptionPoint> list = new ArrayList<>();
-
         for (int i = 0; i < pointList.size(); i++) {
             if (pointList.get(i).getType() == category)
-                list.add(pointList.get(i));
-            mainView.showFilteredReceptionPoints(list);
-            SortedList.list.clear();
-            SortedList.list.addAll(list);
-            Log.d(TAG, "setCheckedPoints: " + list.size());
+                list.add(new ReceptionPoint(pointList.get(i)));
         }
+//        Log.d(TAG, "showFilteredReceptionPoints11: " + pointList.size());
+//        Log.d(TAG, "showFilteredReceptionPoints11: " + SortedList.list.size());
+        mainView.clearAllMarkersAndDrawNew(list);
+        SortedList.list.clear();
+        SortedList.list.addAll(list);
+        Log.d(TAG, "setCheckedPoints: " + list.size());
     }
 
     @Override
     public List<ReceptionPoint> getPointFromDatabase() {
+        if (pointList != null)
+            pointList.clear();
         Log.d(TAG, "getPointFromDatabase: ");
-        return db.getReceptionPoints();
+        return pointList = db.getReceptionPoints();
     }
 
 
@@ -168,13 +174,19 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
         @Override
         public void onLocationResult(LocationResult locationResult) {
             super.onLocationResult(locationResult);
+            Location location = locationResult.getLastLocation();
+
+          //  mainView.cameraUpdate(location.getLatitude(), location.getLongitude());
+            mainView.showMyCurrentLocation(location.getLatitude(), location.getLongitude());
             Log.d(TAG, "onLocationChanged: " + locationResult.getLastLocation().getLongitude() + " " + locationResult.getLastLocation().getLatitude());
         }
     };
 
     @Override
     public void onLocationChanged(Location location) {
-        mainView.showMarkers(location.getLatitude(), location.getLongitude());
+        Log.d("Loca_onLocationChanged", String.valueOf(location.getLatitude() + " " + location.getLongitude()));
+
 
     }
+
 }

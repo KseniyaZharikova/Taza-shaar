@@ -18,7 +18,7 @@ class PermissionUtils {
         }
 
 
-        private fun isLocationGranted(context: Context): Boolean {
+         fun isLocationGranted(context: Context): Boolean {
             return ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
         }

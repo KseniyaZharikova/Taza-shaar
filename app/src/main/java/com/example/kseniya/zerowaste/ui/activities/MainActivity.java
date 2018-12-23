@@ -1,6 +1,7 @@
 package com.example.kseniya.zerowaste.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -13,8 +14,8 @@ import com.example.kseniya.zerowaste.data.ReceptionPoint;
 import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface;
 import com.example.kseniya.zerowaste.interfaces.MainInterface;
 import com.example.kseniya.zerowaste.interfaces.SortedList;
+import com.example.kseniya.zerowaste.interfaces.SortedList;
 import com.example.kseniya.zerowaste.ui.fragments.ChoseFragment;
-import com.example.kseniya.zerowaste.ui.fragments.InfoFragment;
 import com.example.kseniya.zerowaste.ui.presenters.MainPresenter;
 import com.example.kseniya.zerowaste.utils.Constants;
 import com.example.kseniya.zerowaste.utils.PermissionUtils;
@@ -30,8 +31,8 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.offline.OfflineManager;
 
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +46,8 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     private final String TAG = getClass().getSimpleName();
     private MainInterface.Presenter mainPresenter;
     private MapboxMap map;
-    private double lat;
-    private double lng;
+    private Marker marker;
     private List<Marker> mMarkerList = new ArrayList<>();
-    private OfflineManager mOfflineManager;
-    public static final String JSON_CHARSET = "UTF-8";
-    public static final String JSON_FIELD_REGION_NAME = "BISHKEK";
 
     @BindView(R.id.mapView)
     MapView mapView;
@@ -69,14 +66,10 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
 
         mainPresenter = new MainPresenter(ZeroWasteApp.get(this).getSqLiteHelper());
         mainPresenter.bind(this);
-        mainPresenter.getCurrentLocation(this);
         initMap(savedInstanceState);
-        myLocation.setOnClickListener(this);
-        lat = getIntent().getDoubleExtra("lat", 0);
-        lng = getIntent().getDoubleExtra("lng", 0);
-//        mPoints = (List<ReceptionPoint>) getIntent().getSerializableExtra("reception_points");
+        mainPresenter.getPermission(this);
+        myLocation.setVisibility(View.INVISIBLE);
 
-        mainPresenter.startLocationUpdates();
     }
 
     private void initMap(Bundle savedInstanceState) {
@@ -96,115 +89,97 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
                     .icon(icon));
             mMarkerList.add(marker);
         }
-        map.setOnMarkerClickListener(this);
-        Log.d(TAG, "drawReceptionPoints: ");
     }
 
     @Override
-    public void showFilteredReceptionPoints(List<ReceptionPoint> list) {
+    public void clearAllMarkersAndDrawNew(List<ReceptionPoint> list) {
         for (int i = 0; i < mMarkerList.size(); i++) {
             map.removeMarker(mMarkerList.get(i));
         }
-        Log.d(TAG, "showFilteredReceptionPoints: ");
+        Log.d(TAG, "showFilteredReceptionPoints11: " + map.getMarkers().size());
         mMarkerList.clear();
         drawReceptionPoints(list);
     }
 
-    @Override
-    public void startActivity(Double lat, Double lng) {
-
-    }
 
     @Override
-    public void dialogNoInternet() {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Constants.LOCATION_REQUEST_CODE) {
+            for (int result : grantResults) {
+                if (result == PackageManager.PERMISSION_GRANTED) {
+                    mainPresenter.getCurrentLocation(this);
+                    myLocation.setVisibility(View.VISIBLE);
+                }
+            }
 
+        }
     }
 
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
-        Log.d(TAG, "onMapReady: ready");
-        mOfflineManager = OfflineManager.getInstance(MainActivity.this);
-
-//        downloadOfflineBishkek(mapboxMap);
         MainActivity.this.map = mapboxMap;
-        showMarkers(lat, lng);
-        cameraUpdate(lat, lng);
-//        drawReceptionPoints(mainPresenter.getPointFromDatabase());
         replaceFragment(new ChoseFragment());
         map.setOnMarkerClickListener(this);
+        myLocation.setOnClickListener(this);
+        cameraUpdate(Constants.LAT, Constants.LNG);
+        if (PermissionUtils.Companion.isLocationEnable(this)) {
+            mainPresenter.startLocationUpdates();
+            myLocation.setVisibility(View.VISIBLE);
+        }
+
+
 
     }
 
-//    private void downloadOfflineBishkek(MapboxMap mapboxMap){
-//        LatLngBounds latLngBounds = new LatLngBounds.Builder()
-//                .include(new LatLng(Constants.LAT_NE, Constants.LNG_NE)) // Northeast
-//                .include(new LatLng(Constants.LAT_SW, Constants.LNG_SW)) // Southwest
-//                .build();
-//
-//        OfflineTilePyramidRegionDefinition definition = new OfflineTilePyramidRegionDefinition(
-//                mapboxMap.getStyleUrl(),
-//                latLngBounds,
-//                10,
-//                20,
-//                MainActivity.this.getResources().getDisplayMetrics().density);
-//
-//        // Set the metadata
-//        byte[] metadata;
-//        try {
-//            JSONObject jsonObject = new JSONObject();
-//            jsonObject.put(JSON_FIELD_REGION_NAME, "Yosemite National Park");
-//            String json = jsonObject.toString();
-//            metadata = json.getBytes(JSON_CHARSET);
-//        } catch (Exception exception) {
-//            Log.e(TAG, "Failed to encode metadata: " + exception.getMessage());
-//            metadata = null;
-//        }
-//
-//        mOfflineManager.createOfflineRegion(definition, Objects.requireNonNull(metadata), new OfflineManager.CreateOfflineRegionCallback() {
-//            @Override
-//            public void onCreate(OfflineRegion offlineRegion) {
-//                offlineRegion.setDownloadState(OfflineRegion.STATE_ACTIVE);
-//
-//                offlineRegion.setObserver(new OfflineRegion.OfflineRegionObserver() {
-//                    @Override
-//                    public void onStatusChanged(OfflineRegionStatus status) {
-//                        Log.d(TAG, "onStatusChanged: status" + status.getCompletedResourceCount());
-//
-//
-//                        if (status.isComplete()) Log.d(TAG, "onStatusChanged: complete");
-//                    }
-//
-//                    @Override
-//                    public void onError(OfflineRegionError error) {
-//                        Log.d(TAG, "onError: " + error.getMessage());
-//                    }
-//
-//                    @Override
-//                    public void mapboxTileCountLimitExceeded(long limit) {
-//                        Log.e(TAG, "Mapbox tile count limit exceeded: " + limit);
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onError(String error) {
-//                Log.d(TAG, "onError: " + error);
-//            }
-//        });
-//
-//    }
 
-    private void cameraUpdate(double lat, double lng) {
-        CameraPosition position = new CameraPosition.Builder()
-                .target(new LatLng(lat, lng)).zoom(12).tilt(14).build();
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
+    public void cameraUpdate(double lat, double lng) {
+        if (map != null) {
+            Log.d("Loca_cameraUpdate", String.valueOf(lat + " " + lng));
+            CameraPosition position = new CameraPosition.Builder()
+                    .target(new LatLng(lat, lng)).zoom(12).tilt(14).build();
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
 
 
+        }
+    }
+
+
+    public void showMyCurrentLocation(Double lat, Double lng) {
+        Log.d("Loca_showMarkers", String.valueOf(lat + " " + lng));
+        if (marker != null)
+            map.removeMarker(marker);
+        if(PermissionUtils.Companion.isLocationEnable(this) && map != null){
+            marker = map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
+
+        }
+    }
+
+
+    @Override
+    public void onCheckBoxClicked(int tag) {
+        mainPresenter.setCheckedPoints(tag);
+    }
+
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        int pos = mMarkerList.lastIndexOf(marker);
+        if (pos > -1) {
+            cameraUpdate(marker.getPosition().getLatitude(), marker.getPosition().getLongitude());
+            showItemByClickMarker(mainPresenter.getCurrentPoint(pos));
+        }
+        return false;
+    }
+
+    @Override
+    public void showAllPoints() {
+        SortedList.list.clear();
+        clearAllMarkersAndDrawNew(mainPresenter.getPointFromDatabase());
     }
 
     @Override
     public void onClick(View v) {
-        cameraUpdate(lat, lng);
+        mainPresenter.getCurrentLocation(this);
 
     }
 
@@ -245,46 +220,25 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         mapView.onDestroy();
     }
 
+
+    @Override
+    public void startActivity() {
+
+    }
+
+    @Override
+    public void dialogNoInternet() {
+
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
 
-    public void showMarkers(Double lat, Double lng) {
-        if (PermissionUtils.Companion.isLocationEnable(this)) {
-            map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
-        }
-    }
-
     @Override
-    public void onCheckBoxClicked(int tag) {
-        mainPresenter.setCheckedPoints(tag);
-    }
-
-    @Override
-    public boolean onMarkerClick(@NonNull Marker marker) {
-        int i = mainPresenter.getPointFromDatabase().size();
-        if (mMarkerList.size() != i) {
-            Log.d(TAG, "onMarkerClick: " + SortedList.list.size());
-            Log.d(TAG, "onMarkerClick: " + mMarkerList.size());
-            Log.d(TAG, "onMarkerClick: " + mainPresenter.getPointFromDatabase().size() );
-            showAllPoints();
-        } else {
-            replaceFragmentToInfo(mainPresenter.getCurrentPoint(mMarkerList.lastIndexOf(marker)));
-            cameraUpdate(marker.getPosition().getLatitude(), marker.getPosition().getLongitude());
-        }
-
-        return false;
-    }
-
-
-    @Override
-    public void showAllPoints() {
-        if (mMarkerList.size() != mainPresenter.getPointFromDatabase().size()) {
-            mMarkerList.clear();
-            drawReceptionPoints(mainPresenter.getPointFromDatabase());
-        }
-
+    public void zoomCameraToMarker(@NotNull ReceptionPoint item) {
+        cameraUpdate(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()));
     }
 }

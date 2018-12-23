@@ -9,9 +9,9 @@ import com.example.kseniya.zerowaste.R
 import android.support.annotation.StringRes
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AlertDialog
-import android.transition.Transition
 import com.example.kseniya.zerowaste.data.ReceptionPoint
 import com.example.kseniya.zerowaste.ui.fragments.InfoFragment
+import com.mapbox.mapboxsdk.annotations.Marker
 
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -30,16 +30,15 @@ abstract class BaseActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
     }
 
-
-    protected fun replaceFragmentToInfo(point: ReceptionPoint) {
+    protected fun showItemByClickMarker(point: ReceptionPoint) {
+        // DishListActivity.new(this, points.id, cafe.title)
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager!!.beginTransaction()
         fragmentTransaction.replace(R.id.container, InfoFragment.newInstance(point))
-        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.addToBackStack("markerInfo")
         fragmentTransaction.commit()
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

@@ -1,9 +1,11 @@
 package com.example.kseniya.zerowaste.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import com.example.kseniya.zerowaste.R
 import com.example.kseniya.zerowaste.data.ReceptionPoint
+import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface
 import com.example.kseniya.zerowaste.utils.BitmapUtil
 import com.example.kseniya.zerowaste.utils.GestureListener
 import kotlinx.android.synthetic.main.info_fragment.*
@@ -13,6 +15,7 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
 
     var expandedContentYPos: Float = 0f
     var collapsedContentYPos: Float = 0f
+    var mCallBack: CheckBoxInterface? = null
     private var gestureListener: GestureListener? = null
 
     var item: ReceptionPoint? = null
@@ -45,6 +48,7 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
             }
         }
 
+        mCallBack!!.zoomCameraToMarker(item!!)
         tvName.text = item!!.name
         tvAddress.text = item!!.address
         tvPhone.text = item!!.phone
@@ -103,12 +107,17 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
         contentView.y = y
     }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        mCallBack = context as CheckBoxInterface
+    }
+
     override fun onResume() {
         super.onResume()
         contentView?.post {
             if (isUIAvailable() == true && gestureListener == null) {
                 expandedContentYPos = contentView.y
-                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 40)
+                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 50)
                 gestureListener = GestureListener(collapsedContentYPos, expandedContentYPos, this@InfoFragment)
                 contentView?.setOnTouchListener(gestureListener)
             }

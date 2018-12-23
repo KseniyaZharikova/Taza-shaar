@@ -10,8 +10,8 @@ public class Constants {
     public static final int LOCATION_REQUEST_CODE = 100;
 
     //BISHKEK_LOCATION
-    public static final double LAT = 42.845440;
-    public static final double LNG = 74.608897;
+    public static final double LAT = 42.8748635;
+    public static final double LNG = 74.6048324;
 
     //OFFLINE_AREA
     public static final double LAT_SW = 42.79755;
@@ -30,6 +30,7 @@ public class Constants {
             case 6: return R.mipmap.organic_location;
             case 7: return R.mipmap.tech_location;
             case 8: return R.mipmap.skot_location;
+
         }
         return R.drawable.arrow_up;
 

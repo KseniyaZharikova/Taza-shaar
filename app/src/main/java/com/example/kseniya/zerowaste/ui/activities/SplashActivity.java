@@ -3,6 +3,7 @@ package com.example.kseniya.zerowaste.ui.activities;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.example.kseniya.zerowaste.R;
@@ -18,7 +19,6 @@ import java.util.List;
 
 public class SplashActivity extends BaseActivity implements MainInterface.View {
 
-    private boolean isAllDataReady = false;
     private MainInterface.Presenter mainPresenter;
 
     @Override
@@ -32,23 +32,7 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
         super.onCreate(savedInstanceState);
         mainPresenter = new MainPresenter(ZeroWasteApp.get(this).getSqLiteHelper());
         mainPresenter.bind(this);
-
-        mainPresenter.getPermission(this);
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == Constants.LOCATION_REQUEST_CODE) {
-            for (int result : grantResults) {
-                if (result == PackageManager.PERMISSION_GRANTED) {
-                    mainPresenter.getCurrentLocation(this);
-                }
-            }
-
-        }
-        mainPresenter.downloadMarkers();
+        mainPresenter.checkNetwork(this);
     }
 
     @Override
@@ -58,12 +42,12 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
     }
 
     @Override
-    public void startActivity(Double lat, Double lng) {
+    public void startActivity() {
+        new Handler().postDelayed(() -> {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
 
-        startActivity(new Intent(this, MainActivity.class)
-                .putExtra("lat", lat)
-                .putExtra("lng", lng));
-        finish();
+        },2000);
 
     }
 
@@ -74,19 +58,24 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
 
 
     @Override
-    public void showMarkers(Double lat, Double lng) {
+    public void cameraUpdate(double lat, double lng) {
+
+    }
+
+    @Override
+    public void showMyCurrentLocation(Double lat, Double lng) {
 
     }
 
     @Override
     public void drawReceptionPoints(List<ReceptionPoint> pointFromDatabase) {
+
     }
 
     @Override
-    public void showFilteredReceptionPoints(List<ReceptionPoint> list) {
+    public void clearAllMarkersAndDrawNew(List<ReceptionPoint> list) {
 
     }
-
 
     @Override
     protected void onDestroy() {
