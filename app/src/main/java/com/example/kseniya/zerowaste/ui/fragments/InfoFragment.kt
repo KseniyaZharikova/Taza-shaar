@@ -11,6 +11,7 @@ import com.example.kseniya.zerowaste.utils.BitmapUtil
 import com.example.kseniya.zerowaste.utils.Constants
 import com.example.kseniya.zerowaste.utils.GestureListener
 import kotlinx.android.synthetic.main.info_fragment.*
+import kotlinx.android.synthetic.main.item_point_info.*
 
 
 class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListener {
