@@ -128,6 +128,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         }
     }
 
+
     public void cameraUpdate(double lat, double lng) {
         if (map != null) {
             Log.d("Loca_cameraUpdate", String.valueOf(lat + " " + lng));
