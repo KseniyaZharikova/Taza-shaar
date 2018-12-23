@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         mainPresenter.bind(this);
         initMap(savedInstanceState);
         mainPresenter.getPermission(this);
+        myLocation.setVisibility(View.INVISIBLE);
 
     }
 
@@ -105,6 +106,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
             for (int result : grantResults) {
                 if (result == PackageManager.PERMISSION_GRANTED) {
                     mainPresenter.getCurrentLocation(this);
+                    myLocation.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -123,6 +125,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         cameraUpdate(Constants.LAT, Constants.LNG);
         if (PermissionUtils.Companion.isLocationEnable(this)) {
             mainPresenter.startLocationUpdates();
+            myLocation.setVisibility(View.VISIBLE);
         }
 
 

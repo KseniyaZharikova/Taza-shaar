@@ -108,7 +108,7 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
         contentView?.post {
             if (isUIAvailable() == true && gestureListener == null) {
                 expandedContentYPos = contentView.y
-                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 40)
+                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 50)
                 gestureListener = GestureListener(collapsedContentYPos, expandedContentYPos, this@InfoFragment)
                 contentView?.setOnTouchListener(gestureListener)
             }
