@@ -10,7 +10,7 @@ public interface MainInterface {
     interface View {
         void cameraUpdate(double lat, double lng);
 
-        void showMarkers(Double lat, Double lng);
+		void showMyCurrentLocation(Double lat, Double lng);
 
         void drawReceptionPoints(List<ReceptionPoint> pointFromDatabase);
 

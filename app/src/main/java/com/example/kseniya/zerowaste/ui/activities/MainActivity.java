@@ -14,6 +14,7 @@ import com.example.kseniya.zerowaste.data.ReceptionPoint;
 import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface;
 import com.example.kseniya.zerowaste.interfaces.MainInterface;
 import com.example.kseniya.zerowaste.interfaces.SortedList;
+import com.example.kseniya.zerowaste.interfaces.SortedList;
 import com.example.kseniya.zerowaste.ui.fragments.ChoseFragment;
 import com.example.kseniya.zerowaste.ui.presenters.MainPresenter;
 import com.example.kseniya.zerowaste.utils.Constants;
@@ -67,6 +68,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         mainPresenter.bind(this);
         initMap(savedInstanceState);
         mainPresenter.getPermission(this);
+        myLocation.setVisibility(View.INVISIBLE);
 
     }
 
@@ -87,8 +89,6 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
                     .icon(icon));
             mMarkerList.add(marker);
         }
-        Log.d(TAG, "showFilteredReceptionPoints1: " + mMarkerList.size());
-
     }
 
     @Override
@@ -109,6 +109,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
             for (int result : grantResults) {
                 if (result == PackageManager.PERMISSION_GRANTED) {
                     mainPresenter.getCurrentLocation(this);
+                    myLocation.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -124,7 +125,10 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         cameraUpdate(Constants.LAT, Constants.LNG);
         if (PermissionUtils.Companion.isLocationEnable(this)) {
             mainPresenter.startLocationUpdates();
+            myLocation.setVisibility(View.VISIBLE);
         }
+
+
 
     }
 
@@ -135,16 +139,20 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
             CameraPosition position = new CameraPosition.Builder()
                     .target(new LatLng(lat, lng)).zoom(12).tilt(14).build();
             map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
-//            showMarkers(lat, lng);
+
+
         }
     }
 
 
-    public void showMarkers(Double lat, Double lng) {
+    public void showMyCurrentLocation(Double lat, Double lng) {
         Log.d("Loca_showMarkers", String.valueOf(lat + " " + lng));
         if (marker != null)
             map.removeMarker(marker);
-        marker = map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
+        if(PermissionUtils.Companion.isLocationEnable(this) && map != null){
+            marker = map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)));
+
+        }
     }
 
 

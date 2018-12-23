@@ -67,7 +67,7 @@ public class SplashActivity extends BaseActivity implements MainInterface.View {
     }
 
     @Override
-    public void showMarkers(Double lat, Double lng) {
+    public void showMyCurrentLocation(Double lat, Double lng) {
 
     }
 

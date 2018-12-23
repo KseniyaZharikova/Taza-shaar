@@ -75,7 +75,8 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
 
             lat = location.getLatitude();
             lng = location.getLongitude();
-            mainView.cameraUpdate(lat, lng);
+	        mainView.cameraUpdate(lat, lng);
+	        mainView.showMyCurrentLocation(lat,lng);
         });
 
 
@@ -175,7 +176,8 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
             super.onLocationResult(locationResult);
             Location location = locationResult.getLastLocation();
 
-            mainView.cameraUpdate(location.getLatitude(), location.getLongitude());
+          //  mainView.cameraUpdate(location.getLatitude(), location.getLongitude());
+            mainView.showMyCurrentLocation(location.getLatitude(), location.getLongitude());
             Log.d(TAG, "onLocationChanged: " + locationResult.getLastLocation().getLongitude() + " " + locationResult.getLastLocation().getLatitude());
         }
     };
