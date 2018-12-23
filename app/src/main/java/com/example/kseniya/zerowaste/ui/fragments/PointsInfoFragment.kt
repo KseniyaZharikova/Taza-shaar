@@ -1,11 +1,13 @@
 package com.example.kseniya.zerowaste.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.example.kseniya.zerowaste.R
 import com.example.kseniya.zerowaste.adapters.PointsInfoAdapter
+import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface
 import com.example.kseniya.zerowaste.interfaces.SortedList
 import com.example.kseniya.zerowaste.ui.presenters.PointsInfoPresenter
 import com.example.kseniya.zerowaste.utils.BitmapUtil
@@ -19,6 +21,7 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
 
     }
     var presenter = PointsInfoPresenter()
+    lateinit var mCallBack : CheckBoxInterface
     var expandedContentYPos: Float = 0f
     var collapsedContentYPos: Float = 0f
     private var gestureListener: GestureListener? = null
@@ -41,6 +44,8 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
         }
 
         presenter.bind(this,SortedList.list)
+        mCallBack.drawPointsByType()
+
         presenter.bindRecyclerView(recyclerView)
     }
 
@@ -115,6 +120,11 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
                 contentView?.setOnTouchListener(gestureListener)
             }
         }
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        mCallBack = context as CheckBoxInterface
     }
 
 }

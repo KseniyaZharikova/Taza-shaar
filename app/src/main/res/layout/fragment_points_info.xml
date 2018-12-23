@@ -28,12 +28,12 @@
                 android:src="@drawable/arrow_up" />
 
             <TextView
-android:gravity="center"
-                android:textSize="18dp"
-                android:text="СПИСОК ПУНКТОВ ПРИЕМА:"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="СПИСОК ПУНКТОВ ПРИЕМА:"
+                android:textSize="18dp" />
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -55,22 +55,21 @@ android:gravity="center"
                 android:layout_gravity="center"
                 android:src="@drawable/arrow_down" />
 
-                <TextView
-                    android:gravity="center"
-                    android:textSize="18dp"
-                    android:text="СПИСОК ПУНКТОВ ПРИЕМА:"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="СПИСОК ПУНКТОВ ПРИЕМА:"
+                android:textSize="18dp" />
 
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="10dp"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
 
         </LinearLayout>

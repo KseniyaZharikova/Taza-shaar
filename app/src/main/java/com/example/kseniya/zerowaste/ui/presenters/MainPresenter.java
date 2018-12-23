@@ -155,7 +155,7 @@ public class MainPresenter implements MainInterface.Presenter, LocationListener 
         }
 //        Log.d(TAG, "showFilteredReceptionPoints11: " + pointList.size());
 //        Log.d(TAG, "showFilteredReceptionPoints11: " + SortedList.list.size());
-        mainView.clearAllMarkersAndDrawNew(list);
+//        mainView.clearAllMarkersAndDrawNew(list);
         SortedList.list.clear();
         SortedList.list.addAll(list);
         Log.d(TAG, "setCheckedPoints: " + list.size());

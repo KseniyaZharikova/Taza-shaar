@@ -6,4 +6,5 @@ interface CheckBoxInterface {
     fun onCheckBoxClicked(tag: Int)
     fun showAllPoints()
     fun zoomCameraToMarker(item: ReceptionPoint)
+    fun drawPointsByType()
 }

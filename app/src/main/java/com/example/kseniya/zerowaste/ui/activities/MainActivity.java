@@ -243,6 +243,9 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
 
     @Override
     public void zoomCameraToMarker(@NotNull ReceptionPoint item) {
+        List<ReceptionPoint> list = new ArrayList<>();
+        list.add(item);
+        clearAllMarkersAndDrawNew(list);
         cameraUpdate(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()));
     }
 
@@ -258,5 +261,10 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
             }
         });
 
+    }
+
+    @Override
+    public void drawPointsByType() {
+        clearAllMarkersAndDrawNew(SortedList.list);
     }
 }

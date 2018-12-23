@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity
 import butterknife.ButterKnife
 import com.example.kseniya.zerowaste.R
 import android.support.annotation.StringRes
+import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AlertDialog
+import android.util.Log
 import com.example.kseniya.zerowaste.data.ReceptionPoint
 import com.example.kseniya.zerowaste.ui.fragments.InfoFragment
 import com.mapbox.mapboxsdk.annotations.Marker
@@ -32,12 +34,19 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected fun showItemByClickMarker(point: ReceptionPoint) {
         // DishListActivity.new(this, points.id, cafe.title)
+
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager!!.beginTransaction()
         fragmentTransaction.replace(R.id.container, InfoFragment.newInstance(point))
+        if (fragmentManager.backStackEntryCount != 0)
+            fragmentManager.popBackStack()
         fragmentTransaction.addToBackStack("markerInfo")
+
         fragmentTransaction.commit()
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK)
+
+
+        Log.d("asdasdd", "adadasd")
     }
 
     override fun onDestroy() {
