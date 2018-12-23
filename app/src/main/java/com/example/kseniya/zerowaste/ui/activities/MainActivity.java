@@ -115,7 +115,6 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         }
     }
 
-
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
         MainActivity.this.map = mapboxMap;
