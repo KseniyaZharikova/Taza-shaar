@@ -46,7 +46,7 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
         params.height = (Constants.HIGHT_OF_ACTIVITY / 2) - 200
         view.layoutParams = params
 
-        
+
         item = arguments!!.getSerializable("item") as ReceptionPoint
         contentView.setOnClickListener {
             gestureListener?.let {
@@ -131,7 +131,7 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
         contentView?.post {
             if (isUIAvailable() == true && gestureListener == null) {
                 expandedContentYPos = contentView.y
-                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 50)
+                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 40)
                 gestureListener = GestureListener(collapsedContentYPos, expandedContentYPos, this@InfoFragment)
                 contentView?.setOnTouchListener(gestureListener)
             }
