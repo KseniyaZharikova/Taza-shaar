@@ -4,6 +4,7 @@
     android:id="@+id/contentView"
     android:layout_width="match_parent"
     android:layout_height="260dp"
+    android:background="@drawable/shape_view"
     android:orientation="vertical">
 
     <FrameLayout
@@ -48,26 +49,28 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:src="@drawable/arrow_down" />
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="СПИСОК ПУНКТОВ ПРИЕМА:"
-                android:textSize="18dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="12dp"
+                    android:gravity="center"
+
+                    android:text="Кто принимает пластик:"
+                    android:textSize="22sp" />
+
+            </android.support.v7.widget.CardView>
 
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="2dp"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
 

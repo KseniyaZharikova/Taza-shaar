@@ -2,13 +2,9 @@ package com.example.kseniya.zerowaste.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import com.example.kseniya.zerowaste.R
-import com.example.kseniya.zerowaste.adapters.PointsInfoAdapter
 import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface
 import com.example.kseniya.zerowaste.interfaces.SortedList
 import com.example.kseniya.zerowaste.ui.presenters.PointsInfoPresenter
@@ -33,7 +29,6 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
         return R.layout.fragment_points_info
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         contentView.setOnClickListener {
@@ -51,24 +46,19 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
 
         presenter.bindRecyclerView(recyclerView)
         setRecyclerViewScrollListener()
-
-
     }
+
     private fun setRecyclerViewScrollListener() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 Constants.SCROLL =  true
             }
         })
-
     }
-
 
     override fun onClick(v: View?) {
 
     }
-
-
 
     override fun onClickItem(position: Int) {
         val point = presenter.pointsForPosition(position)
