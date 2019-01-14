@@ -4,13 +4,16 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import com.example.kseniya.zerowaste.R
 import com.example.kseniya.zerowaste.adapters.PointsInfoAdapter
 import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface
 import com.example.kseniya.zerowaste.interfaces.SortedList
 import com.example.kseniya.zerowaste.ui.presenters.PointsInfoPresenter
 import com.example.kseniya.zerowaste.utils.BitmapUtil
+import com.example.kseniya.zerowaste.utils.Constants
 import com.example.kseniya.zerowaste.utils.GestureListener
 import kotlinx.android.synthetic.main.fragment_points_info.*
 
@@ -30,9 +33,9 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
         return R.layout.fragment_points_info
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         contentView.setOnClickListener {
             gestureListener?.let {
                 if (it.isCollapsed) {
@@ -47,12 +50,25 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
         mCallBack.drawPointsByType()
 
         presenter.bindRecyclerView(recyclerView)
+        setRecyclerViewScrollListener()
+
+
+    }
+    private fun setRecyclerViewScrollListener() {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                Constants.SCROLL =  true
+            }
+        })
+
     }
 
 
     override fun onClick(v: View?) {
 
     }
+
+
 
     override fun onClickItem(position: Int) {
         val point = presenter.pointsForPosition(position)

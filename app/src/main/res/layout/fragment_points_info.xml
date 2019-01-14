@@ -4,7 +4,6 @@
     android:id="@+id/contentView"
     android:layout_width="match_parent"
     android:layout_height="260dp"
-    android:background="@drawable/shape_view"
     android:orientation="vertical">
 
     <FrameLayout

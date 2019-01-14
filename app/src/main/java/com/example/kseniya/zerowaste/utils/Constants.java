@@ -21,17 +21,18 @@ public class Constants {
     public static final double LNG_NE = 74.70884;
 
     public static  int HIGHT_OF_ACTIVITY = 0;
+    public static  boolean SCROLL = false;
 
     public static int PointsType(long type) {
         switch ((int)type){
-            case 1: return R.mipmap.pl_location;
-            case 2: return R.mipmap.glass_location;
-            case 3: return R.mipmap.paper_location;
-            case 4: return R.mipmap.clothing_location;
-            case 5: return R.mipmap.polietilen_location;
-            case 6: return R.mipmap.organic_location;
-            case 7: return R.mipmap.tech_location;
-            case 8: return R.mipmap.skot_location;
+            case 1: return R.drawable.pl_location;
+            case 2: return R.drawable.glass_location;
+            case 3: return R.drawable.paper_location;
+            case 4: return R.drawable.clothing_location;
+            case 5: return R.drawable.polietilen_location;
+            case 6: return R.drawable.organic_location;
+            case 7: return R.drawable.tech_location;
+            case 8: return R.drawable.skot_location;
 
         }
         return R.drawable.arrow_up;

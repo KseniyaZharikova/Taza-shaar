@@ -2,6 +2,8 @@ package com.example.kseniya.zerowaste.ui.presenters
 
 import android.content.res.Resources
 import android.support.v7.widget.RecyclerView
+import android.util.Log
+import android.view.View
 import com.example.kseniya.zerowaste.adapters.PointsInfoAdapter
 import com.example.kseniya.zerowaste.data.ReceptionPoint
 import com.example.kseniya.zerowaste.interfaces.SortedList
@@ -21,6 +23,7 @@ class PointsInfoPresenter {
     fun bindRecyclerView(recyclerView: RecyclerView) {
         adapter = PointsInfoAdapter( items, viewInterface)
         recyclerView.adapter = adapter
+
     }
 
 

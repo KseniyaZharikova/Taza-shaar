@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/constraintLayout"
     android:layout_height="wrap_content"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp">
@@ -21,7 +22,7 @@
         android:id="@+id/loc_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@mipmap/location"
+        android:src="@drawable/location"
         app:layout_constraintBottom_toBottomOf="@id/tvAddress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvAddress" />
@@ -44,7 +45,7 @@
         android:id="@+id/phone_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@mipmap/iphone"
+        android:src="@drawable/iphone"
         app:layout_constraintBottom_toBottomOf="@id/tvPhone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvPhone" />
@@ -67,7 +68,7 @@
         android:id="@+id/clock_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@mipmap/clock"
+        android:src="@drawable/clock"
         app:layout_constraintBottom_toBottomOf="@id/tvWorkTime"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvWorkTime" />
@@ -90,7 +91,7 @@
         android:id="@+id/wallet_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@mipmap/wallet"
+        android:src="@drawable/wallet"
         app:layout_constraintBottom_toBottomOf="@id/tvPrice"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvPrice" />
