@@ -31,6 +31,7 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        back_arrow_button.setOnClickListener(this)
         contentView.setOnClickListener {
             gestureListener?.let {
                 if (it.isCollapsed) {
@@ -57,7 +58,7 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
     }
 
     override fun onClick(v: View?) {
-
+        fragmentManager!!.popBackStack()
     }
 
     override fun onClickItem(position: Int) {
