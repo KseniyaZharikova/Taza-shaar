@@ -46,8 +46,10 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
         contentView.setOnClickListener {
             gestureListener?.let {
                 if (it.isCollapsed) {
+
                     expandView()
                 } else {
+
                     collapseView()
                 }
             }
@@ -117,7 +119,7 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
         contentView?.post {
             if (isUIAvailable() == true && gestureListener == null) {
                 expandedContentYPos = contentView.y
-                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 40)
+                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 70)
                 gestureListener = GestureListener(collapsedContentYPos, expandedContentYPos, this@ChoseFragment)
                 contentView?.setOnTouchListener(gestureListener)
             }
