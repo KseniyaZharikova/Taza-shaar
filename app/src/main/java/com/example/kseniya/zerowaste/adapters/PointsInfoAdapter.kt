@@ -1,6 +1,8 @@
 package com.example.kseniya.zerowaste.adapters
 
+import android.content.res.ColorStateList
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +41,10 @@ class PointsInfoAdapter(private val myDataset: List<ReceptionPoint>, private val
         holder.tvPhone.text = item.phone
         holder.tvWorkTime.text = item.work_time
         holder.tvPrice.text = item.price
+
+        val colotStateList = holder.tvAddress.textColors
+        Log.d("asdad", "adasd")
+
         holder.itemView.setOnClickListener { viewInterface.onClickItem(position) }
 
     }
