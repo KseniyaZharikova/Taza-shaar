@@ -34,9 +34,9 @@
                 android:background="@color/lightGray"
                 android:gravity="center"
                 android:layout_marginBottom="10dp"
-                android:text="ВЫБЕРИТЕ ТИП ОТХОДОВ:"
+                android:text="ВЫБЕРИТЕ ЧТО ХОЧЕШЬ СДАТЬ:"
                 android:textColor="@android:color/black"
-                android:textSize="22dp" />
+                android:textSize="20dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -251,7 +251,6 @@
             android:visibility="visible">
 
             <ImageView
-                android:layout_marginBottom="10dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
@@ -263,9 +262,9 @@
                 android:background="@color/lightGray"
                 android:gravity="center"
                 android:layout_marginBottom="10dp"
-                android:text="ВЫБЕРИТЕ ТИП ОТХОДОВ:"
+                android:text="ВЫБЕРИТЕ ЧТО ХОЧЕШЬ СДАТЬ:"
                 android:textColor="@android:color/black"
-                android:textSize="22dp" />
+                android:textSize="20dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
