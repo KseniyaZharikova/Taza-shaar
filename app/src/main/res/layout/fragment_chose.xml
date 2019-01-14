@@ -52,8 +52,8 @@
                 android:layout_height="wrap_content">
                 <CheckBox
                     android:tag="1"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="15dp"
                     android:background="@drawable/bottle_active"
                     android:button="@null"
@@ -77,8 +77,8 @@
                 <CheckBox
                     android:tag="2"
 
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="15dp"
                     android:background="@drawable/glass_active"
                     android:button="@null"
@@ -100,8 +100,8 @@
                 <CheckBox
                     android:tag="3"
 
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="15dp"
                     android:background="@drawable/paper_active"
                     android:button="@null"
@@ -123,8 +123,8 @@
                 <CheckBox
                     android:tag="4"
 
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="15dp"
                     android:background="@drawable/clothes_active"
                     android:button="@null"
@@ -154,8 +154,8 @@
                 <CheckBox
                     android:tag="5"
 
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="15dp"
                     android:background="@drawable/polietilen_active"
                     android:button="@null"
@@ -177,8 +177,8 @@
                 <CheckBox
                     android:tag="6"
 
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="15dp"
                     android:background="@drawable/organic_active"
                     android:button="@null"
@@ -199,8 +199,8 @@
                 android:layout_height="wrap_content">
                 <CheckBox
                     android:tag="7"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="15dp"
                     android:background="@drawable/skot_active"
                     android:button="@null"
@@ -222,8 +222,8 @@
                 <CheckBox
                     android:tag="8"
 
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="15dp"
                     android:background="@drawable/tech_active"
                     android:button="@null"
