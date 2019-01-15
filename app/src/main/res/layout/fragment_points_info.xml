@@ -22,8 +22,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:src="@drawable/arrow_up" />
 
@@ -32,7 +32,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="ПРИЕМ :"
                 android:textSize="18dp" />
 
             <android.support.v7.widget.RecyclerView
@@ -79,14 +78,13 @@
 
 
                     <TextView
-
+                        android:id="@+id/titleTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
                         android:gravity="center"
-                        android:text="ПРИЕМ :"
                         android:textSize="22sp" />
                 </LinearLayout>
 

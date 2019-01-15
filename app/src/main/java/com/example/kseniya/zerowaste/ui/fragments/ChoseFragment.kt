@@ -26,8 +26,6 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
 
     override fun onClick(v: View?) {
         switchFragment()
-
-        //TODO сделать отображение текста над recyclerview
         val tag = v!!.tag as String?
         mCallBack!!.onCheckBoxClicked(tag!!.toInt())
     }
@@ -121,7 +119,7 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
         contentView?.post {
             if (isUIAvailable() == true && gestureListener == null) {
                 expandedContentYPos = contentView.y
-                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 70)
+                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 80)
                 gestureListener = GestureListener(collapsedContentYPos, expandedContentYPos, this@ChoseFragment)
                 contentView?.setOnTouchListener(gestureListener)
             }

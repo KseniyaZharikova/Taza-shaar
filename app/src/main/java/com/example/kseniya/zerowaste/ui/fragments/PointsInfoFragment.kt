@@ -1,5 +1,6 @@
 package com.example.kseniya.zerowaste.ui.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
@@ -30,6 +31,7 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
         return R.layout.fragment_points_info
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         back_arrow_button.setOnClickListener(this)
@@ -42,7 +44,9 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
                 }
             }
         }
-
+        val arrayTypes = resources.getStringArray(R.array.type_names)
+        val nameType  = arrayTypes[SortedList.list[0].type.toInt()-1]
+        titleTv.text = "Прием $nameType:"
         presenter.bind(this,SortedList.list)
         mCallBack.drawPointsByType()
 
@@ -133,7 +137,7 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
         contentView?.post {
             if (isUIAvailable() == true && gestureListener == null) {
                 expandedContentYPos = contentView.y
-                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 40)
+                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 45)
                 gestureListener = GestureListener(collapsedContentYPos, expandedContentYPos, this@PointsInfoFragment)
                 contentView?.setOnTouchListener(gestureListener)
             }
