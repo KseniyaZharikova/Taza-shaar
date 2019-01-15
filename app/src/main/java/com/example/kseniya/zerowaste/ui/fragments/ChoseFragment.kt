@@ -26,6 +26,8 @@ class ChoseFragment : BaseFragment(), GestureListener.Callback, View.OnClickList
 
     override fun onClick(v: View?) {
         switchFragment()
+
+        //TODO сделать отображение текста над recyclerview
         val tag = v!!.tag as String?
         mCallBack!!.onCheckBoxClicked(tag!!.toInt())
     }

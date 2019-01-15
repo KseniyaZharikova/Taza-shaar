@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.example.kseniya.zerowaste.R
+import com.example.kseniya.zerowaste.data.ReceptionPoint
 import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface
 import com.example.kseniya.zerowaste.interfaces.SortedList
 import com.example.kseniya.zerowaste.ui.presenters.PointsInfoPresenter
@@ -47,6 +48,16 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
 
         presenter.bindRecyclerView(recyclerView)
         setRecyclerViewScrollListener()
+    }
+
+    companion object {
+        fun newInstance(title: String): PointsInfoFragment {
+            val fragment = PointsInfoFragment()
+            val bundle = Bundle()
+            bundle.putString("title", title)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
     private fun setRecyclerViewScrollListener() {
