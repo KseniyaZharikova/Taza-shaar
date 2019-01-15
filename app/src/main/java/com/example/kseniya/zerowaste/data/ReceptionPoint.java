@@ -6,7 +6,6 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 
-
 @Entity
 public class ReceptionPoint implements Serializable {
 
