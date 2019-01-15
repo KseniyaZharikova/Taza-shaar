@@ -141,7 +141,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         if (map != null) {
             Log.d("Loca_cameraUpdate", String.valueOf(lat + " " + lng));
             CameraPosition position = new CameraPosition.Builder()
-                  .target(new LatLng(lat, lng)).zoom(12).tilt(14).build();
+                  .target(new LatLng(lat, lng)).zoom(13).tilt(15).build();
             map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
 
 
