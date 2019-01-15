@@ -34,7 +34,6 @@
             android:id="@+id/expandedView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical"
             android:visibility="visible">
 
@@ -68,15 +67,14 @@
 
 
                     <TextView
-
+                        android:textColor="@android:color/holo_blue_light"
+                        android:id="@+id/nameOrganization"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
                         android:gravity="center"
-
-                        android:text="Кто принимает пластик:"
                         android:textSize="22sp" />
                 </LinearLayout>
 

@@ -60,7 +60,8 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
         }
 
         mCallBack!!.zoomCameraToMarker(item!!)
-        tvName.text = item!!.name
+       tvName.visibility =  View.GONE
+        nameOrganization.text = item!!.name
         tvAddress.text = item!!.address
         tvPhone.text = item!!.phone
         tvWorkTime.text = item!!.work_time

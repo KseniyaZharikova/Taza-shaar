@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="СПИСОК ПУНКТОВ ПРИЕМА:"
+                android:text="ПРИЕМ :"
                 android:textSize="18dp" />
 
             <android.support.v7.widget.RecyclerView
@@ -86,8 +86,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
                         android:gravity="center"
-
-                        android:text="Кто принимает пластик:"
+                        android:text="ПРИЕМ :"
                         android:textSize="22sp" />
                 </LinearLayout>
 
