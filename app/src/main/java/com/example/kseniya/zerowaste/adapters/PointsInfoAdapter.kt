@@ -41,10 +41,6 @@ class PointsInfoAdapter(private val myDataset: List<ReceptionPoint>, private val
         holder.tvPhone.text = item.phone
         holder.tvWorkTime.text = item.work_time
         holder.tvPrice.text = item.price
-
-        val colotStateList = holder.tvAddress.textColors
-        Log.d("asdad", "adasd")
-
         holder.itemView.setOnClickListener { viewInterface.onClickItem(position) }
 
     }
