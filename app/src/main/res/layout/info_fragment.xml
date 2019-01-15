@@ -3,59 +3,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/contentView"
     android:padding="10dp"
+    android:background="@drawable/shape_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
     android:orientation="vertical">
 
     <FrameLayout
+
         android:id="@+id/some_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <LinearLayout
-            android:background="@drawable/shape_view"
             android:id="@+id/collapsedView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="0"
             android:orientation="vertical">
+
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:src="@drawable/arrow_up" />
-
-
-            <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-                    <include layout="@layout/item_point_info"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginLeft="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content" />
-
-
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:src="@drawable/photo" />
-
-
-                </LinearLayout>
-            </ScrollView>
-
-
 
         </LinearLayout>
 
@@ -64,6 +34,7 @@
             android:id="@+id/expandedView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:orientation="vertical"
             android:visibility="visible">
 

@@ -31,8 +31,8 @@ public class Constants {
             case 4: return R.drawable.clothing_location;
             case 5: return R.drawable.polietilen_location;
             case 6: return R.drawable.organic_location;
-            case 7: return R.drawable.tech_location;
-            case 8: return R.drawable.skot_location;
+            case 7: return R.drawable.skot_location;
+            case 8: return R.drawable.tech_location;
 
         }
         return R.drawable.arrow_up;
