@@ -1,9 +1,19 @@
 package com.example.kseniya.zerowaste.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -20,6 +30,7 @@ import com.example.kseniya.zerowaste.ui.fragments.ChoseFragment;
 import com.example.kseniya.zerowaste.ui.presenters.MainPresenter;
 import com.example.kseniya.zerowaste.utils.Constants;
 import com.example.kseniya.zerowaste.utils.PermissionUtils;
+
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
@@ -83,15 +94,23 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         mapView.setStyleUrl(Style.MAPBOX_STREETS);
         mapView.onCreate(savedInstanceState);
     }
+    public static Icon drawableToIcon(@NonNull Context context, @DrawableRes int id) {
+        Drawable vectorDrawable = ResourcesCompat.getDrawable(context.getResources(), id, context.getTheme());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+              vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        vectorDrawable.draw(canvas);
+        return IconFactory.getInstance(context).fromBitmap(bitmap);
+    }
 
     @SuppressLint("NewApi")
     @Override
     public void drawReceptionPoints(List<ReceptionPoint> pointFromDatabase) {
         for (int i = 0; i < pointFromDatabase.size(); i++) {
-            Icon icon = IconFactory.getInstance(this).fromResource(Constants.PointsType(pointFromDatabase.get(i).getType()));
             Marker marker = map.addMarker(new MarkerOptions()
                   .position(new LatLng(Double.parseDouble(pointFromDatabase.get(i).getLatitude()), Double.parseDouble(pointFromDatabase.get(i).getLongitude())))
-                  .icon(icon));
+                  .icon( drawableToIcon(this,Constants.PointsType(pointFromDatabase.get(i).getType()))));
             mMarkerList.add(marker);
         }
     }
