@@ -47,7 +47,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/back_arrow_button"
+                        android:id="@+id/back_arrow_button_info"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="?android:attr/selectableItemBackground">

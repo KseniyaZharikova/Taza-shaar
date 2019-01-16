@@ -41,10 +41,10 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        back_arrow_button_info.setOnClickListener(this)
         val params = view.layoutParams
         Log.d("layoutParams",  params.height.toString())
-        params.height = (Constants.HIGHT_OF_ACTIVITY / 2) - 200
+        params.height = (Constants.HIGHT_OF_ACTIVITY / 2) - 100
         view.layoutParams = params
 
 
@@ -70,7 +70,7 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
     }
 
     override fun onClick(v: View?) {
-
+        fragmentManager!!.popBackStack()
     }
 
     override fun collapseView() {
