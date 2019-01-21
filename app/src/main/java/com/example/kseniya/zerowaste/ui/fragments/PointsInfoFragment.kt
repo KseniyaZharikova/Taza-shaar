@@ -5,6 +5,8 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.AbsListView
 import com.example.kseniya.zerowaste.R
 import com.example.kseniya.zerowaste.data.ReceptionPoint
 import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface
@@ -35,23 +37,64 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         back_arrow_button.setOnClickListener(this)
-        contentView.setOnClickListener {
-            gestureListener?.let {
-                if (it.isCollapsed) {
-                    expandView()
-                } else {
-                    collapseView()
-                }
-            }
-        }
         val arrayTypes = resources.getStringArray(R.array.type_names)
         val nameType  = arrayTypes[SortedList.list[0].type.toInt()-1]
         titleTv.text = "Прием $nameType:"
+        titleTv2.text = "Прием $nameType:"
         presenter.bind(this,SortedList.list)
         mCallBack.drawPointsByType()
 
+        recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val params = contentView.layoutParams
+                if (dy > 0) {
+
+                    params.height = Constants.HIGHT_OF_ACTIVITY /2
+
+                     expandView()
+                    // Scrolling up
+                } else {
+                    // Scrolling down
+                    params.height = Constants.HIGHT_OF_ACTIVITY
+                    collapseView()
+
+                }
+                contentView.layoutParams = params
+            }
+
+        })
+
+        recyclerView2.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val params = contentView.layoutParams
+                if (dy > 0) {
+
+                    params.height = Constants.HIGHT_OF_ACTIVITY
+
+                    expandView()
+                    // Scrolling up
+                } else {
+                    // Scrolling down
+                    params.height = Constants.HIGHT_OF_ACTIVITY /2
+                    collapseView()
+
+                }
+                contentView.layoutParams = params
+
+            }
+
+
+        })
+
+        presenter.bindRecyclerView(recyclerView2)
         presenter.bindRecyclerView(recyclerView)
-        setRecyclerViewScrollListener()
+
     }
 
     companion object {
@@ -64,13 +107,6 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
         }
     }
 
-    private fun setRecyclerViewScrollListener() {
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                Constants.SCROLL =  true
-            }
-        })
-    }
 
     override fun onClick(v: View?) {
         fragmentManager!!.popBackStack()
@@ -137,7 +173,7 @@ class PointsInfoFragment : BaseFragment(),GestureListener.Callback, View.OnClick
         contentView?.post {
             if (isUIAvailable() == true && gestureListener == null) {
                 expandedContentYPos = contentView.y
-                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 45)
+                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 320)
                 gestureListener = GestureListener(collapsedContentYPos, expandedContentYPos, this@PointsInfoFragment)
                 contentView?.setOnTouchListener(gestureListener)
             }
