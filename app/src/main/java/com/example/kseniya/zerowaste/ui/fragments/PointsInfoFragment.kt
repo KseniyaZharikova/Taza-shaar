@@ -70,6 +70,7 @@ class PointsInfoFragment : BaseFragment(), View.OnClickListener, SortedList {
                     mIsShowingCardHeaderShadow = false
                     showOrHideView(cardview, false)
                 }
+
             }
         })
 
