@@ -1,141 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/contentView"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="320dp"
-    android:background="@drawable/shape_view"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/some_view"
+    <com.example.kseniya.zerowaste.utils.nested_scroll_view.CustomNestedScrollView2
+        android:id='@+id/nestedscrollview'
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+       app:layout_behavior="com.example.kseniya.zerowaste.utils.nested_scroll_view.CustomBehavior">
 
-
-        <LinearLayout
-
-            android:id="@+id/collapsedView"
+        <FrameLayout
+            android:id="@+id/card_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0"
-            android:orientation="vertical">
+            android:descendantFocusability="blocksDescendants">
 
             <android.support.v7.widget.CardView
+                android:id="@+id/cardview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground">
-
-                        <ImageView
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginRight="8dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/arrow_back" />
-
-                    </LinearLayout>
-
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/titleTv2"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/card_title"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:gravity="center"
-                        android:textSize="22sp" />
-                </LinearLayout>
-
-
-            </android.support.v7.widget.CardView>
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="2dp"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/expandedView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/back_arrow_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground">
-
-                        <ImageView
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginRight="8dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/arrow_back" />
-
-                    </LinearLayout>
-
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:paddingLeft="24dp"
+                        android:paddingTop="16dp"
+                        android:paddingRight="24dp"
+                        android:paddingBottom="4dp"
+                        android:text="Title"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
                     <TextView
-                        android:id="@+id/titleTv"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/card_subtitle"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:gravity="center"
-                        android:textSize="22sp" />
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="24dp"
+                        android:paddingRight="24dp"
+                        android:text="Subtitle"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.example.kseniya.zerowaste.utils.nested_scroll_view.MaxHeightRecyclerView
+                            android:id="@+id/card_recyclerview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <View
+                            android:id="@+id/card_header_shadow"
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:alpha="0"
+                            android:background="@drawable/toolbar_shadow" />
+
+                    </FrameLayout>
+
                 </LinearLayout>
-
-
             </android.support.v7.widget.CardView>
 
+        </FrameLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="2dp"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+    </com.example.kseniya.zerowaste.utils.nested_scroll_view.CustomNestedScrollView2>
 
-
-        </LinearLayout>
-
-    </FrameLayout>
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
 
