@@ -7,20 +7,14 @@ import android.view.View
 import com.example.kseniya.zerowaste.R
 import com.example.kseniya.zerowaste.data.ReceptionPoint
 import com.example.kseniya.zerowaste.interfaces.CheckBoxInterface
-import com.example.kseniya.zerowaste.utils.BitmapUtil
 import com.example.kseniya.zerowaste.utils.Constants
-import com.example.kseniya.zerowaste.utils.GestureListener
 import kotlinx.android.synthetic.main.info_fragment.*
 import kotlinx.android.synthetic.main.item_point_info.*
 
 
-class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListener {
+class InfoFragment: BaseFragment(), View.OnClickListener {
 
-    var expandedContentYPos: Float = 0f
-    var collapsedContentYPos: Float = 0f
     var mCallBack: CheckBoxInterface? = null
-    private var gestureListener: GestureListener? = null
-
     var item: ReceptionPoint? = null
 
 
@@ -49,19 +43,10 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
 
 
         item = arguments!!.getSerializable("item") as ReceptionPoint
-        contentView.setOnClickListener {
-            gestureListener?.let {
-                if (it.isCollapsed) {
-                    expandView()
-                } else {
-                    collapseView()
-                }
-            }
-        }
 
         mCallBack!!.zoomCameraToMarker(item!!)
        tvName.visibility =  View.GONE
-        nameOrganization.text = item!!.name
+        card_title.text = item!!.name
         tvAddress.text = item!!.address
         tvPhone.text = item!!.phone
         tvWorkTime.text = item!!.work_time
@@ -73,68 +58,9 @@ class InfoFragment: BaseFragment(), GestureListener.Callback, View.OnClickListen
         fragmentManager!!.popBackStack()
     }
 
-    override fun collapseView() {
-
-        if (gestureListener?.isAnimating == false) {
-            gestureListener?.isCollapsed = true
-
-            contentView.animate()
-                    .translationY(collapsedContentYPos)
-                    .setListener(gestureListener?.contentAnimListener)
-                    .start()
-            collapsedView.alpha = 1f
-            expandedView.alpha = 0f
-            collapsedView.visibility = View.VISIBLE
-            expandedView.visibility = View.GONE
-
-        }
-    }
-
-    override fun expandView() {
-        if (gestureListener?.isAnimating == false) {
-            gestureListener?.isCollapsed = false
-
-            collapsedView.alpha = 0f
-            expandedView.alpha = 1f
-            collapsedView.visibility = View.GONE
-            expandedView.visibility = View.VISIBLE
-
-            contentView.animate()
-                    .translationY(expandedContentYPos)
-                    .setListener(gestureListener!!.contentAnimListener)
-                    .start()
-        }
-    }
-
-    override fun changeAlpha(alpha: Float) {
-        collapsedView.alpha = alpha
-        expandedView.alpha = 1 - alpha
-    }
-
-    override fun getY(): Float {
-        return contentView.y
-    }
-
-    override fun setY(y: Float) {
-        contentView.y = y
-    }
-
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         mCallBack = context as CheckBoxInterface
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        contentView?.post {
-            if (isUIAvailable() == true && gestureListener == null) {
-                expandedContentYPos = contentView.y
-                collapsedContentYPos = expandedContentYPos + expandedView.height - BitmapUtil.dp2px(context, 45)
-                gestureListener = GestureListener(collapsedContentYPos, expandedContentYPos, this@InfoFragment)
-                contentView?.setOnTouchListener(gestureListener)
-            }
-        }
     }
 
 }

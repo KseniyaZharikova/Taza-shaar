@@ -1,59 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/contentView"
-    android:background="@drawable/shape_view"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.MainActivity">
 
-    <FrameLayout
-
-        android:id="@+id/some_view"
+    <com.example.kseniya.zerowaste.utils.nested_scroll_view.CustomNestedScrollView2
+        android:id='@+id/nestedscrollview'
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="com.example.kseniya.zerowaste.utils.nested_scroll_view.CustomBehavior">
 
-        <LinearLayout
-            android:id="@+id/collapsedView"
+        <FrameLayout
+            android:id="@+id/card_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_marginBottom="20dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:src="@drawable/arrow_up" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/expandedView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
+            android:descendantFocusability="blocksDescendants">
 
             <android.support.v7.widget.CardView
+                android:id="@+id/cardview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
+                    android:orientation="vertical">
                     <LinearLayout
-                        android:id="@+id/back_arrow_button_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground">
+                        android:id="@+id/go_back"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
                         <ImageView
+                            android:id="@+id/back_arrow_button_info"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
                             android:layout_gravity="center_vertical"
@@ -64,68 +46,158 @@
                             android:scaleType="centerCrop"
                             android:src="@drawable/arrow_back" />
 
+                        <TextView
+                            android:id="@+id/card_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textSize="24sp"
+                            android:paddingLeft="24dp"
+                            android:paddingTop="26dp"
+                            android:paddingRight="24dp"
+                            android:paddingBottom="26dp" />
+
+
                     </LinearLayout>
 
 
-                    <TextView
-                        android:textColor="@android:color/holo_blue_light"
-                        android:id="@+id/nameOrganization"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:gravity="center"
-                        android:textSize="22sp" />
-                </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
 
-            </android.support.v7.widget.CardView>
-
-            <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-                    <include layout="@layout/item_point_info"
+                        <include layout="@layout/item_point_info"
                         android:layout_marginStart="0dp"
                         android:layout_marginLeft="0dp"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent" />
+                        <View
+                            android:id="@+id/card_header_shadow"
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:alpha="0"
+                            android:background="@drawable/toolbar_shadow" />
 
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="2dp"
-                        android:layout_marginBottom="2dp"
-                        app:cardCornerRadius="4dp"
-                        app:cardElevation="2dp">
-                    <ImageView
-                        android:layout_marginTop="5dp"
-                        android:scaleType="fitCenter"
-                        android:layout_marginBottom="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:src="@drawable/photo" />
-                    </android.support.v7.widget.CardView>
+                    </FrameLayout>
 
                 </LinearLayout>
-            </ScrollView>
+            </android.support.v7.widget.CardView>
+
+        </FrameLayout>
+
+    </com.example.kseniya.zerowaste.utils.nested_scroll_view.CustomNestedScrollView2>
+
+</android.support.design.widget.CoordinatorLayout>
 
 
-        </LinearLayout>
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:id="@+id/contentView"-->
+    <!--android:background="@drawable/shape_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<FrameLayout-->
+
+        <!--android:id="@+id/some_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/expandedView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:visibility="visible">-->
+
+            <!--<android.support.v7.widget.CardView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal">-->
+
+                    <!--<LinearLayout-->
+                        <!--android:id="@+id/back_arrow_button_info"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:background="?android:attr/selectableItemBackground">-->
+
+                        <!--<ImageView-->
+                            <!--android:layout_width="38dp"-->
+                            <!--android:layout_height="38dp"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:layout_marginStart="15dp"-->
+                            <!--android:layout_marginLeft="15dp"-->
+                            <!--android:layout_marginEnd="5dp"-->
+                            <!--android:layout_marginRight="8dp"-->
+                            <!--android:scaleType="centerCrop"-->
+                            <!--android:src="@drawable/arrow_back" />-->
+
+                    <!--</LinearLayout>-->
 
 
+                    <!--<TextView-->
+                        <!--android:textColor="@android:color/holo_blue_light"-->
+                        <!--android:id="@+id/nameOrganization"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:layout_marginTop="16dp"-->
+                        <!--android:layout_marginBottom="16dp"-->
+                        <!--android:gravity="center"-->
+                        <!--android:textSize="22sp" />-->
+                <!--</LinearLayout>-->
 
 
-    </FrameLayout>
+            <!--</android.support.v7.widget.CardView>-->
 
-</LinearLayout>
+            <!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="vertical">-->
+
+
+                    <!--<include layout="@layout/item_point_info"-->
+                        <!--android:layout_marginStart="0dp"-->
+                        <!--android:layout_marginLeft="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_width="match_parent" />-->
+
+                    <!--<android.support.v7.widget.CardView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginStart="2dp"-->
+                        <!--android:layout_marginTop="2dp"-->
+                        <!--android:layout_marginEnd="2dp"-->
+                        <!--android:layout_marginBottom="2dp"-->
+                        <!--app:cardCornerRadius="4dp"-->
+                        <!--app:cardElevation="2dp">-->
+                    <!--<ImageView-->
+                        <!--android:layout_marginTop="5dp"-->
+                        <!--android:scaleType="fitCenter"-->
+                        <!--android:layout_marginBottom="5dp"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="200dp"-->
+                        <!--android:src="@drawable/photo" />-->
+                    <!--</android.support.v7.widget.CardView>-->
+
+                <!--</LinearLayout>-->
+            <!--</ScrollView>-->
+
+
+        <!--</LinearLayout>-->
+
+    <!--</FrameLayout>-->
+
+<!--</LinearLayout>-->
 

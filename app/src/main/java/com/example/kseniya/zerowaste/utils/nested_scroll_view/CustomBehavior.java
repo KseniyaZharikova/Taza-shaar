@@ -40,8 +40,7 @@ class CustomBehavior extends CoordinatorLayout.Behavior<NestedScrollView> {
         // overlap the toolbar as it scrolls.
         final int rvMaxHeight =
                 child.getHeight()
-                        - child.findViewById(R.id.card_title).getHeight()
-                        - child.findViewById(R.id.card_subtitle).getHeight();
+                        - child.findViewById(R.id.card_title).getHeight();
         final MaxHeightRecyclerView rv = child.findViewById(R.id.card_recyclerview);
         rv.setMaxHeight(rvMaxHeight);
 
