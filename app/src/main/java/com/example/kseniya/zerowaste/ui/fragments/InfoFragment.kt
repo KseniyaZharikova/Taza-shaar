@@ -36,21 +36,21 @@ class InfoFragment: BaseFragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         back_arrow_button_info.setOnClickListener(this)
-        val params = view.layoutParams
-        Log.d("layoutParams",  params.height.toString())
-        params.height = (Constants.HIGHT_OF_ACTIVITY / 2) - 100
-        view.layoutParams = params
-
-
-        item = arguments!!.getSerializable("item") as ReceptionPoint
-
-        mCallBack!!.zoomCameraToMarker(item!!)
-        tvName.visibility =  View.GONE
-        card_title.text = item!!.name
-        tvAddress.text = item!!.address
-        tvPhone.text = item!!.phone
-        tvWorkTime.text = item!!.work_time
-        tvPrice.text = item!!.price
+//        val params = view.layoutParams
+//        Log.d("layoutParams",  params.height.toString())
+//        params.height = (Constants.HIGHT_OF_ACTIVITY / 2) - 100
+//        view.layoutParams = params
+//
+//
+//        item = arguments!!.getSerializable("item") as ReceptionPoint
+//
+//        mCallBack!!.zoomCameraToMarker(item!!)
+//        tvName.visibility =  View.GONE
+//        card_title.text = item!!.name
+//        tvAddress.text = item!!.address
+//        tvPhone.text = item!!.phone
+//        tvWorkTime.text = item!!.work_time
+//        tvPrice.text = item!!.price
 
     }
 

@@ -33,7 +33,7 @@ class PointsInfoFragment : BaseFragment(), View.OnClickListener, SortedList {
         go_back.setOnClickListener(this)
         presenter.bind(this, SortedList.list!!)
         presenter.bindRecyclerView(card_recyclerview)
-        card_recyclerview.addItemDecoration(DividerItemDecoration(context, lm.orientation))
+        card_recyclerview.addItemDecoration(DividerItemDecoration(context, 0))
 
         card_recyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
@@ -47,7 +47,6 @@ class PointsInfoFragment : BaseFragment(), View.OnClickListener, SortedList {
                     mIsShowingCardHeaderShadow = false
                     showOrHideView(cardview, false)
                 }
-
             }
         })
 
