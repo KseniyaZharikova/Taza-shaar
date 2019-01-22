@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/coordinatorLayout"
+    android:layout_height="wrap_content"
     tools:context=".ui.activities.MainActivity">
 
     <com.example.kseniya.zerowaste.utils.nested_scroll_view.CustomNestedScrollView2
@@ -53,9 +54,9 @@
                             android:maxLines="1"
                             android:textSize="24sp"
                             android:paddingLeft="24dp"
-                            android:paddingTop="26dp"
+                            android:paddingTop="16dp"
                             android:paddingRight="24dp"
-                            android:paddingBottom="26dp" />
+                            android:paddingBottom="16dp" />
 
 
                     </LinearLayout>

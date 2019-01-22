@@ -50,7 +50,7 @@ class CustomBehavior extends CoordinatorLayout.Behavior<NestedScrollView> {
         final View cardContainer = child.findViewById(R.id.card_container);
         final int toolbarContainerHeight = 0;
 //        parent.getDependencies(child).get(0).getHeight();
-        setPaddingTop(cardContainer, rvMaxHeight - toolbarContainerHeight);
+        setPaddingTop(cardContainer, 1150 - toolbarContainerHeight);
 
         // Offset the child's height so that its bounds don't overlap the
         // toolbar container.

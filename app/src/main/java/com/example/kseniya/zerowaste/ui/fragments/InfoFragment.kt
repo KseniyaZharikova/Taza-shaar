@@ -45,7 +45,7 @@ class InfoFragment: BaseFragment(), View.OnClickListener {
         item = arguments!!.getSerializable("item") as ReceptionPoint
 
         mCallBack!!.zoomCameraToMarker(item!!)
-       tvName.visibility =  View.GONE
+        tvName.visibility =  View.GONE
         card_title.text = item!!.name
         tvAddress.text = item!!.address
         tvPhone.text = item!!.phone
