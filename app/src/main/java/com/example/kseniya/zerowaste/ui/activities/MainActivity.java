@@ -172,6 +172,31 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
 
         }
     }
+    public void cameraUpdateInfo(double lat, double lng) {
+        if (map != null) {
+            Log.d("Loca_cameraUpdate", String.valueOf(lat + " " + lng));
+            CameraPosition position = new CameraPosition.Builder()
+                  .target(new LatLng(lat-0.002, lng))
+                  .bearing(0)
+                  .zoom(15).tilt(17).build();
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
+
+
+        }
+    }
+    @Override
+    public void cameraUpdatePOintsInfo() {
+        if (map != null) {
+            CameraPosition position = new CameraPosition.Builder()
+                  .target(new LatLng(Constants.LAT-0.01, Constants.LNG))
+                  .bearing(0)
+                  .zoom(11).tilt(13).build();
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
+
+
+        }
+    }
+
 
 
     public void showMyCurrentLocation(Double lat, Double lng) {
@@ -271,7 +296,7 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         List<ReceptionPoint> list = new ArrayList<>();
         list.add(item);
         clearAllMarkersAndDrawNew(list);
-        cameraUpdate(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()));
+        cameraUpdateInfo(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()));
     }
 
 
@@ -292,4 +317,6 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     public void drawPointsByType() {
         clearAllMarkersAndDrawNew(SortedList.list);
     }
+
+
 }

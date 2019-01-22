@@ -7,4 +7,5 @@ interface CheckBoxInterface {
     fun showAllPoints()
     fun zoomCameraToMarker(item: ReceptionPoint)
     fun drawPointsByType()
+    fun cameraUpdatePOintsInfo()
 }

@@ -62,6 +62,9 @@ class PointsInfoFragment : BaseFragment(), View.OnClickListener, SortedList {
                 mIsShowingCardHeaderShadow = false
             }
         })
+
+        mCallBack.drawPointsByType()
+        mCallBack.cameraUpdatePOintsInfo()
     }
 
 

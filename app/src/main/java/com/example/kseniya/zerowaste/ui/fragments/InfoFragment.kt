@@ -74,7 +74,7 @@ class InfoFragment : BaseFragment(), View.OnClickListener {
                 mIsShowingCardHeaderShadow = false
             }
         })
-
+        mCallBack!!.zoomCameraToMarker(item!!)
     }
 
     private fun showOrHideView(view: View, shouldShow: Boolean) {
