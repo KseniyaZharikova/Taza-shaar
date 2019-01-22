@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 
 import com.example.kseniya.zerowaste.R;
+import com.example.kseniya.zerowaste.utils.Constants;
 
 import static android.support.design.widget.CoordinatorLayout.Behavior;
 
@@ -50,7 +51,7 @@ class CustomBehavior extends CoordinatorLayout.Behavior<NestedScrollView> {
         final View cardContainer = child.findViewById(R.id.card_container);
         final int toolbarContainerHeight = 0;
 //        parent.getDependencies(child).get(0).getHeight();
-        setPaddingTop(cardContainer, 1150 - toolbarContainerHeight);
+        setPaddingTop(cardContainer, Constants.HIGHT_OF_ACTIVITY /2 + 100 - toolbarContainerHeight);
 
         // Offset the child's height so that its bounds don't overlap the
         // toolbar container.
