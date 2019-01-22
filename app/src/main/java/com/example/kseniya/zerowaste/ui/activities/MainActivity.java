@@ -40,6 +40,7 @@ import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
@@ -60,6 +61,9 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
     private MapboxMap map;
     private Marker marker;
     private List<Marker> mMarkerList = new ArrayList<>();
+
+    private LatLng locationOne;
+    private LatLng locationTwo;
 
     @BindView(R.id.mapView)
     MapView mapView;
@@ -160,7 +164,9 @@ public class MainActivity extends BaseActivity implements OnMapReadyCallback, Vi
         if (map != null) {
             Log.d("Loca_cameraUpdate", String.valueOf(lat + " " + lng));
             CameraPosition position = new CameraPosition.Builder()
-                  .target(new LatLng(lat, lng)).zoom(13).tilt(15).build();
+                  .target(new LatLng(lat-0.01, lng))
+                  .bearing(0)
+                  .zoom(13).tilt(15).build();
             map.animateCamera(CameraUpdateFactory.newCameraPosition(position));
 
 
